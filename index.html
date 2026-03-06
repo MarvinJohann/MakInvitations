@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mak Invitations – Invitaciones Digitales de Boda</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Great+Vibes&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#FAF6F2;--blush:#EDD5D8;--rose:#B8707E;--mauve:#7A4A58;--deep:#2A1520;
+  --sage:#8EA898;--sand:#C9A882;--muted:#8A6070;--white:#FFFBF9;
+  --serif:'Cormorant Garamond',serif;--script:'Great Vibes',cursive;--sans:'Montserrat',sans-serif;
+  --grad:linear-gradient(135deg,#D4909E 0%,#8EA898 40%,#C9A882 70%,#B8707E 100%);
+  --grad-text:linear-gradient(135deg,#C07888 0%,#7A9888 35%,#B89060 65%,#A06070 100%);
+  --shadow:0 20px 60px rgba(42,21,32,.1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--deep);font-family:var(--sans);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:62px;display:flex;align-items:center;justify-content:space-between;background:rgba(250,246,242,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(184,112,126,.12);}
+.nav-brand{font-family:var(--script);font-size:1.85rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-links{display:flex;gap:28px;align-items:center;}
+.nav-links a{font-size:.56rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);text-decoration:none;font-weight:500;transition:color .2s;}
+.nav-links a:hover{color:var(--rose);}
+.nav-cta{padding:9px 20px;background:var(--deep);color:var(--blush) !important;border-radius:2px;font-weight:500 !important;letter-spacing:1.5px !important;transition:background .2s !important;}
+.nav-cta:hover{background:var(--mauve) !important;}
+/* lang switcher */
+.lang-sw{display:flex;align-items:center;gap:0;border:1px solid rgba(142,168,152,.35);border-radius:2px;overflow:hidden;flex-shrink:0;}
+.lang-sw button{background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:.54rem;letter-spacing:2px;font-weight:500;padding:6px 11px;color:var(--muted);transition:all .2s;}
+.lang-sw button.active{background:var(--deep);color:rgba(237,213,216,.9);}
+.lang-sw button:not(.active):hover{background:rgba(142,168,152,.1);color:var(--sage);}
+.lang-divider{width:1px;height:20px;background:rgba(142,168,152,.3);}
+@media(max-width:740px){.nav-links .hide-mob{display:none;}}
+@media(max-width:480px){.nav-links{gap:14px;}}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px 80px;position:relative;overflow:hidden;}
+.hero-bg-grad{position:absolute;inset:0;background:radial-gradient(ellipse at 15% 20%,rgba(142,168,152,.18) 0%,transparent 50%),radial-gradient(ellipse at 85% 80%,rgba(142,168,152,.14) 0%,transparent 50%),radial-gradient(ellipse at 80% 15%,rgba(201,168,130,.12) 0%,transparent 45%),radial-gradient(ellipse at 20% 85%,rgba(201,168,130,.1) 0%,transparent 45%),#FAF6F2;}
+.hero-petals{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.petal{position:absolute;opacity:0;animation:petalFall linear infinite;}
+@keyframes petalFall{0%{opacity:0;transform:translateY(-20px) rotate(0deg);}10%{opacity:.4;}80%{opacity:.2;}100%{opacity:0;transform:translateY(110vh) rotate(540deg);}}
+.hero-inner{position:relative;z-index:1;max-width:800px;}
+.hero-eyebrow{font-size:.56rem;letter-spacing:5px;text-transform:uppercase;color:var(--sage);margin-bottom:20px;font-weight:500;}
+.hero-title{font-family:var(--script);font-size:clamp(4rem,10vw,7.5rem);line-height:1.35;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;padding:0 8px 16px;display:inline-block;}
+.hero-tagline{font-family:var(--serif);font-style:italic;font-size:clamp(1.2rem,3vw,1.75rem);color:var(--muted);margin-bottom:10px;font-weight:300;line-height:1.6;}
+.hero-sub{font-size:.64rem;letter-spacing:1.5px;color:rgba(122,74,88,.55);margin-bottom:38px;font-weight:300;}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{padding:14px 36px;background:var(--deep);color:var(--blush);font-size:.58rem;letter-spacing:3px;text-transform:uppercase;text-decoration:none;font-weight:600;border:none;cursor:pointer;transition:all .25s;}
+.btn-primary:hover{background:var(--mauve);transform:translateY(-2px);}
+.btn-ghost{padding:14px 36px;background:transparent;color:var(--mauve);font-size:.58rem;letter-spacing:3px;text-transform:uppercase;text-decoration:none;font-weight:600;border:1.5px solid rgba(122,74,88,.3);cursor:pointer;transition:all .25s;}
+.btn-ghost:hover{border-color:var(--rose);color:var(--rose);}
+.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.4;}
+.hero-scroll span{font-size:.44rem;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
+.scroll-line{width:1px;height:38px;background:linear-gradient(to bottom,var(--rose),transparent);animation:scrollPulse 2s ease-in-out infinite;}
+@keyframes scrollPulse{0%,100%{opacity:.3;}50%{opacity:1;}}
+
+/* ORNAMENT */
+.orn{text-align:center;padding:6px 0;}.orn svg{width:min(360px,86vw);}
+
+/* STATS */
+.stats{background:var(--white);padding:44px 5%;display:flex;justify-content:center;gap:clamp(28px,6vw,80px);flex-wrap:wrap;border-top:1px solid rgba(184,112,126,.1);border-bottom:1px solid rgba(184,112,126,.1);}
+.stat{text-align:center;}
+.stat-num{font-family:var(--serif);font-style:italic;font-size:clamp(2.2rem,5vw,3rem);font-weight:300;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.stat-lbl{font-size:.5rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:7px;font-weight:400;}
+
+/* SECTION HEADERS */
+.sec-wrap{text-align:center;margin-bottom:52px;}
+.sec-label{font-size:.52rem;letter-spacing:5px;text-transform:uppercase;color:var(--sage);font-weight:500;display:block;margin-bottom:10px;}
+.sec-title{font-family:var(--script);font-size:clamp(2.4rem,6vw,4rem);background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.3;margin-bottom:14px;display:inline-block;padding-bottom:4px;}
+.sec-body{font-family:var(--serif);font-style:italic;font-size:clamp(1.05rem,2.2vw,1.3rem);color:var(--muted);max-width:560px;margin:0 auto;line-height:1.9;}
+
+/* FEATURES */
+.features{padding:88px 5%;background:linear-gradient(180deg,var(--cream),#F2EEE8);}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;max-width:1100px;margin:0 auto;}
+.feat-card{background:var(--white);padding:26px 22px;border:1px solid rgba(184,112,126,.1);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);opacity:0;transition:opacity .3s;}
+.feat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+.feat-card:hover::before{opacity:1;}
+.feat-icon{font-size:1.7rem;margin-bottom:12px;display:block;}
+.feat-title{font-family:var(--serif);font-style:italic;font-weight:700;font-size:1.1rem;color:var(--deep);margin-bottom:6px;}
+.feat-desc{font-size:.66rem;color:var(--muted);line-height:1.95;font-weight:300;}
+.feat-badge{display:inline-block;margin-top:9px;font-size:.44rem;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;background:rgba(142,168,152,.12);color:var(--sage);border:1px solid rgba(142,168,152,.28);}
+.feat-badge.premium{background:rgba(184,112,126,.1);color:var(--rose);border-color:rgba(184,112,126,.28);}
+
+/* LANGUAGE SECTION */
+.lang-section{padding:80px 5%;background:var(--deep);}
+.lang-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch;}
+@media(max-width:660px){.lang-inner{grid-template-columns:1fr;}}
+.lang-card{padding:34px 28px;border:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden;}
+.lang-card.basic{background:rgba(255,255,255,.03);}
+.lang-card.prem{background:rgba(237,213,216,.05);border-color:rgba(184,112,126,.22);}
+.lang-badge-pill{font-size:.44rem;letter-spacing:3px;text-transform:uppercase;padding:4px 12px;border:1px solid;display:inline-block;margin-bottom:16px;}
+.lang-card.basic .lang-badge-pill{color:rgba(255,255,255,.4);border-color:rgba(255,255,255,.13);}
+.lang-card.prem .lang-badge-pill{color:var(--blush);border-color:rgba(237,213,216,.35);}
+.lang-ttl{font-family:var(--serif);font-style:italic;font-size:1.45rem;color:white;margin-bottom:6px;}
+.lang-card.prem .lang-ttl{background:linear-gradient(135deg,#EDD5D8,#C9A882);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.lang-desc{font-size:.66rem;color:rgba(255,255,255,.42);line-height:1.9;font-weight:300;margin-bottom:18px;}
+.lang-flags{display:flex;gap:8px;flex-wrap:wrap;}
+.lang-flag{display:flex;align-items:center;gap:6px;padding:6px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);}
+.lang-card.prem .lang-flag{background:rgba(237,213,216,.06);border-color:rgba(184,112,126,.18);}
+.lang-flag span{font-size:.56rem;color:rgba(255,255,255,.6);letter-spacing:1px;}
+.lang-plus{font-family:var(--serif);font-style:italic;font-size:.88rem;color:rgba(184,112,126,.6);margin-top:10px;}
+
+/* DEMO */
+.demo{padding:88px 5%;background:var(--cream);}
+.demo-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+@media(max-width:760px){.demo-inner{grid-template-columns:1fr;}}
+.phone-wrap{display:flex;justify-content:center;}
+.phone{width:252px;height:505px;background:#FAF6F2;border-radius:42px;border:7px solid #1E1018;box-shadow:0 40px 80px rgba(42,21,32,.35),inset 0 0 0 1px rgba(255,255,255,.07);position:relative;overflow:hidden;}
+.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:74px;height:20px;background:#1E1018;border-radius:0 0 14px 14px;z-index:10;}
+.phone-screen{position:absolute;inset:0;overflow:hidden;border-radius:35px;}
+.pslide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;}
+.pslide.active{opacity:1;}
+.ps1-bg{position:absolute;inset:0;background:linear-gradient(160deg,#2A1520,#1A0C18);}
+.ps1-ov{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(184,112,126,.18),transparent 70%);}
+.ps1-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;}
+.ps1-names{font-family:var(--script);font-size:2.1rem;color:rgba(255,255,255,.92);text-shadow:0 2px 10px rgba(0,0,0,.4);line-height:1.3;}
+.ps1-line{width:44px;height:1px;background:rgba(201,168,130,.45);margin:10px auto;}
+.ps1-date{font-size:.42rem;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.55);}
+.ps1-loc{font-family:var(--serif);font-style:italic;font-size:.8rem;color:rgba(237,213,216,.75);margin-top:5px;}
+.ps2{position:absolute;inset:0;background:var(--white);display:flex;flex-direction:column;align-items:center;padding:34px 16px 16px;}
+.ps2-ttl{font-family:var(--script);font-size:1.45rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px;}
+.ps2-nums{display:flex;justify-content:center;gap:10px;}
+.ps2-u{text-align:center;}
+.ps2-num{font-family:var(--serif);font-size:1.7rem;font-style:italic;font-weight:300;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.ps2-lbl{font-size:.36rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+.ps3{position:absolute;inset:0;background:linear-gradient(160deg,#F2EEF0,#EAE4E8);display:flex;flex-direction:column;align-items:center;padding:32px 14px 16px;}
+.ps3-ttl{font-family:var(--script);font-size:1.45rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;}
+.ps3-row{display:flex;gap:6px;justify-content:center;}
+.ps3-p{width:66px;height:84px;border-radius:3px;box-shadow:0 6px 16px rgba(42,21,32,.2);}
+.ps4{position:absolute;inset:0;background:var(--white);padding:32px 16px 16px;}
+.ps4-ttl{font-family:var(--script);font-size:1.45rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;margin-bottom:13px;}
+.ps4-f{border:1px solid rgba(184,112,126,.22);padding:7px 10px;margin-bottom:7px;font-family:var(--serif);font-style:italic;font-size:.7rem;color:rgba(122,74,88,.4);width:100%;display:block;}
+.ps4-btn{width:100%;padding:10px;background:var(--deep);color:rgba(237,213,216,.9);font-size:.42rem;letter-spacing:2px;text-transform:uppercase;border:none;margin-top:6px;cursor:pointer;}
+.phone-dots{display:flex;gap:7px;justify-content:center;margin-top:13px;}
+.ph-dot{width:7px;height:7px;border-radius:50%;background:rgba(184,112,126,.2);border:none;cursor:pointer;padding:0;transition:all .3s;}
+.ph-dot.active{background:var(--rose);transform:scale(1.35);}
+.demo-text{text-align:left;}
+@media(max-width:760px){.demo-text{text-align:center;}}
+.demo-list{margin-top:28px;display:flex;flex-direction:column;gap:18px;}
+.demo-item{display:flex;align-items:flex-start;gap:13px;}
+.demo-check{width:25px;height:25px;border-radius:50%;background:rgba(142,168,152,.1);border:1.5px solid rgba(142,168,152,.38);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:4px;}
+.demo-check svg{width:11px;height:11px;}
+.demo-item-title{font-family:var(--serif);font-style:italic;font-weight:700;font-size:1.05rem;color:var(--deep);margin-bottom:2px;}
+.demo-item-desc{font-size:.62rem;color:var(--muted);line-height:1.85;font-weight:300;}
+
+/* HOW */
+.how{padding:88px 5%;background:linear-gradient(160deg,#F2EEE8,var(--cream));}
+.steps{display:flex;justify-content:center;gap:0;max-width:900px;margin:0 auto;flex-wrap:wrap;}
+.step{flex:1;min-width:180px;max-width:210px;text-align:center;padding:0 14px;position:relative;}
+.step:not(:last-child)::after{content:'';position:absolute;top:27px;right:-12px;width:24px;height:1px;background:linear-gradient(to right,rgba(184,112,126,.35),rgba(184,112,126,.06));}
+@media(max-width:600px){.step:not(:last-child)::after{display:none;}}
+.step-num{width:54px;height:54px;border-radius:50%;background:var(--deep);color:var(--blush);font-family:var(--serif);font-style:italic;font-size:1.4rem;font-weight:300;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 8px 24px rgba(42,21,32,.22);}
+.step-title{font-family:var(--serif);font-style:italic;font-weight:700;font-size:1.05rem;color:var(--deep);margin-bottom:7px;}
+.step-desc{font-size:.62rem;color:var(--muted);line-height:1.9;font-weight:300;}
+
+/* EXAMPLES */
+.examples{padding:88px 5%;background:var(--white);}
+.ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;max-width:1100px;margin:0 auto;}
+.ex-card{position:relative;overflow:hidden;cursor:pointer;}
+.ex-ph{width:100%;height:310px;display:flex;align-items:center;justify-content:center;transition:transform .45s;}
+.ex-card:hover .ex-ph{transform:scale(1.04);}
+.ex-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(42,21,32,.8) 0%,transparent 55%);opacity:0;transition:opacity .3s;}
+.ex-card:hover .ex-overlay{opacity:1;}
+.ex-info{position:absolute;bottom:0;left:0;right:0;padding:20px 18px;transform:translateY(6px);transition:all .3s;opacity:0;}
+.ex-card:hover .ex-info{opacity:1;transform:none;}
+.ex-name{font-family:var(--script);font-size:1.65rem;color:white;display:block;margin-bottom:3px;}
+.ex-tag{font-size:.44rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.6);}
+.pl-inner{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;padding:22px;}
+.pl-couple{font-family:var(--script);font-size:1.9rem;text-align:center;}
+.pl-date{font-size:.48rem;letter-spacing:4px;text-transform:uppercase;}
+.pl-div{width:34px;height:1px;}
+
+/* PRICING */
+.pricing{padding:88px 5%;background:var(--deep);position:relative;overflow:hidden;}
+.pricing::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(237,213,216,.04),transparent 55%),radial-gradient(ellipse at 80% 30%,rgba(142,168,152,.03),transparent 55%);}
+.pricing .sec-label{color:rgba(142,168,152,.75);}
+.pricing .sec-title{background:linear-gradient(135deg,#EDD5D8,#C9A882 40%,#EDD5D8 70%,#B8707E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.pricing .sec-body{color:rgba(255,255,255,.38);}
+.plans{display:flex;justify-content:center;gap:16px;max-width:960px;margin:0 auto;flex-wrap:wrap;align-items:stretch;}
+.plan{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:32px 24px;flex:1;min-width:215px;max-width:285px;text-align:center;position:relative;transition:transform .3s;}
+.plan.featured{border-color:rgba(184,112,126,.32);background:rgba(237,213,216,.05);}
+.plan:hover{transform:translateY(-5px);}
+.plan-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--rose);color:white;font-size:.42rem;letter-spacing:2px;text-transform:uppercase;padding:4px 13px;font-weight:600;white-space:nowrap;}
+.plan-name{font-family:var(--serif);font-style:italic;font-weight:700;font-size:1.28rem;color:rgba(255,255,255,.82);margin-bottom:6px;}
+.plan-price{font-family:var(--serif);font-size:2.7rem;font-weight:300;font-style:italic;color:white;line-height:1;margin:11px 0 3px;}
+.plan.featured .plan-price{background:linear-gradient(135deg,#EDD5D8,#C9A882);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.plan-currency{font-size:.54rem;letter-spacing:2px;color:rgba(255,255,255,.28);margin-bottom:20px;}
+.plan-feats{list-style:none;text-align:left;margin-bottom:24px;display:flex;flex-direction:column;gap:8px;}
+.plan-feats li{font-size:.61rem;color:rgba(255,255,255,.5);display:flex;align-items:flex-start;gap:7px;line-height:1.65;font-weight:300;}
+.plan-feats li::before{content:'·';color:var(--rose);flex-shrink:0;font-size:1rem;line-height:1.2;}
+.plan-feats li.hi{color:rgba(237,213,216,.78);}
+.plan-feats li.hi::before{content:'✦';font-size:.52rem;margin-top:3px;}
+.plan-btn{display:block;width:100%;padding:12px;border:1px solid rgba(255,255,255,.13);color:rgba(255,255,255,.6);font-size:.56rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .2s;font-weight:500;}
+.plan-btn:hover{border-color:rgba(184,112,126,.45);color:var(--blush);}
+.plan.featured .plan-btn{background:var(--rose);border-color:transparent;color:white;}
+.plan.featured .plan-btn:hover{background:#A86070;}
+
+/* TESTIMONIALS */
+.testimonials{padding:88px 5%;background:var(--cream);}
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;max-width:960px;margin:0 auto;}
+.test-card{background:var(--white);padding:26px 22px;border:1px solid rgba(184,112,126,.1);position:relative;}
+.test-stars{color:var(--rose);font-size:.62rem;letter-spacing:2px;margin-bottom:11px;opacity:.88;}
+.test-quote{font-family:var(--serif);font-style:italic;font-size:.96rem;color:var(--deep);line-height:1.9;margin-bottom:14px;}
+.test-author{font-size:.5rem;letter-spacing:2px;text-transform:uppercase;color:var(--sage);font-weight:500;}
+.test-card::before{content:'\201C';font-family:var(--serif);font-size:5rem;color:rgba(184,112,126,.06);position:absolute;top:8px;left:14px;line-height:1;}
+
+/* FAQ */
+.faq{padding:88px 5%;background:linear-gradient(160deg,#F2EEE8,var(--cream));}
+.faq-list{max-width:700px;margin:0 auto;}
+.faq-item{border-bottom:1px solid rgba(184,112,126,.12);}
+.faq-q{width:100%;text-align:left;padding:19px 0;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;}
+.faq-q-text{font-family:var(--serif);font-style:italic;font-weight:600;font-size:1.06rem;color:var(--deep);}
+.faq-icon{font-size:1.1rem;color:var(--rose);transition:transform .3s;flex-shrink:0;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;}
+.faq-item.open .faq-a{max-height:220px;padding-bottom:16px;}
+.faq-a p{font-size:.68rem;color:var(--muted);line-height:1.95;font-weight:300;}
+
+/* CTA */
+.cta-final{padding:100px 5%;text-align:center;background:linear-gradient(160deg,#2A1520,#1A0C18);position:relative;overflow:hidden;}
+.cta-final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(184,112,126,.09),transparent 65%),radial-gradient(ellipse at 20% 100%,rgba(142,168,152,.05),transparent 60%);}
+.cta-final .sec-label{color:rgba(142,168,152,.65);}
+.cta-final .sec-title{background:linear-gradient(135deg,#EDD5D8,#C9A882 40%,#EDD5D8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cta-final .sec-body{color:rgba(255,255,255,.38);}
+.cta-bg-name{font-family:var(--script);font-size:clamp(3rem,7vw,6rem);color:rgba(255,255,255,.04);position:absolute;bottom:22px;left:50%;transform:translateX(-50%);white-space:nowrap;pointer-events:none;}
+
+/* FOOTER */
+footer{background:#120810;padding:42px 5%;text-align:center;}
+.footer-brand{font-family:var(--script);font-size:2.1rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:5px;}
+.footer-url{font-size:.48rem;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.18);display:block;margin-bottom:20px;}
+.footer-links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:16px;}
+.footer-links a{font-size:.5rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.2);text-decoration:none;transition:color .2s;}
+.footer-links a:hover{color:rgba(184,112,126,.65);}
+.footer-copy{font-size:.48rem;color:rgba(255,255,255,.11);letter-spacing:1px;}
+
+/* WA */
+.wa-float{position:fixed;bottom:26px;right:20px;z-index:200;width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.42);text-decoration:none;transition:transform .2s;}
+.wa-float:hover{transform:scale(1.1);}
+.wa-float svg{width:25px;height:25px;fill:white;}
+
+/* EVENT TYPE CARDS */
+.ev-card{background:var(--cream);border:1px solid rgba(184,112,126,.12);overflow:hidden;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;}
+.ev-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);}
+.ev-card-header{height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.ev-card-icon{font-size:3.8rem;position:relative;z-index:1;}
+.ev-card-body{padding:24px 22px;flex:1;display:flex;flex-direction:column;}
+.ev-card-tag{font-size:.46rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;display:inline-block;padding:3px 9px;margin-bottom:12px;border:1px solid;width:fit-content;}
+.ev-card-name{font-family:var(--serif);font-style:italic;font-weight:700;font-size:1.3rem;color:var(--deep);margin-bottom:7px;}
+.ev-card-desc{font-size:.65rem;color:var(--muted);line-height:1.9;font-weight:300;flex:1;}
+.ev-card-price-row{display:flex;align-items:flex-end;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1px solid rgba(184,112,126,.1);}
+.ev-card-from{font-size:.48rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:400;}
+.ev-card-price{font-family:var(--serif);font-style:italic;font-size:1.9rem;font-weight:300;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
+.ev-card-btn{display:block;text-align:center;margin-top:14px;padding:10px;font-size:.54rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;font-weight:600;transition:all .2s;border:1px solid;}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .72s ease,transform .72s ease;}
+.reveal.vis{opacity:1;transform:none;}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-brand">Mak Invitations</span>
+  <div class="nav-links">
+    <a href="#events-section" class="hide-mob" data-i18n="nav_events"></a>
+    <a href="#features" class="hide-mob" data-i18n="nav_feat"></a>
+    <a href="#examples" class="hide-mob" data-i18n="nav_ex"></a>
+    <a href="#pricing" class="hide-mob" data-i18n="nav_price"></a>
+    <a href="#faq" class="hide-mob">FAQ</a>
+    <a href="#contact" class="nav-cta" data-i18n="nav_cta"></a>
+    <div class="lang-sw">
+      <button id="sw-es" class="active" onclick="setLang('es')">ES</button>
+      <div class="lang-divider"></div>
+      <button id="sw-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-grad"></div>
+  <div class="hero-petals" id="petals"></div>
+  <div class="hero-inner reveal">
+    <p class="hero-eyebrow" data-i18n="hero_eyebrow"></p>
+    <h1 class="hero-title">Mak Invitations</h1>
+    <p class="hero-tagline" data-i18n="hero_tagline"></p>
+    <p class="hero-sub" data-i18n="hero_sub"></p>
+    <div class="hero-btns">
+      <a href="#examples" class="btn-primary" data-i18n="hero_btn1"></a>
+      <a href="#pricing" class="btn-ghost" data-i18n="hero_btn2"></a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span data-i18n="scroll"></span><div class="scroll-line"></div></div>
+</section>
+
+<div class="orn"><svg viewBox="0 0 360 20" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="10" x2="138" y2="10" stroke="#C4849A" stroke-width=".6" opacity=".4"/><polygon points="150,10 156,5 162,10 156,15" fill="none" stroke="#C4849A" stroke-width=".8"/><circle cx="178" cy="10" r="2.2" fill="#C4849A" opacity=".7"/><polygon points="194,10 200,5 206,10 200,15" fill="none" stroke="#C4849A" stroke-width=".8"/><line x1="218" y1="10" x2="360" y2="10" stroke="#C4849A" stroke-width=".6" opacity=".4"/></svg></div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat reveal"><div class="stat-num">100%</div><div class="stat-lbl" data-i18n="stat1"></div></div>
+  <div class="stat reveal"><div class="stat-num">2+</div><div class="stat-lbl" data-i18n="stat2"></div></div>
+  <div class="stat reveal"><div class="stat-num">∞</div><div class="stat-lbl" data-i18n="stat3"></div></div>
+  <div class="stat reveal"><div class="stat-num">48h</div><div class="stat-lbl" data-i18n="stat4"></div></div>
+</div>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="sec-wrap reveal">
+    <span class="sec-label" data-i18n="feat_lbl"></span>
+    <h2 class="sec-title" data-i18n="feat_title"></h2>
+    <p class="sec-body" data-i18n="feat_body"></p>
+  </div>
+  <div class="features-grid">
+    <div class="feat-card reveal"><span class="feat-icon">✉️</span><div class="feat-title" data-i18n="f1_title"></div><p class="feat-desc" data-i18n="f1_desc"></p><span class="feat-badge" data-i18n="f1_badge"></span></div>
+    <div class="feat-card reveal"><span class="feat-icon">✨</span><div class="feat-title" data-i18n="f2_title"></div><p class="feat-desc" data-i18n="f2_desc"></p><span class="feat-badge premium" data-i18n="f2_badge"></span></div>
+    <div class="feat-card reveal"><span class="feat-icon">💬</span><div class="feat-title" data-i18n="f3_title"></div><p class="feat-desc" data-i18n="f3_desc"></p><span class="feat-badge" data-i18n="f3_badge"></span></div>
+    <div class="feat-card reveal"><span class="feat-icon">🎟️</span><div class="feat-title" data-i18n="f4_title"></div><p class="feat-desc" data-i18n="f4_desc"></p><span class="feat-badge premium" data-i18n="f4_badge"></span></div>
+    <div class="feat-card reveal"><span class="feat-icon">👨‍👩‍👧</span><div class="feat-title" data-i18n="f5_title"></div><p class="feat-desc" data-i18n="f5_desc"></p></div>
+    <div class="feat-card reveal"><span class="feat-icon">🌹</span><div class="feat-title" data-i18n="f6_title"></div><p class="feat-desc" data-i18n="f6_desc"></p></div>
+    <div class="feat-card reveal"><span class="feat-icon">💍</span><div class="feat-title" data-i18n="f7_title"></div><p class="feat-desc" data-i18n="f7_desc"></p></div>
+    <div class="feat-card reveal"><span class="feat-icon">📋</span><div class="feat-title" data-i18n="f8_title"></div><p class="feat-desc" data-i18n="f8_desc"></p></div>
+    <div class="feat-card reveal"><span class="feat-icon">📊</span><div class="feat-title" data-i18n="f9_title"></div><p class="feat-desc" data-i18n="f9_desc"></p><span class="feat-badge premium" data-i18n="f9_badge"></span></div>
+    <div class="feat-card reveal"><span class="feat-icon">🌍</span><div class="feat-title" data-i18n="f10_title"></div><p class="feat-desc" data-i18n="f10_desc"></p><span class="feat-badge" data-i18n="f10_badge"></span></div>
+    <div class="feat-card reveal"><span class="feat-icon">⏱️</span><div class="feat-title" data-i18n="f11_title"></div><p class="feat-desc" data-i18n="f11_desc"></p></div>
+    <div class="feat-card reveal"><span class="feat-icon">📸</span><div class="feat-title" data-i18n="f12_title"></div><p class="feat-desc" data-i18n="f12_desc"></p></div>
+    <div class="feat-card reveal"><span class="feat-icon">🗺️</span><div class="feat-title" data-i18n="f13_title"></div><p class="feat-desc" data-i18n="f13_desc"></p></div>
+    <div class="feat-card reveal"><span class="feat-icon">🎵</span><div class="feat-title" data-i18n="f14_title"></div><p class="feat-desc" data-i18n="f14_desc"></p></div>
+    <div class="feat-card reveal"><span class="feat-icon">🎁</span><div class="feat-title" data-i18n="f15_title"></div><p class="feat-desc" data-i18n="f15_desc"></p></div>
+    <div class="feat-card reveal"><span class="feat-icon">👗</span><div class="feat-title" data-i18n="f16_title"></div><p class="feat-desc" data-i18n="f16_desc"></p></div>
+    <div class="feat-card reveal"><span class="feat-icon">🏨</span><div class="feat-title" data-i18n="f17_title"></div><p class="feat-desc" data-i18n="f17_desc"></p></div>
+    <div class="feat-card reveal"><span class="feat-icon">📅</span><div class="feat-title" data-i18n="f18_title"></div><p class="feat-desc" data-i18n="f18_desc"></p></div>
+    <div class="feat-card reveal"><span class="feat-icon">🕊️</span><div class="feat-title" data-i18n="f19_title"></div><p class="feat-desc" data-i18n="f19_desc"></p></div>
+    <div class="feat-card reveal"><span class="feat-icon">🌸</span><div class="feat-title" data-i18n="f20_title"></div><p class="feat-desc" data-i18n="f20_desc"></p></div>
+  </div>
+</section>
+
+<!-- EVENT TYPES -->
+<section id="events-section" style="padding:88px 5%;background:var(--white);">
+  <div class="sec-wrap reveal">
+    <span class="sec-label" data-i18n="ev_lbl"></span>
+    <h2 class="sec-title" data-i18n="ev_title"></h2>
+    <p class="sec-body" data-i18n="ev_body"></p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:1100px;margin:0 auto;" id="ev-grid">
+    <!-- cards injected by JS -->
+  </div>
+</section>
+
+<!-- LANGUAGE SECTION -->
+<section class="lang-section" id="languages">
+  <div class="sec-wrap reveal" style="margin-bottom:38px;">
+    <span class="sec-label" style="color:rgba(142,168,152,.75);" data-i18n="lang_lbl"></span>
+    <h2 class="sec-title" style="background:linear-gradient(135deg,#EDD5D8,#C9A882 40%,#EDD5D8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;" data-i18n="lang_title"></h2>
+    <p class="sec-body" style="color:rgba(255,255,255,.38);" data-i18n="lang_body"></p>
+  </div>
+  <div class="lang-inner reveal">
+    <div class="lang-card basic">
+      <span class="lang-badge-pill" data-i18n="lang_basic_badge"></span>
+      <div class="lang-ttl" data-i18n="lang_basic_title"></div>
+      <p class="lang-desc" data-i18n="lang_basic_desc"></p>
+      <div class="lang-flags">
+        <div class="lang-flag"><span>🇲🇽</span><span>Español</span></div>
+        <div class="lang-flag"><span>🇺🇸</span><span>English</span></div>
+      </div>
+      <p class="lang-plus" data-i18n="lang_basic_plus"></p>
+    </div>
+    <div class="lang-card prem">
+      <span class="lang-badge-pill" data-i18n="lang_prem_badge"></span>
+      <div class="lang-ttl" data-i18n="lang_prem_title"></div>
+      <p class="lang-desc" data-i18n="lang_prem_desc"></p>
+      <div class="lang-flags">
+        <div class="lang-flag"><span>🇲🇽</span><span>Español</span></div>
+        <div class="lang-flag"><span>🇺🇸</span><span>English</span></div>
+        <div class="lang-flag"><span>🇮🇳</span><span>Punjabi</span></div>
+        <div class="lang-flag"><span>🇫🇷</span><span>Français</span></div>
+        <div class="lang-flag"><span>🇩🇪</span><span>Deutsch</span></div>
+        <div class="lang-flag"><span>🇧🇷</span><span>Português</span></div>
+      </div>
+      <p class="lang-plus" data-i18n="lang_prem_plus"></p>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO PHONE -->
+<section class="demo" id="demo">
+  <div class="demo-inner">
+    <div class="phone-wrap reveal">
+      <div>
+        <div class="phone">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <div class="pslide active" id="ps-1"><div class="ps1-bg"></div><div class="ps1-ov"></div><div class="ps1-c"><div class="ps1-names">Valentina<br>&amp; Rodrigo</div><div class="ps1-line"></div><div class="ps1-date">SAT · 15 · NOV · 2025</div><div class="ps1-loc">Hacienda San Ángel · CDMX</div></div></div>
+            <div class="pslide" id="ps-2"><div class="ps2"><div class="ps2-ttl" data-i18n="phone_cd"></div><div class="ps2-nums"><div class="ps2-u"><div class="ps2-num" id="ps-d">--</div><div class="ps2-lbl" data-i18n="phone_d"></div></div><div class="ps2-u"><div class="ps2-num" id="ps-h">--</div><div class="ps2-lbl" data-i18n="phone_h"></div></div><div class="ps2-u"><div class="ps2-num" id="ps-m">--</div><div class="ps2-lbl" data-i18n="phone_m"></div></div><div class="ps2-u"><div class="ps2-num" id="ps-s">--</div><div class="ps2-lbl" data-i18n="phone_s"></div></div></div></div></div>
+            <div class="pslide" id="ps-3"><div class="ps3"><div class="ps3-ttl" data-i18n="phone_gal"></div><div class="ps3-row"><div class="ps3-p" style="background:linear-gradient(160deg,#E8C4D0,#C090A0);"></div><div class="ps3-p" style="background:linear-gradient(160deg,#C8D0E0,#90A0C0);margin-top:-14px;"></div><div class="ps3-p" style="background:linear-gradient(160deg,#D8C8BC,#B09080);margin-top:10px;"></div></div></div></div>
+            <div class="pslide" id="ps-4"><div class="ps4"><div class="ps4-ttl" data-i18n="phone_rsvp"></div><input class="ps4-f" data-ph-es="Tu nombre..." data-ph-en="Your name..." placeholder="Tu nombre..." readonly><input class="ps4-f" data-ph-es="Apellido..." data-ph-en="Last name..." placeholder="Apellido..." readonly><input class="ps4-f" data-ph-es="Número de adultos" data-ph-en="Number of adults" placeholder="Número de adultos" readonly><button class="ps4-btn" data-i18n="phone_send"></button></div></div>
+          </div>
+        </div>
+        <div class="phone-dots"><button class="ph-dot active" onclick="goSlide(0)"></button><button class="ph-dot" onclick="goSlide(1)"></button><button class="ph-dot" onclick="goSlide(2)"></button><button class="ph-dot" onclick="goSlide(3)"></button></div>
+      </div>
+    </div>
+    <div class="demo-text reveal">
+      <span class="sec-label" data-i18n="demo_lbl"></span>
+      <h2 class="sec-title" style="display:block;text-align:left;" data-i18n="demo_title"></h2>
+      <p class="sec-body" style="text-align:left;margin:0;" data-i18n="demo_body"></p>
+      <div class="demo-list">
+        <div class="demo-item"><div class="demo-check"><svg viewBox="0 0 24 24" fill="none" stroke="#8EA898" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="demo-item-title" data-i18n="di1_t"></div><div class="demo-item-desc" data-i18n="di1_d"></div></div></div>
+        <div class="demo-item"><div class="demo-check"><svg viewBox="0 0 24 24" fill="none" stroke="#8EA898" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="demo-item-title" data-i18n="di2_t"></div><div class="demo-item-desc" data-i18n="di2_d"></div></div></div>
+        <div class="demo-item"><div class="demo-check"><svg viewBox="0 0 24 24" fill="none" stroke="#8EA898" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="demo-item-title" data-i18n="di3_t"></div><div class="demo-item-desc" data-i18n="di3_d"></div></div></div>
+        <div class="demo-item"><div class="demo-check"><svg viewBox="0 0 24 24" fill="none" stroke="#8EA898" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="demo-item-title" data-i18n="di4_t"></div><div class="demo-item-desc" data-i18n="di4_d"></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="how" id="how">
+  <div class="sec-wrap reveal">
+    <span class="sec-label" data-i18n="how_lbl"></span>
+    <h2 class="sec-title" data-i18n="how_title"></h2>
+    <p class="sec-body" data-i18n="how_body"></p>
+  </div>
+  <div class="steps">
+    <div class="step reveal"><div class="step-num">1</div><div class="step-title" data-i18n="s1_t"></div><p class="step-desc" data-i18n="s1_d"></p></div>
+    <div class="step reveal"><div class="step-num">2</div><div class="step-title" data-i18n="s2_t"></div><p class="step-desc" data-i18n="s2_d"></p></div>
+    <div class="step reveal"><div class="step-num">3</div><div class="step-title" data-i18n="s3_t"></div><p class="step-desc" data-i18n="s3_d"></p></div>
+    <div class="step reveal"><div class="step-num">4</div><div class="step-title" data-i18n="s4_t"></div><p class="step-desc" data-i18n="s4_d"></p></div>
+  </div>
+</section>
+
+<!-- EXAMPLES -->
+<section class="examples" id="examples">
+  <div class="sec-wrap reveal">
+    <span class="sec-label" data-i18n="ex_lbl"></span>
+    <h2 class="sec-title" data-i18n="ex_title"></h2>
+    <p class="sec-body" data-i18n="ex_body"></p>
+  </div>
+  <div class="ex-grid">
+    <div class="ex-card reveal"><div class="ex-ph" style="background:linear-gradient(160deg,#F2E4EA,#E0C8D4,#C8A8B8);"><div class="pl-inner"><div class="pl-couple" style="color:rgba(100,50,70,.65);">Valentina &amp; Rodrigo</div><div class="pl-div" style="background:rgba(184,112,126,.4);"></div><div class="pl-date" style="color:rgba(100,50,70,.45);">15 · Nov · 2025</div></div></div><div class="ex-overlay"></div><div class="ex-info"><span class="ex-name">Valentina &amp; Rodrigo</span><span class="ex-tag" data-i18n="ex1_tag"></span></div></div>
+    <div class="ex-card reveal"><div class="ex-ph" style="background:linear-gradient(160deg,#E4EAF2,#C8D4E0,#A8B8C8);"><div class="pl-inner"><div class="pl-couple" style="color:rgba(50,60,90,.65);">Isabella &amp; Mateo</div><div class="pl-div" style="background:rgba(100,130,160,.4);"></div><div class="pl-date" style="color:rgba(50,60,90,.45);">22 · Mar · 2026</div></div></div><div class="ex-overlay"></div><div class="ex-info"><span class="ex-name">Isabella &amp; Mateo</span><span class="ex-tag" data-i18n="ex2_tag"></span></div></div>
+    <div class="ex-card reveal"><div class="ex-ph" style="background:linear-gradient(160deg,#F2ECE4,#E0D4C0,#C8B898);"><div class="pl-inner"><div class="pl-couple" style="color:rgba(90,70,40,.65);">Sofía &amp; Andrés</div><div class="pl-div" style="background:rgba(160,130,80,.4);"></div><div class="pl-date" style="color:rgba(90,70,40,.45);">7 · Jun · 2026</div></div></div><div class="ex-overlay"></div><div class="ex-info"><span class="ex-name">Sofía &amp; Andrés</span><span class="ex-tag" data-i18n="ex3_tag"></span></div></div>
+    <div class="ex-card reveal"><div class="ex-ph" style="background:linear-gradient(160deg,#E4F2EA,#C8E0D0,#A8C8B4);"><div class="pl-inner"><div class="pl-couple" style="color:rgba(40,80,55,.65);">Camila &amp; Diego</div><div class="pl-div" style="background:rgba(80,150,100,.4);"></div><div class="pl-date" style="color:rgba(40,80,55,.45);">14 · Feb · 2026</div></div></div><div class="ex-overlay"></div><div class="ex-info"><span class="ex-name">Camila &amp; Diego</span><span class="ex-tag" data-i18n="ex4_tag"></span></div></div>
+    <div class="ex-card reveal"><div class="ex-ph" style="background:linear-gradient(160deg,#F0EAF4,#DDD0E8,#C0A8D0);"><div class="pl-inner"><div class="pl-couple" style="color:rgba(80,50,100,.65);">Xóchitl &amp; Sarbjit</div><div class="pl-div" style="background:rgba(140,100,180,.4);"></div><div class="pl-date" style="color:rgba(80,50,100,.45);">3 · Jul · 2026</div></div></div><div class="ex-overlay"></div><div class="ex-info"><span class="ex-name">Xóchitl &amp; Sarbjit</span><span class="ex-tag" data-i18n="ex5_tag"></span></div></div>
+    <div class="ex-card reveal"><div class="ex-ph" style="background:linear-gradient(160deg,#2A1520,#1A0C18,#3A2030);"><div class="pl-inner"><div class="pl-couple" style="color:rgba(237,213,216,.7);">Lucía &amp; Fernando</div><div class="pl-div" style="background:rgba(184,112,126,.5);"></div><div class="pl-date" style="color:rgba(237,213,216,.45);">29 · Ago · 2026</div></div></div><div class="ex-overlay"></div><div class="ex-info"><span class="ex-name">Lucía &amp; Fernando</span><span class="ex-tag" data-i18n="ex6_tag"></span></div></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="sec-wrap reveal">
+    <span class="sec-label" data-i18n="price_lbl"></span>
+    <h2 class="sec-title" data-i18n="price_title"></h2>
+    <p class="sec-body" data-i18n="price_body"></p>
+  </div>
+  <div class="plans">
+    <div class="plan reveal">
+      <div class="plan-name" data-i18n="p1_name"></div>
+      <div class="plan-price">$999</div>
+      <div class="plan-currency" data-i18n="p_currency"></div>
+      <ul class="plan-feats" id="p1-feats"></ul>
+      <a href="#contact" class="plan-btn" data-i18n="p_btn"></a>
+    </div>
+    <div class="plan featured reveal">
+      <div class="plan-badge" data-i18n="p_popular"></div>
+      <div class="plan-name" data-i18n="p2_name"></div>
+      <div class="plan-price">$1,499</div>
+      <div class="plan-currency" data-i18n="p_currency"></div>
+      <ul class="plan-feats" id="p2-feats"></ul>
+      <a href="#contact" class="plan-btn" data-i18n="p_btn"></a>
+    </div>
+    <div class="plan reveal">
+      <div class="plan-name" data-i18n="p3_name"></div>
+      <div class="plan-price">$2,199</div>
+      <div class="plan-currency" data-i18n="p_currency"></div>
+      <ul class="plan-feats" id="p3-feats"></ul>
+      <a href="#contact" class="plan-btn" data-i18n="p_btn"></a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="sec-wrap reveal">
+    <span class="sec-label" data-i18n="test_lbl"></span>
+    <h2 class="sec-title" data-i18n="test_title"></h2>
+  </div>
+  <div class="test-grid">
+    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-quote" data-i18n="t1_q"></p><div class="test-author" data-i18n="t1_a"></div></div>
+    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-quote" data-i18n="t2_q"></p><div class="test-author" data-i18n="t2_a"></div></div>
+    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-quote" data-i18n="t3_q"></p><div class="test-author" data-i18n="t3_a"></div></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="sec-wrap reveal">
+    <span class="sec-label" data-i18n="faq_lbl"></span>
+    <h2 class="sec-title" data-i18n="faq_title"></h2>
+  </div>
+  <div class="faq-list reveal" id="faq-list"></div>
+</section>
+
+<!-- CTA -->
+<section class="cta-final" id="contact">
+  <div style="position:relative;z-index:1;" class="reveal">
+    <span class="sec-label" data-i18n="cta_lbl"></span>
+    <h2 class="sec-title" style="display:block;margin-bottom:14px;" data-i18n="cta_title"></h2>
+    <p class="sec-body" style="margin-bottom:38px;" data-i18n="cta_body"></p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://wa.me/526142198023?text=Hola%2C%20me%20interesa%20una%20invitaci%C3%B3n%20digital" target="_blank" class="btn-primary" style="display:flex;align-items:center;gap:9px;background:var(--rose);color:white;"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span data-i18n="cta_wa"></span></a>
+      <a href="mailto:makinvitationsmx@gmail.com" class="btn-ghost" style="color:rgba(255,255,255,.55);border-color:rgba(255,255,255,.18);" data-i18n="cta_email"></a>
+    </div>
+    <p style="font-size:.5rem;letter-spacing:2px;color:rgba(255,255,255,.16);margin-top:28px;">makinvitations.com.mx</p>
+  </div>
+  <div class="cta-bg-name">Mak Invitations</div>
+</section>
+
+<footer>
+  <span class="footer-brand">Mak Invitations</span>
+  <span class="footer-url">makinvitations.com.mx</span>
+  <div class="footer-links">
+    <a href="#features" data-i18n="nav_feat"></a>
+    <a href="#examples" data-i18n="nav_ex"></a>
+    <a href="#pricing" data-i18n="nav_price"></a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact" data-i18n="nav_contact"></a>
+  </div>
+  <p class="footer-copy" data-i18n="footer_copy"></p>
+</footer>
+
+<a href="https://wa.me/526142198023?text=Hola%2C%20me%20interesa%20una%20invitaci%C3%B3n%20digital" target="_blank" class="wa-float"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+
+<script>
+/* ── TRANSLATIONS ── */
+var T={
+  es:{
+    nav_events:'Eventos',
+    ev_lbl:'Más que bodas',ev_title:'Para cada celebración',ev_body:'Creamos invitaciones digitales elegantes para todos los momentos importantes de tu vida.',
+    ev_cards:[
+      {icon:'💍',gradient:'linear-gradient(135deg,#F2E4EA,#DDD0E0)',tag:'Bodas',tagColor:'#B8707E',tagBg:'rgba(184,112,126,.08)',name:'Invitación de Boda',desc:'La experiencia completa: sobre animado, galería, RSVP, múltiples idiomas, mesa de regalos y mucho más. El más completo del mercado.',from:'Desde',price:'$999',btnTxt:'Ver planes',btnColor:'#B8707E',btnBg:'rgba(184,112,126,.08)',link:'#pricing'},
+      {icon:'👑',gradient:'linear-gradient(135deg,#F8F0E0,#E8D4A0)',tag:'XV Años',tagColor:'#A8780A',tagBg:'rgba(168,120,10,.08)',name:'XV Años',desc:'Una invitación digna de una reina. Incluye galería de fotos, itinerario, mesa de regalos, RSVP y animación de entrada personalizada.',from:'Desde',price:'$799',btnTxt:'Cotizar',btnColor:'#A8780A',btnBg:'rgba(168,120,10,.08)',link:'#contact'},
+      {icon:'🎂',gradient:'linear-gradient(135deg,#EAF0F8,#C8D8F0)',tag:'Cumpleaños Infantil',tagColor:'#4878B8',tagBg:'rgba(72,120,184,.08)',name:'Fiesta Infantil',desc:'Divertida, colorida y fácil de compartir. Perfecta para cumpleaños de niños con temática personalizada, horario y RSVP por WhatsApp.',from:'Desde',price:'$349',btnTxt:'Cotizar',btnColor:'#4878B8',btnBg:'rgba(72,120,184,.08)',link:'#contact'},
+      {icon:'🍼',gradient:'linear-gradient(135deg,#EAF5EE,#C8E8D4)',tag:'Baby Shower',tagColor:'#3A8858',tagBg:'rgba(58,136,88,.08)',name:'Baby Shower',desc:'Suave, delicada y llena de ternura. Con cuenta regresiva para la llegada del bebé, galería, lista de regalos y confirmación de asistencia.',from:'Desde',price:'$399',btnTxt:'Cotizar',btnColor:'#3A8858',btnBg:'rgba(58,136,88,.08)',link:'#contact'},
+      {icon:'🎊',gradient:'linear-gradient(135deg,#F5EAF5,#E0C8E8)',tag:'Eventos Especiales',tagColor:'#7848A8',tagBg:'rgba(120,72,168,.08)',name:'Otros Eventos',desc:'Aniversarios, graduaciones, fiestas de jubilación, bautizos, primera comunión y cualquier celebración que merece una invitación especial.',from:'Desde',price:'$349',btnTxt:'Cotizar',btnColor:'#7848A8',btnBg:'rgba(120,72,168,.08)',link:'#contact'},
+      {icon:'🥂',gradient:'linear-gradient(135deg,#F0EAE0,#DDD0C0)',tag:'Corporativo',tagColor:'#604830',tagBg:'rgba(96,72,48,.08)',name:'Eventos Corporativos',desc:'Lanzamientos de producto, cenas de empresa, inauguraciones y eventos de negocios con diseño profesional y elegante.',from:'Desde',price:'$599',btnTxt:'Cotizar',btnColor:'#604830',btnBg:'rgba(96,72,48,.08)',link:'#contact'}
+    ],nav_ex:'Ejemplos',nav_price:'Precios',nav_cta:'Cotizar',nav_contact:'Contacto',
+    hero_eyebrow:'✦  Invitaciones Digitales de Boda  ✦',
+    hero_tagline:'Invitaciones digitales que cuentan tu historia.',
+    hero_sub:'ELEGANTES · INTERACTIVAS · COMPLETAMENTE PERSONALIZADAS',
+    hero_btn1:'Ver Ejemplos',hero_btn2:'Ver Precios',scroll:'Descubrir',
+    stat1:'Digital · Sin Papel',stat2:'Idiomas Disponibles',stat3:'Invitados Sin Costo Extra',stat4:'Tiempo de Entrega',
+    feat_lbl:'Lo que incluye',feat_title:'Todo lo que necesitas',feat_body:'Cada invitación es una experiencia digital completa — no solo un link.',
+    f1_title:'Animación de Entrada',f1_desc:'Elige entre sobre animado que tus invitados abren con un toque, o pluma escribiendo los nombres letra por letra.',f1_badge:'Esencial · 2 opciones incluidas',
+    f2_title:'Animación Única & Exclusiva',f2_desc:'¿Tienes algo especial en mente? Diseñamos una animación completamente personalizada y única para tu boda.',f2_badge:'Solo plan Exclusivo',
+    f3_title:'RSVP por WhatsApp',f3_desc:'Tus invitados confirman asistencia en segundos y su respuesta llega directo a tu WhatsApp.',f3_badge:'Desde plan Esencial',
+    f4_title:'RSVP + Código QR',f4_desc:'Al confirmar, cada invitado recibe un código QR único de acceso — ideal para control de entrada el día de tu boda.',f4_badge:'Solo Premium & Exclusivo',
+    f5_title:'Nombramiento de Padres',f5_desc:'Sección elegante para presentar a los padres de los novios, con sus nombres y un diseño especial en su honor.',
+    f6_title:'Padrinos y Madrinas',f6_desc:'Reconoce a quienes hacen posible tu boda con una sección dedicada a los padrinos y sus aportaciones.',
+    f7_title:'Historia de Amor',f7_desc:'Comparte los momentos más especiales de su historia: cómo se conocieron, la propuesta y el camino hasta el altar.',
+    f8_title:'Itinerario del Día',f8_desc:'Línea de tiempo elegante con todos los momentos del gran día — desde la ceremonia hasta la última canción.',
+    f9_title:'Panel de Administración',f9_desc:'Consulta en tiempo real quién confirmó, cuántos adultos asistirán y lee los mensajes de tus invitados.',f9_badge:'Solo Premium & Exclusivo',
+    f10_title:'Multi-idioma',f10_desc:'Desde 2 idiomas en el plan Esencial hasta idiomas ilimitados en Premium. Ideal para bodas internacionales.',f10_badge:'Desde plan Esencial',
+    f11_title:'Cuenta Regresiva',f11_desc:'Contador elegante en tiempo real hasta el gran día. Mantiene la emoción viva con cada visita.',
+    f12_title:'Galería Interactiva',f12_desc:'Galería estilo ropa tendida con fotos de los novios. Animada, táctil y completamente personalizada.',
+    f13_title:'Eventos con Mapa',f13_desc:'Ceremonia, recepción y más. Cada evento con dirección, horario y botón de Google Maps integrado.',
+    f14_title:'Música Personalizada',f14_desc:'Su canción favorita suena de fondo mientras los invitados leen la invitación.',
+    f15_title:'Mesa de Regalos',f15_desc:'Transferencias bancarias, PayPal o tiendas en línea — todo integrado con toque para copiar datos.',
+    f16_title:'Código de Vestimenta',f16_desc:'Imagen de dresscode con paleta de colores sugeridos y colores a evitar, para que todos lleguen perfectos.',
+    f17_title:'Hoteles Recomendados',f17_desc:'Sugiere opciones de hospedaje para tus invitados foráneos con estrellas, descripción y link a Google Maps.',
+    f18_title:'Agregar al Calendario',f18_desc:'Un toque y el evento queda guardado en Google Calendar, Apple Calendar u Outlook.',
+    f19_title:'Frase o Verso Especial',f19_desc:'Incluye una cita bíblica, un poema o una frase que represente su amor — con diseño tipográfico destacado.',
+    f20_title:'Animaciones Florales',f20_desc:'Pétalos flotantes interactivos que reaccionan al cursor. Una experiencia visualmente única en cada pantalla.',
+    lang_lbl:'Idiomas',lang_title:'Tu boda, en su idioma',lang_body:'Porque cada familia merece sentirse incluida.',
+    lang_basic_badge:'Plan Esencial',lang_basic_title:'Dos idiomas',lang_basic_desc:'Perfecta para bodas con invitados de dos culturas. Tus invitados eligen el idioma que prefieren al abrir la invitación.',lang_basic_plus:'+ cualquier combinación de 2 idiomas',
+    lang_prem_badge:'Plan Premium & Exclusivo',lang_prem_title:'Idiomas ilimitados',lang_prem_desc:'Sin límite de idiomas. Agrega todos los que necesites para que cada invitado, sin importar su origen, viva la experiencia completa.',lang_prem_plus:'+ cualquier idioma que necesites',
+    demo_lbl:'Vista previa',demo_title:'Una experiencia que enamora',demo_body:'Cada sección está cuidadosamente diseñada para sorprender a tus invitados desde el primer toque.',
+    di1_t:'Completamente responsiva',di1_d:'Se ve perfecta en celular, tablet y computadora, sin importar el dispositivo.',
+    di2_t:'Sin descargar ninguna app',di2_d:'Solo un link — compártelo por WhatsApp, correo o redes sociales.',
+    di3_t:'Panel de administración',di3_d:'Consulta en tiempo real quién confirmó y cuántos adultos asistirán.',
+    di4_t:'Activa durante 12 meses',di4_d:'Tu invitación permanece activa desde que la publicamos hasta un año después de tu boda.',
+    phone_cd:'Cuenta Regresiva',phone_d:'Días',phone_h:'Hrs',phone_m:'Min',phone_s:'Seg',
+    phone_gal:'Nuestros Momentos',phone_rsvp:'Confirmar',phone_send:'Enviar Confirmación ✦',
+    how_lbl:'Proceso',how_title:'Así de fácil',how_body:'De idea a invitación publicada en menos de 48 horas.',
+    s1_t:'Nos contactas',s1_d:'Escríbenos por WhatsApp o llena el formulario con los datos de tu boda.',
+    s2_t:'Envías tus datos',s2_d:'Fotos, nombres, fechas, música y todo lo que quieras incluir.',
+    s3_t:'Revisamos juntos',s3_d:'Te enviamos una vista previa para que apruebes o solicites cambios.',
+    s4_t:'¡Lista para compartir!',s4_d:'Recibes tu link único listo para enviar a todos tus invitados.',
+    ex_lbl:'Estilos',ex_title:'Diseños que enamoran',ex_body:'Cada invitación es única. Estos son algunos estilos de inspiración.',
+    ex1_tag:'Rosa & Malva · 2 Idiomas',ex2_tag:'Azul Cielo · 2 Idiomas',ex3_tag:'Arena & Cobre · 2 Idiomas',
+    ex4_tag:'Jardín Sage · 2 Idiomas',ex5_tag:'Multicultural · 3 Idiomas',ex6_tag:'Dark & Glamour · 4 Idiomas',
+    price_lbl:'Inversión',price_title:'Precios claros',price_body:'Sin costos ocultos. Sin límite de invitados. Todo incluido.',
+    p1_name:'Esencial',p2_name:'Premium',p3_name:'Exclusivo',p_currency:'MXN · Pago único',p_btn:'Elegir plan',p_popular:'✦ Más Popular ✦',
+    p1_feats:[{hi:true,t:'Diseño personalizado'},{hi:true,t:'Animación de entrada (sobre o pluma)'},{hi:true,t:'2 idiomas a elegir'},{hi:true,t:'RSVP por WhatsApp'},{hi:false,t:'Nombramiento de padres'},{hi:false,t:'2 eventos con mapa'},{hi:false,t:'Galería (hasta 12 fotos)'},{hi:false,t:'Frase o verso especial'},{hi:false,t:'Cuenta regresiva'},{hi:false,t:'Música de fondo'},{hi:false,t:'Activa 12 meses'}],
+    p2_feats:[{hi:true,t:'Todo lo del plan Esencial'},{hi:true,t:'Idiomas ilimitados'},{hi:true,t:'RSVP + código QR de acceso'},{hi:true,t:'Panel admin en tiempo real'},{hi:false,t:'Padrinos y madrinas'},{hi:false,t:'Historia de amor'},{hi:false,t:'Itinerario del día'},{hi:false,t:'Galería ilimitada de fotos'},{hi:false,t:'Mesa de regalos completa'},{hi:false,t:'Hoteles recomendados'},{hi:false,t:'Código de vestimenta'},{hi:false,t:'Agregar al calendario'},{hi:false,t:'Cambios ilimitados'}],
+    p3_feats:[{hi:true,t:'Todo lo del plan Premium'},{hi:true,t:'Idiomas ilimitados'},{hi:true,t:'Animación única & exclusiva'},{hi:true,t:'RSVP + código QR de acceso'},{hi:true,t:'Panel admin en tiempo real'},{hi:false,t:'Dominio personalizado'},{hi:false,t:'Video de bienvenida'},{hi:false,t:'Check-in digital en el evento'},{hi:false,t:'Soporte prioritario'},{hi:false,t:'Activa 24 meses'}],
+    test_lbl:'Opiniones',test_title:'Lo que dicen las parejas',
+    t1_q:'Todos mis invitados me preguntaron cómo hicimos la invitación. Se veía increíble y fue súper fácil confirmar asistencia. ¡100% recomendada!',t1_a:'Valentina R. · Guadalajara',
+    t2_q:'La parte de los 3 idiomas fue perfecta para nuestra boda multicultural. La familia de Canadá pudo leer todo en inglés sin ningún problema.',t2_a:'Xóchitl O. · Chihuahua',
+    t3_q:'El sobre animado me hizo llorar de emoción cuando lo vi por primera vez. Es exactamente lo que imaginé, solo que mucho mejor.',t3_a:'Camila T. · Monterrey',
+    faq_lbl:'Preguntas frecuentes',faq_title:'Resolvemos tus dudas',
+    faqs:[
+      {q:'¿Cuánto tiempo tarda en estar lista mi invitación?',a:'Una vez que nos envíes todos los datos y fotos, tu invitación estará lista en 24 a 48 horas. Si necesitas cambios, los hacemos el mismo día.'},
+      {q:'¿Cuántos idiomas puedo incluir?',a:'El plan Esencial incluye 2 idiomas a tu elección. Los planes Premium y Exclusivo permiten idiomas ilimitados — perfecto para bodas multiculturales.'},
+      {q:'¿Cómo la comparto con mis invitados?',a:'Recibes un link único que puedes compartir por WhatsApp, Instagram, correo o cualquier red social. También puedes generar un código QR para imprimir en tus save-the-dates.'},
+      {q:'¿Hay un límite de invitados?',a:'No. Puedes compartir tu invitación con 10 o 1,000 personas — el precio es el mismo sin importar cuántos invitados la vean.'},
+      {q:'¿Puedo hacer cambios después de publicarla?',a:'Sí. Incluimos cambios ilimitados en los planes Premium y Exclusivo. En el plan Esencial incluimos hasta 3 rondas de revisiones.'},
+      {q:'¿Funcionan en iPhone y Android?',a:'Absolutamente. Nuestras invitaciones están optimizadas para todos los dispositivos modernos. Solo necesitan abrir el link, sin descargar ninguna app.'}
+    ],
+    cta_lbl:'¿Lista para decir Sí?',cta_title:'Empieza tu invitación hoy',cta_body:'Escríbenos y te mandamos una cotización personalizada en menos de 1 hora.',
+    cta_wa:'WhatsApp',cta_email:'Enviar Email',
+    footer_copy:'© 2025 Mak Invitations · Todos los derechos reservados · Hecho con ✦ en México'
+  },
+  en:{
+    nav_events:'Events',
+    ev_lbl:'More than weddings',ev_title:'For every celebration',ev_body:'We create elegant digital invitations for every important moment in your life.',
+    ev_cards:[
+      {icon:'💍',gradient:'linear-gradient(135deg,#F2E4EA,#DDD0E0)',tag:'Weddings',tagColor:'#B8707E',tagBg:'rgba(184,112,126,.08)',name:'Wedding Invitation',desc:'The full experience: animated envelope, gallery, RSVP, multiple languages, gift registry and much more. The most complete on the market.',from:'From',price:'$999',btnTxt:'See plans',btnColor:'#B8707E',btnBg:'rgba(184,112,126,.08)',link:'#pricing'},
+      {icon:'👑',gradient:'linear-gradient(135deg,#F8F0E0,#E8D4A0)',tag:'Quinceañera',tagColor:'#A8780A',tagBg:'rgba(168,120,10,.08)',name:'Quinceañera',desc:'An invitation fit for a queen. Includes photo gallery, itinerary, gift registry, RSVP, and a personalized opening animation.',from:'From',price:'$799',btnTxt:'Get a quote',btnColor:'#A8780A',btnBg:'rgba(168,120,10,.08)',link:'#contact'},
+      {icon:'🎂',gradient:'linear-gradient(135deg,#EAF0F8,#C8D8F0)',tag:"Kids' Party",tagColor:'#4878B8',tagBg:'rgba(72,120,184,.08)',name:"Kids' Birthday",desc:'Fun, colorful and easy to share. Perfect for children\'s birthdays with a custom theme, schedule, and RSVP via WhatsApp.',from:'From',price:'$349',btnTxt:'Get a quote',btnColor:'#4878B8',btnBg:'rgba(72,120,184,.08)',link:'#contact'},
+      {icon:'🍼',gradient:'linear-gradient(135deg,#EAF5EE,#C8E8D4)',tag:'Baby Shower',tagColor:'#3A8858',tagBg:'rgba(58,136,88,.08)',name:'Baby Shower',desc:'Soft, delicate and full of sweetness. With a countdown to baby\'s arrival, gallery, gift list, and RSVP confirmation.',from:'From',price:'$399',btnTxt:'Get a quote',btnColor:'#3A8858',btnBg:'rgba(58,136,88,.08)',link:'#contact'},
+      {icon:'🎊',gradient:'linear-gradient(135deg,#F5EAF5,#E0C8E8)',tag:'Special Events',tagColor:'#7848A8',tagBg:'rgba(120,72,168,.08)',name:'Other Events',desc:'Anniversaries, graduations, retirement parties, baptisms, first communions and any celebration that deserves a special invitation.',from:'From',price:'$349',btnTxt:'Get a quote',btnColor:'#7848A8',btnBg:'rgba(120,72,168,.08)',link:'#contact'},
+      {icon:'🥂',gradient:'linear-gradient(135deg,#F0EAE0,#DDD0C0)',tag:'Corporate',tagColor:'#604830',tagBg:'rgba(96,72,48,.08)',name:'Corporate Events',desc:'Product launches, company dinners, grand openings, and business events with a professional and elegant design.',from:'From',price:'$599',btnTxt:'Get a quote',btnColor:'#604830',btnBg:'rgba(96,72,48,.08)',link:'#contact'}
+    ],
+    nav_feat:'Features',nav_ex:'Examples',nav_price:'Pricing',nav_cta:'Get a Quote',nav_contact:'Contact',
+    hero_eyebrow:'✦  Digital Wedding Invitations  ✦',
+    hero_tagline:'Digital invitations that tell your love story.',
+    hero_sub:'ELEGANT · INTERACTIVE · FULLY PERSONALIZED',
+    hero_btn1:'See Examples',hero_btn2:'See Pricing',scroll:'Discover',
+    stat1:'Digital · Paperless',stat2:'Languages Available',stat3:'Unlimited Guests',stat4:'Delivery Time',
+    feat_lbl:'What\'s included',feat_title:'Everything you need',feat_body:'Each invitation is a complete digital experience — not just a link.',
+    f1_title:'Opening Animation',f1_desc:'Choose between an animated envelope your guests open with a tap, or a quill pen writing the names letter by letter.',f1_badge:'Essential · 2 options included',
+    f2_title:'Unique & Custom Animation',f2_desc:'Have something special in mind? We design a completely unique animation exclusively for your wedding.',f2_badge:'Exclusive plan only',
+    f3_title:'RSVP via WhatsApp',f3_desc:'Guests confirm in seconds and their response goes straight to your WhatsApp. No extra apps needed.',f3_badge:'From Essential plan',
+    f4_title:'RSVP + QR Code',f4_desc:'Upon confirming, each guest automatically receives a unique QR access code — perfect for entry control on your wedding day.',f4_badge:'Premium & Exclusive only',
+    f5_title:'Parents\' Acknowledgment',f5_desc:'An elegant section to honor both families, featuring the parents\' names with a dedicated layout.',
+    f6_title:'Sponsors & Godparents',f6_desc:'Recognize the people who make your wedding possible with a dedicated section for your padrinos and their contributions.',
+    f7_title:'Love Story',f7_desc:'Share the most special moments of your journey: how you met, the proposal, and the road to the altar.',
+    f8_title:'Day-of Itinerary',f8_desc:'An elegant timeline with every moment of the big day — from the ceremony to the last song.',
+    f9_title:'Admin Dashboard',f9_desc:'Check in real time who confirmed, how many adults will attend, and read your guests\' messages.',f9_badge:'Premium & Exclusive only',
+    f10_title:'Multi-language',f10_desc:'From 2 languages on the Essential plan to unlimited languages on Premium. Perfect for international weddings.',f10_badge:'From Essential plan',
+    f11_title:'Countdown Timer',f11_desc:'An elegant real-time countdown to the big day. Keeps the excitement alive with every visit.',
+    f12_title:'Interactive Gallery',f12_desc:'A clothesline-style gallery with photos of the couple. Animated, touchable, and fully personalized.',
+    f13_title:'Events with Map',f13_desc:'Ceremony, reception and more. Each event with address, time, and an integrated Google Maps button.',
+    f14_title:'Personalized Music',f14_desc:'Their favorite song plays in the background as guests read the invitation.',
+    f15_title:'Gift Registry',f15_desc:'Bank transfers, PayPal, or online stores — all integrated with tap-to-copy account details.',
+    f16_title:'Dress Code',f16_desc:'Dresscode image with suggested color palette and colors to avoid, so everyone looks picture-perfect.',
+    f17_title:'Hotel Recommendations',f17_desc:'Suggest lodging options for out-of-town guests with star ratings, descriptions, and Google Maps links.',
+    f18_title:'Add to Calendar',f18_desc:'One tap and the event is saved to Google Calendar, Apple Calendar, or Outlook. No one forgets the date.',
+    f19_title:'Special Quote or Verse',f19_desc:'Include a Bible verse, a poem, or a meaningful quote — with a beautiful typographic design.',
+    f20_title:'Floral Animations',f20_desc:'Interactive floating petals that react to the cursor. A visually stunning experience on every screen.',
+    lang_lbl:'Languages',lang_title:'Your wedding, in their language',lang_body:'Because every family deserves to feel included.',
+    lang_basic_badge:'Essential Plan',lang_basic_title:'Two languages',lang_basic_desc:'Perfect for weddings with guests from two different cultures. Guests choose their preferred language when they open the invitation.',lang_basic_plus:'+ any combination of 2 languages',
+    lang_prem_badge:'Premium & Exclusive Plans',lang_prem_title:'Unlimited languages',lang_prem_desc:'No language limit. Add as many as you need so every guest, no matter their background, experiences the full invitation.',lang_prem_plus:'+ any language you need',
+    demo_lbl:'Preview',demo_title:'An experience that captivates',demo_body:'Every section is carefully crafted to delight your guests from the very first tap.',
+    di1_t:'Fully responsive',di1_d:'Looks perfect on mobile, tablet, and desktop — no matter the device.',
+    di2_t:'No app download needed',di2_d:'Just a link — share it via WhatsApp, email, or social media.',
+    di3_t:'Admin dashboard',di3_d:'Check in real time who confirmed and how many adults will attend.',
+    di4_t:'Active for 12 months',di4_d:'Your invitation stays live from launch until one year after your wedding day.',
+    phone_cd:'Countdown',phone_d:'Days',phone_h:'Hrs',phone_m:'Min',phone_s:'Sec',
+    phone_gal:'Our Moments',phone_rsvp:'RSVP',phone_send:'Send Confirmation ✦',
+    how_lbl:'Process',how_title:'That easy',how_body:'From idea to published invitation in less than 48 hours.',
+    s1_t:'Contact us',s1_d:'Message us on WhatsApp or fill out the form with your wedding details.',
+    s2_t:'Send your content',s2_d:'Photos, names, dates, music, and everything you want to include.',
+    s3_t:'We review together',s3_d:'We send you a preview for your approval or any requested changes.',
+    s4_t:'Ready to share!',s4_d:'You receive your unique link ready to send to all your guests.',
+    ex_lbl:'Styles',ex_title:'Designs you\'ll love',ex_body:'Every invitation is unique. These are some styles for inspiration.',
+    ex1_tag:'Rose & Mauve · 2 Languages',ex2_tag:'Sky Blue · 2 Languages',ex3_tag:'Sand & Copper · 2 Languages',
+    ex4_tag:'Sage Garden · 2 Languages',ex5_tag:'Multicultural · 3 Languages',ex6_tag:'Dark & Glamour · 4 Languages',
+    price_lbl:'Investment',price_title:'Clear pricing',price_body:'No hidden fees. No guest limit. Everything included.',
+    p1_name:'Essential',p2_name:'Premium',p3_name:'Exclusive',p_currency:'MXN · One-time payment',p_btn:'Choose plan',p_popular:'✦ Most Popular ✦',
+    p1_feats:[{hi:true,t:'Custom design'},{hi:true,t:'Opening animation (envelope or quill)'},{hi:true,t:'2 languages of your choice'},{hi:true,t:'RSVP via WhatsApp'},{hi:false,t:'Parents\' acknowledgment'},{hi:false,t:'2 events with map'},{hi:false,t:'Gallery (up to 12 photos)'},{hi:false,t:'Special quote or verse'},{hi:false,t:'Countdown timer'},{hi:false,t:'Background music'},{hi:false,t:'Active 12 months'}],
+    p2_feats:[{hi:true,t:'Everything in Essential'},{hi:true,t:'Unlimited languages'},{hi:true,t:'RSVP + QR access code'},{hi:true,t:'Real-time admin dashboard'},{hi:false,t:'Sponsors & godparents'},{hi:false,t:'Love story'},{hi:false,t:'Day-of itinerary'},{hi:false,t:'Unlimited photo gallery'},{hi:false,t:'Full gift registry'},{hi:false,t:'Hotel recommendations'},{hi:false,t:'Dress code'},{hi:false,t:'Add to calendar'},{hi:false,t:'Unlimited revisions'}],
+    p3_feats:[{hi:true,t:'Everything in Premium'},{hi:true,t:'Unlimited languages'},{hi:true,t:'Unique custom animation'},{hi:true,t:'RSVP + QR access code'},{hi:true,t:'Real-time admin dashboard'},{hi:false,t:'Custom domain'},{hi:false,t:'Welcome video'},{hi:false,t:'Digital check-in at the event'},{hi:false,t:'Priority support'},{hi:false,t:'Active 24 months'}],
+    test_lbl:'Reviews',test_title:'What couples are saying',
+    t1_q:'All my guests asked how we made the invitation. It looked incredible and confirming attendance was super easy. 100% recommended!',t1_a:'Valentina R. · Guadalajara',
+    t2_q:'The 3-language feature was perfect for our multicultural wedding. The family in Canada could read everything in English without any issues.',t2_a:'Xóchitl O. · Chihuahua',
+    t3_q:'The animated envelope made me cry when I first saw it. It was exactly what I imagined, only so much better.',t3_a:'Camila T. · Monterrey',
+    faq_lbl:'FAQ',faq_title:'Your questions, answered',
+    faqs:[
+      {q:'How long does it take to have my invitation ready?',a:'Once you send us all the details and photos, your invitation will be ready in 24 to 48 hours. If you need changes, we do them the same day.'},
+      {q:'How many languages can I include?',a:'The Essential plan includes 2 languages of your choice. Premium and Exclusive plans allow unlimited languages — perfect for multicultural weddings with guests from different countries.'},
+      {q:'How do I share it with my guests?',a:'You receive a unique link you can share via WhatsApp, Instagram, email, or any social network. You can also generate a QR code to print on your save-the-dates.'},
+      {q:'Is there a guest limit?',a:'No. You can share your invitation with 10 or 1,000 people — the price is the same regardless of how many guests view it.'},
+      {q:'Can I make changes after it\'s published?',a:'Yes. We include unlimited revisions on Premium and Exclusive plans. The Essential plan includes up to 3 rounds of revisions.'},
+      {q:'Do they work on iPhone and Android?',a:'Absolutely. Our invitations are optimized for all modern devices. Guests only need to open the link — no app download required.'}
+    ],
+    cta_lbl:'Ready to say Yes?',cta_title:'Start your invitation today',cta_body:'Message us and we\'ll send you a personalized quote in less than 1 hour.',
+    cta_wa:'WhatsApp',cta_email:'Send Email',
+    footer_copy:'© 2025 Mak Invitations · All rights reserved · Made with ✦ in Mexico'
+  }
+};
+
+var curLang='es';
+function setLang(l){
+  curLang=l;
+  document.getElementById('sw-es').classList.toggle('active',l==='es');
+  document.getElementById('sw-en').classList.toggle('active',l==='en');
+  var t=T[l];
+  /* text nodes */
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var k=el.getAttribute('data-i18n');
+    if(t[k]!==undefined)el.textContent=t[k];
+  });
+  /* plan feats */
+  ['p1','p2','p3'].forEach(function(p){
+    var ul=document.getElementById(p+'-feats');
+    if(!ul)return;
+    ul.innerHTML='';
+    (t[p+'_feats']||[]).forEach(function(f){
+      var li=document.createElement('li');
+      if(f.hi)li.className='hi';
+      li.textContent=f.t;
+      ul.appendChild(li);
+    });
+  });
+  /* faq */
+  var fl=document.getElementById('faq-list');
+  if(fl){
+    fl.innerHTML='';
+    (t.faqs||[]).forEach(function(f){
+      var item=document.createElement('div');item.className='faq-item';
+      item.innerHTML='<button class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q-text">'+f.q+'</span><span class="faq-icon">+</span></button><div class="faq-a"><p>'+f.a+'</p></div>';
+      fl.appendChild(item);
+    });
+  }
+  /* event cards */
+  var grid=document.getElementById('ev-grid');
+  if(grid){
+    grid.innerHTML='';
+    (t.ev_cards||[]).forEach(function(c){
+      var card=document.createElement('div');
+      card.className='ev-card reveal';
+      card.innerHTML=
+        '<div class="ev-card-header" style="background:'+c.gradient+';">'+
+          '<span class="ev-card-icon">'+c.icon+'</span>'+
+        '</div>'+
+        '<div class="ev-card-body">'+
+          '<span class="ev-card-tag" style="color:'+c.tagColor+';background:'+c.tagBg+';border-color:'+c.tagColor+'40;">'+c.tag+'</span>'+
+          '<div class="ev-card-name">'+c.name+'</div>'+
+          '<p class="ev-card-desc">'+c.desc+'</p>'+
+          '<div class="ev-card-price-row">'+
+            '<span class="ev-card-from">'+c.from+'</span>'+
+            '<span class="ev-card-price">'+c.price+' <span style="font-size:.7rem;font-family:var(--sans);font-weight:300;color:var(--muted);">MXN</span></span>'+
+          '</div>'+
+          '<a href="'+c.link+'" class="ev-card-btn" style="color:'+c.btnColor+';background:'+c.btnBg+';border-color:'+c.tagColor+'40;">'+c.btnTxt+'</a>'+
+        '</div>';
+      grid.appendChild(card);
+      obs.observe(card);
+    });
+  }
+  document.querySelectorAll('[data-ph-es]').forEach(function(el){
+    el.placeholder=t===T.en?(el.getAttribute('data-ph-en')||''):(el.getAttribute('data-ph-es')||'');
+  });
+  document.documentElement.lang=l;
+}
+
+/* ── petals ── */
+(function(){
+  var cont=document.getElementById('petals');
+  var colors=['rgba(210,185,185,.45)','rgba(195,185,175,.4)','rgba(185,195,185,.38)','rgba(200,190,180,.4)'];
+  for(var i=0;i<16;i++){var p=document.createElement('div');p.className='petal';var sz=Math.random()*12+7;p.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+Math.random()*100+'%;top:-20px;background:'+colors[Math.floor(Math.random()*colors.length)]+';border-radius:50%;animation-duration:'+(Math.random()*14+9)+'s;animation-delay:'+(Math.random()*12)+'s;';cont.appendChild(p);}
+})();
+
+/* ── phone slideshow ── */
+var curSlide=0,slides=document.querySelectorAll('.pslide'),dots=document.querySelectorAll('.ph-dot');
+function goSlide(n){slides[curSlide].classList.remove('active');dots[curSlide].classList.remove('active');curSlide=n;slides[curSlide].classList.add('active');dots[curSlide].classList.add('active');}
+setInterval(function(){goSlide((curSlide+1)%slides.length);},3000);
+
+/* ── phone countdown ── */
+(function(){
+  var tgt=new Date('2025-11-15T18:00:00').getTime();
+  function pad(n){return n<10?'0'+n:''+n;}
+  function tick(){var d=Math.max(0,tgt-Date.now());[['ps-d',86400000],['ps-h',3600000],['ps-m',60000],['ps-s',1000]].forEach(function(u,i,a){var el=document.getElementById(u[0]);var prev=i>0?a[i-1][1]:null;var v=prev?Math.floor((d%prev)/u[1]):Math.floor(d/u[1]);if(el)el.textContent=pad(v);});}
+  tick();setInterval(tick,1000);
+})();
+
+/* ── FAQ ── */
+function toggleFAQ(btn){var item=btn.closest('.faq-item'),open=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});if(!open)item.classList.add('open');}
+
+/* ── reveal ── */
+var obs=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting)en.target.classList.add('vis');});},{threshold:.06});
+document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
+
+/* init */
+setLang('es');
+</script>
+</body>
+</html>
