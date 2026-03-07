@@ -1,0 +1,804 @@
+import { useState, useRef } from "react";
+
+const GOLD = "#C8965A";
+const STEPS = ["Tipo", "Plan", "Secciones", "Datos", "Regalos", "Colores", "Fotos", "Preview", "Pago"];
+
+const EVENT_TYPES = [
+  { id: "boda", label: "Boda", icon: "💍" },
+  { id: "xv", label: "XV Años", icon: "👑" },
+  { id: "infantil", label: "Infantil", icon: "🎈" },
+  { id: "babyshower", label: "Baby Shower", icon: "🍼" },
+  { id: "corporativo", label: "Corporativo", icon: "🏢" },
+  { id: "otro", label: "Otro Evento", icon: "🎉" },
+];
+
+const PLANS = [
+  { id: "esencial", label: "Esencial", price: "$999 MXN", gallery: 12, color: "#C8965A", features: ["12 fotos galería", "5 fotos portada", "Secciones básicas", "RSVP por WhatsApp"] },
+  { id: "premium", label: "Premium", price: "$1,799 MXN", gallery: 50, color: "#9B5EA0", features: ["50 fotos galería", "5 fotos portada", "Todas las secciones", "RSVP + Base de datos", "QR confirmación"], badge: "Popular" },
+  { id: "exclusivo", label: "Exclusivo", price: "$2,999 MXN", gallery: 100, color: "#C84060", features: ["100 fotos galería", "5 fotos portada", "Panel admin + Check-in", "Multilenguaje (3 idiomas)"] },
+];
+
+const ALL_SECTIONS = [
+  { id: "hero", label: "Portada", icon: "🏠", desc: "Nombres, fecha y foto de fondo", required: true },
+  { id: "countdown", label: "Cuenta Regresiva", icon: "⏳", desc: "Temporizador hasta el evento" },
+  { id: "guest_msg", label: "Mensaje de Bienvenida", icon: "💌", desc: "Texto de invitación" },
+  { id: "parents", label: "Familia / Padrinos", icon: "👨‍👩‍👧", desc: "Nombres de padres o padrinos" },
+  { id: "events", label: "Eventos", icon: "📅", desc: "Lugares, horarios y fechas" },
+  { id: "itinerary", label: "Itinerario", icon: "🕐", desc: "Programa del día" },
+  { id: "colors", label: "Colores de Evento", icon: "🎨", desc: "Paleta de colores" },
+  { id: "dresscode", label: "Código de Vestimenta", icon: "👗", desc: "Colores y estilo" },
+  { id: "gallery", label: "Galería de Fotos", icon: "📸", desc: "Sesión de fotos" },
+  { id: "hotels", label: "Hospedaje", icon: "🏨", desc: "Hoteles recomendados" },
+  { id: "song", label: "Canción", icon: "🎵", desc: "Canción especial" },
+  { id: "gifts", label: "Mesa de Regalos", icon: "🎁", desc: "Tiendas, PayPal o transferencia" },
+  { id: "rsvp", label: "Confirmar Asistencia", icon: "✉️", desc: "Formulario de confirmación" },
+  { id: "quote", label: "Frase Especial", icon: "✨", desc: "Cita o verso significativo" },
+];
+
+const SECTION_FIELDS = {
+  hero: [
+    { id: "name1", label: "Nombre 1", type: "text", ph: "María" },
+    { id: "name2", label: "Nombre 2 (si aplica)", type: "text", ph: "Carlos" },
+    { id: "date", label: "Fecha del Evento", type: "date" },
+    { id: "time", label: "Hora", type: "time" },
+    { id: "city", label: "Ciudad / Lugar", type: "text", ph: "Chihuahua, México" },
+  ],
+  countdown: [{ id: "note", label: "Nota opcional", type: "text", ph: "¡Faltan muy pocos días!" }],
+  guest_msg: [
+    { id: "intro", label: "Mensaje principal", type: "textarea", ph: "Con amor y alegría, tenemos el placer de invitarte..." },
+    { id: "msg", label: "Mensaje secundario", type: "textarea", ph: "Tu presencia es el mejor regalo..." },
+  ],
+  parents: [
+    { id: "brideParents", label: "Padres de la Novia / Festejada", type: "textarea", ph: "Nombre Padre\nNombre Madre" },
+    { id: "groomParents", label: "Padres del Novio (si aplica)", type: "textarea", ph: "Nombre Padre\nNombre Madre" },
+  ],
+  events: [{ id: "eventsNote", label: "Describe cada evento", type: "textarea", ph: "Ceremonia: Iglesia La Purísima, 5pm\nRecepción: Salón Jardines, 7pm..." }],
+  itinerary: [{ id: "itinNote", label: "Itinerario del día", type: "textarea", ph: "6:00 PM - Llegada\n7:00 PM - Ceremonia..." }],
+  dresscode: [
+    { id: "ladies", label: "Vestimenta Mujeres", type: "text", ph: "Vestido largo, tonos pasteles" },
+    { id: "gents", label: "Vestimenta Hombres", type: "text", ph: "Traje formal, negro o gris" },
+    { id: "avoid", label: "Colores a evitar", type: "text", ph: "Blanco, negro" },
+  ],
+  gallery: [{ id: "galNote", label: "Nota galería (opcional)", type: "text", ph: "Nuestros momentos favoritos" }],
+  hotels: [{ id: "hotelsNote", label: "Hoteles recomendados", type: "textarea", ph: "Hotel Marriott - 5 min del salón..." }],
+  song: [
+    { id: "songTitle", label: "Título", type: "text", ph: "Perfect" },
+    { id: "songArtist", label: "Artista", type: "text", ph: "Ed Sheeran" },
+  ],
+  rsvp: [
+    { id: "deadline", label: "Fecha límite", type: "date" },
+    { id: "whatsapp", label: "WhatsApp", type: "text", ph: "+52 614 123 4567" },
+  ],
+  quote: [
+    { id: "quoteText", label: "Texto", type: "textarea", ph: "El amor es sufrido, es benigno..." },
+    { id: "quoteSource", label: "Fuente", type: "text", ph: "1 Corintios 13:4" },
+  ],
+};
+
+const STORE_OPTIONS = ["Liverpool", "Sears", "Amazon", "El Palacio de Hierro", "Coppel", "Otra tienda"];
+const COLOR_ROLES = [
+  { id: "primary", label: "Color Principal", ph: "Ej. Rosa palo, Borgoña, Azul marino", tip: "El color que más se verá en la invitación" },
+  { id: "secondary", label: "Color Secundario", ph: "Ej. Dorado, Blanco roto, Plateado", tip: "Complementa al principal" },
+  { id: "accent", label: "Color de Acento", ph: "Ej. Verde salvia, Nude, Negro", tip: "Detalles y toques finales (opcional)" },
+];
+
+// ── UI helpers ────────────────────────────────────────────────
+function GoldBtn({ onClick, children, disabled, variant = "primary", style = {} }) {
+  const base = { padding: "12px 28px", border: "none", borderRadius: 3, cursor: disabled ? "not-allowed" : "pointer", fontFamily: "Georgia,serif", fontSize: "0.9rem", fontStyle: "italic", letterSpacing: 1, transition: "all .2s", opacity: disabled ? 0.5 : 1, ...style };
+  if (variant === "primary") return <button onClick={onClick} disabled={disabled} style={{ ...base, background: `linear-gradient(135deg,${GOLD},#A8720A)`, color: "white" }}>{children}</button>;
+  return <button onClick={onClick} disabled={disabled} style={{ ...base, background: "transparent", border: `1.5px solid ${GOLD}`, color: GOLD }}>{children}</button>;
+}
+
+function StepBar({ current }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "center", gap: 0, marginBottom: 32, flexWrap: "wrap" }}>
+      {STEPS.map((s, i) => (
+        <div key={s} style={{ display: "flex", alignItems: "center" }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
+            <div style={{ width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: i < current ? `linear-gradient(135deg,${GOLD},#A8720A)` : i === current ? "white" : "rgba(200,150,90,.1)", border: `2px solid ${i <= current ? GOLD : "rgba(200,150,90,.22)"}`, color: i < current ? "white" : i === current ? GOLD : "#AAA", fontFamily: "Georgia,serif", fontSize: "0.7rem", fontWeight: 700 }}>{i < current ? "✓" : i + 1}</div>
+            <span style={{ fontSize: "0.42rem", letterSpacing: 2, textTransform: "uppercase", color: i <= current ? GOLD : "#AAA", fontFamily: "sans-serif", whiteSpace: "nowrap" }}>{s}</span>
+          </div>
+          {i < STEPS.length - 1 && <div style={{ width: 16, height: 2, background: i < current ? GOLD : "rgba(200,150,90,.15)", marginBottom: 18, flexShrink: 0 }} />}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function SectionTitle({ children }) {
+  return <h2 style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "clamp(1.4rem,4vw,2rem)", background: `linear-gradient(160deg,#FFE08A,#C8860A 30%,#F5D060 60%,#8B5E08)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", marginBottom: 8, textAlign: "center" }}>{children}</h2>;
+}
+
+function Field({ f, value, onChange }) {
+  const base = { width: "100%", border: "1px solid rgba(200,150,90,.32)", background: "#FDFAF8", padding: "10px 13px", fontFamily: "Georgia,serif", fontSize: "0.9rem", fontStyle: "italic", color: "#1A0C10", outline: "none", borderRadius: 2, boxSizing: "border-box" };
+  return (
+    <div style={{ marginBottom: 14 }}>
+      <label style={{ display: "block", fontFamily: "sans-serif", fontSize: "0.54rem", letterSpacing: "2px", textTransform: "uppercase", color: GOLD, fontWeight: 600, marginBottom: 4 }}>{f.label}</label>
+      {f.type === "textarea" ? <textarea value={value || ""} onChange={e => onChange(e.target.value)} placeholder={f.ph || ""} rows={3} style={{ ...base, resize: "vertical" }} /> : <input type={f.type || "text"} value={value || ""} onChange={e => onChange(e.target.value)} placeholder={f.ph || ""} style={base} />}
+    </div>
+  );
+}
+
+function PhotoUpload({ label, maxPhotos, photos, onAdd, onRemove }) {
+  const ref = useRef();
+  const handle = e => {
+    const files = Array.from(e.target.files).slice(0, maxPhotos - photos.length);
+    files.forEach(file => { const r = new FileReader(); r.onload = ev => onAdd({ name: file.name, url: ev.target.result }); r.readAsDataURL(file); });
+    e.target.value = "";
+  };
+  return (
+    <div style={{ marginBottom: 24 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
+        <label style={{ fontFamily: "sans-serif", fontSize: "0.56rem", letterSpacing: "2px", textTransform: "uppercase", color: GOLD, fontWeight: 700 }}>{label}</label>
+        <span style={{ fontFamily: "sans-serif", fontSize: "0.54rem", color: photos.length >= maxPhotos ? "#C84060" : "#888" }}>{photos.length}/{maxPhotos}</span>
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+        {photos.map((p, i) => (
+          <div key={i} style={{ position: "relative", width: 80, height: 80, borderRadius: 3, overflow: "hidden", border: "1.5px solid rgba(200,150,90,.4)" }}>
+            <img src={p.url} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            <button onClick={() => onRemove(i)} style={{ position: "absolute", top: 2, right: 2, background: "rgba(0,0,0,.7)", border: "none", color: "white", borderRadius: "50%", width: 18, height: 18, cursor: "pointer", fontSize: "0.6rem", padding: 0 }}>✕</button>
+          </div>
+        ))}
+        {photos.length < maxPhotos && (
+          <button onClick={() => ref.current.click()} style={{ width: 80, height: 80, border: `2px dashed rgba(200,150,90,.45)`, borderRadius: 3, background: "rgba(200,150,90,.05)", cursor: "pointer", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", color: GOLD, gap: 4 }}>
+            <span style={{ fontSize: "1.3rem" }}>+</span>
+            <span style={{ fontFamily: "sans-serif", fontSize: "0.42rem", letterSpacing: 1 }}>AGREGAR</span>
+          </button>
+        )}
+      </div>
+      <input ref={ref} type="file" accept="image/*" multiple style={{ display: "none" }} onChange={handle} />
+    </div>
+  );
+}
+
+function ColorSection({ colorData, setColorData }) {
+  const inputStyle = { width: "100%", border: "1px solid rgba(200,150,90,.32)", background: "#FDFAF8", padding: "10px 13px", fontFamily: "Georgia,serif", fontSize: "0.92rem", fontStyle: "italic", color: "#1A0C10", outline: "none", borderRadius: 2, boxSizing: "border-box" };
+  return (
+    <div>
+      <p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.95rem", color: "#5A3A44", marginBottom: 20, lineHeight: 1.8 }}>
+        Indícanos los colores que imaginas para tu invitación. Con esta información nuestro equipo diseñará la paleta final.
+      </p>
+      {COLOR_ROLES.map(r => (
+        <div key={r.id} style={{ marginBottom: 18 }}>
+          <label style={{ display: "block", fontFamily: "sans-serif", fontSize: "0.54rem", letterSpacing: "2px", textTransform: "uppercase", color: GOLD, fontWeight: 700, marginBottom: 4 }}>{r.label}</label>
+          <input type="text" value={colorData[r.id] || ""} onChange={e => setColorData(p => ({ ...p, [r.id]: e.target.value }))} placeholder={r.ph} style={inputStyle} />
+          <p style={{ fontFamily: "sans-serif", fontSize: "0.52rem", color: "#AAA", marginTop: 3, letterSpacing: 1 }}>{r.tip}</p>
+        </div>
+      ))}
+      <div style={{ marginTop: 4 }}>
+        <label style={{ display: "block", fontFamily: "sans-serif", fontSize: "0.54rem", letterSpacing: "2px", textTransform: "uppercase", color: GOLD, fontWeight: 700, marginBottom: 4 }}>Referencia o inspiración (opcional)</label>
+        <textarea value={colorData.note || ""} onChange={e => setColorData(p => ({ ...p, note: e.target.value }))} placeholder="Ej. Estilo jardín elegante, colores tierra con dorado, inspiración en Pinterest..." rows={3} style={{ ...inputStyle, resize: "vertical" }} />
+      </div>
+    </div>
+  );
+}
+
+function GiftsSection({ gifts, setGifts }) {
+  const addGift = () => setGifts(prev => [...prev, { type: "", store: "", link: "", banco: "", titular: "", clabe: "", tarjeta: "" }]);
+  const removeGift = i => setGifts(prev => prev.filter((_, idx) => idx !== i));
+  const updateGift = (i, field, val) => setGifts(prev => prev.map((g, idx) => idx === i ? { ...g, [field]: val } : g));
+  const inputStyle = { width: "100%", border: "1px solid rgba(200,150,90,.3)", background: "#FDFAF8", padding: "9px 12px", fontFamily: "Georgia,serif", fontSize: "0.9rem", fontStyle: "italic", borderRadius: 2, outline: "none", boxSizing: "border-box", appearance: "none" };
+  const lbl = { display: "block", fontFamily: "sans-serif", fontSize: "0.52rem", letterSpacing: "2px", textTransform: "uppercase", color: GOLD, fontWeight: 600, marginBottom: 4 };
+  return (
+    <div>
+      {gifts.map((g, i) => (
+        <div key={i} style={{ background: "white", border: "1px solid rgba(200,150,90,.2)", borderRadius: 4, padding: 18, marginBottom: 14, position: "relative" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+            <span style={{ fontFamily: "sans-serif", fontSize: "0.58rem", letterSpacing: 2, textTransform: "uppercase", color: GOLD, fontWeight: 700 }}>Opción {i + 1}</span>
+            <button onClick={() => removeGift(i)} style={{ background: "none", border: "1px solid rgba(200,60,60,.3)", color: "#C84060", borderRadius: 3, padding: "3px 9px", cursor: "pointer", fontFamily: "sans-serif", fontSize: "0.55rem" }}>✕ Eliminar</button>
+          </div>
+          <div style={{ marginBottom: 12 }}>
+            <label style={lbl}>Tipo</label>
+            <select value={g.type} onChange={e => updateGift(i, "type", e.target.value)} style={inputStyle}>
+              <option value="">— Selecciona tipo —</option>
+              <option value="tienda">🏬 Tienda Departamental</option>
+              <option value="paypal">💙 PayPal</option>
+              <option value="transferencia">🏦 Transferencia Bancaria</option>
+            </select>
+          </div>
+          {g.type === "tienda" && (<>
+            <div style={{ marginBottom: 12 }}><label style={lbl}>Tienda</label><select value={g.store} onChange={e => updateGift(i, "store", e.target.value)} style={inputStyle}><option value="">— Selecciona —</option>{STORE_OPTIONS.map(s => <option key={s} value={s}>{s}</option>)}</select></div>
+            {g.store && <div style={{ marginBottom: 12 }}><label style={lbl}>Enlace a tu lista en {g.store}</label><input type="text" value={g.link} onChange={e => updateGift(i, "link", e.target.value)} placeholder={`https://www.${g.store.toLowerCase().replace(/\s+/g, "")}.com.mx/...`} style={inputStyle} /></div>}
+          </>)}
+          {g.type === "paypal" && (
+            <div style={{ marginBottom: 12 }}><label style={lbl}>Enlace PayPal</label><input type="text" value={g.link} onChange={e => updateGift(i, "link", e.target.value)} placeholder="https://paypal.me/tuusuario" style={inputStyle} /></div>
+          )}
+          {g.type === "transferencia" && (
+            [["banco","Banco","BBVA / Banorte / Santander"],["titular","Titular","Nombre completo"],["clabe","CLABE (18 dígitos)","012345678901234567"],["tarjeta","Número de tarjeta (opcional)","1234 5678 9012 3456"]].map(([fid,flbl,fph]) => (
+              <div key={fid} style={{ marginBottom: 12 }}><label style={lbl}>{flbl}</label><input type="text" value={g[fid]||""} onChange={e => updateGift(i, fid, e.target.value)} placeholder={fph} style={inputStyle} /></div>
+            ))
+          )}
+        </div>
+      ))}
+      <button onClick={addGift} style={{ width: "100%", padding: "13px", border: `2px dashed rgba(200,150,90,.45)`, background: "rgba(200,150,90,.04)", borderRadius: 4, cursor: "pointer", color: GOLD, fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.9rem" }}>+ Agregar opción de regalo</button>
+    </div>
+  );
+}
+
+// ── PREVIEW COMPONENT ─────────────────────────────────────────
+function InvitationPreview({ eventType, sectionData, orderedSelected, heroPhotos, galleryPhotos, gifts, colorData }) {
+  const d = sectionData;
+  const hero = d.hero || {};
+  const name1 = hero.name1 || "Nombre 1";
+  const name2 = hero.name2 || "";
+  const dateRaw = hero.date || "";
+  const city = hero.city || "Ciudad, México";
+  const hasHero2 = !!name2;
+
+  const formatDate = raw => {
+    if (!raw) return "";
+    const [y, m, mo] = raw.split("-");
+    const months = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+    return `${parseInt(mo)} de ${months[parseInt(m)-1]} de ${y}`;
+  };
+
+  const heroPhoto = heroPhotos[0]?.url;
+
+  // Gold gradient text style (works as background-clip)
+  const goldText = { background: "linear-gradient(160deg,#FFE08A,#C8860A 25%,#F5D060 50%,#8B5E08 75%,#E8C050)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", display: "inline-block" };
+  const divider = <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10, margin: "10px 0" }}><div style={{ height: 1, width: 50, background: "rgba(200,150,90,.4)" }} /><div style={{ width: 5, height: 5, background: GOLD, transform: "rotate(45deg)" }} /><div style={{ height: 1, width: 50, background: "rgba(200,150,90,.4)" }} /></div>;
+
+  const secStyle = { padding: "24px 16px", borderBottom: "1px solid rgba(200,150,90,.1)", textAlign: "center" };
+  const secLabel = txt => <p style={{ fontFamily: "sans-serif", fontSize: "0.42rem", letterSpacing: 4, textTransform: "uppercase", color: GOLD, marginBottom: 4 }}>{txt}</p>;
+  const secTitle = txt => <h3 style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "1.35rem", ...goldText, lineHeight: 1.4, marginBottom: 0 }}>{txt}</h3>;
+
+  const [cdState] = useState(() => {
+    if (!dateRaw) return { d: "00", h: "00", m: "00", s: "00" };
+    const diff = Math.max(0, new Date(dateRaw + "T00:00:00").getTime() - Date.now());
+    const pad = n => String(Math.floor(n)).padStart(2, "0");
+    return { d: pad(diff / 86400000), h: pad((diff % 86400000) / 3600000), m: pad((diff % 3600000) / 60000), s: pad((diff % 60000) / 1000) };
+  });
+
+  return (
+    <div style={{ fontFamily: "Georgia,serif", background: "#FEF9F6", minHeight: "100%", fontSize: 14 }}>
+
+      {/* TOP BAR */}
+      <div style={{ background: "rgba(254,249,246,.97)", borderBottom: "1px solid rgba(200,150,90,.2)", padding: "8px 14px", display: "flex", alignItems: "center", justifyContent: "center", position: "sticky", top: 0, zIndex: 10 }}>
+        <span style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.95rem", ...goldText, letterSpacing: 2 }}>{name1}{hasHero2 ? ` & ${name2}` : ""}</span>
+      </div>
+
+      {/* HERO */}
+      {orderedSelected.includes("hero") && (
+        <div style={{ minHeight: 280, background: heroPhoto ? `linear-gradient(rgba(10,4,6,.38),rgba(10,4,6,.18) 40%,rgba(10,4,6,.5)), url(${heroPhoto}) center/cover` : "linear-gradient(160deg,#3A1828,#1E0E18)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "40px 20px", position: "relative" }}>
+          <p style={{ fontFamily: "sans-serif", fontSize: "0.45rem", letterSpacing: 5, textTransform: "uppercase", color: "rgba(255,255,255,.7)", marginBottom: 8 }}>
+            {eventType === "boda" ? "te invitamos a nuestra boda" : eventType === "xv" ? "quince años" : "te invitamos a celebrar"}
+          </p>
+          <div style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "clamp(2rem,8vw,3.2rem)", color: "#fff", lineHeight: 1.25, textShadow: "0 2px 18px rgba(0,0,0,.7)" }}>
+            {name1}
+            {hasHero2 && <><br /><span style={{ color: GOLD, fontSize: "0.75em" }}>&amp;</span><br />{name2}</>}
+          </div>
+          {divider}
+          {dateRaw && <p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.85rem", color: GOLD, letterSpacing: 2, textShadow: "0 1px 8px rgba(0,0,0,.8)" }}>{formatDate(dateRaw)}</p>}
+          {hero.time && <p style={{ fontFamily: "sans-serif", fontSize: "0.52rem", letterSpacing: 3, textTransform: "uppercase", color: "rgba(255,200,180,.9)", marginTop: 4 }}>{hero.time} · {city}</p>}
+        </div>
+      )}
+
+      {/* COUNTDOWN */}
+      {orderedSelected.includes("countdown") && (
+        <div style={{ ...secStyle, background: "#FEF9F6" }}>
+          {secLabel("cuenta regresiva")}
+          <div style={{ display: "flex", justifyContent: "center", gap: 16, marginTop: 10 }}>
+            {[["d","días"],["h","horas"],["m","min"],["s","seg"]].map(([k, u]) => (
+              <div key={k} style={{ textAlign: "center" }}>
+                <div style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "2rem", fontWeight: 300, ...goldText, lineHeight: 1 }}>{cdState[k]}</div>
+                <div style={{ fontFamily: "sans-serif", fontSize: "0.42rem", letterSpacing: 3, textTransform: "uppercase", color: GOLD, marginTop: 3 }}>{u}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* GUEST MSG */}
+      {orderedSelected.includes("guest_msg") && (d.guest_msg?.intro || d.guest_msg?.msg) && (
+        <div style={{ ...secStyle, background: "linear-gradient(160deg,rgba(242,196,208,.18),transparent)" }}>
+          {d.guest_msg.intro && <p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.9rem", color: "#5A3A44", lineHeight: 1.9 }}>{d.guest_msg.intro}</p>}
+          {d.guest_msg.msg && <p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.85rem", color: "#8A5060", lineHeight: 1.9, marginTop: 6 }}>{d.guest_msg.msg}</p>}
+        </div>
+      )}
+
+      {/* PARENTS */}
+      {orderedSelected.includes("parents") && (d.parents?.brideParents || d.parents?.groomParents) && (
+        <div style={{ ...secStyle, background: "linear-gradient(160deg,#2A1520,#1E0E18,#2A1520)", color: "white" }}>
+          {secLabel("con el amor de nuestras familias")}
+          {secTitle("Nuestras Familias")}
+          {divider}
+          {d.parents.brideParents && (
+            <div style={{ marginBottom: 10 }}>
+              <p style={{ fontFamily: "sans-serif", fontSize: "0.44rem", letterSpacing: 3, textTransform: "uppercase", color: GOLD, marginBottom: 4 }}>Padres de la novia</p>
+              <p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.85rem", color: "rgba(255,255,255,.85)", lineHeight: 1.8 }}>{d.parents.brideParents.split("\n").join(" & ")}</p>
+            </div>
+          )}
+          {d.parents.groomParents && (
+            <div>
+              <p style={{ fontFamily: "sans-serif", fontSize: "0.44rem", letterSpacing: 3, textTransform: "uppercase", color: GOLD, marginBottom: 4 }}>Padres del novio</p>
+              <p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.85rem", color: "rgba(255,255,255,.85)", lineHeight: 1.8 }}>{d.parents.groomParents.split("\n").join(" & ")}</p>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* EVENTS */}
+      {orderedSelected.includes("events") && d.events?.eventsNote && (
+        <div style={{ ...secStyle }}>
+          {secLabel("fechas y lugares")}
+          {secTitle("Eventos")}
+          {divider}
+          <div style={{ background: "rgba(200,150,90,.06)", border: "1px solid rgba(200,150,90,.2)", borderRadius: 4, padding: "14px 16px", textAlign: "left", maxWidth: 280, margin: "0 auto" }}>
+            {d.events.eventsNote.split("\n").filter(Boolean).map((line, i) => (
+              <p key={i} style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.82rem", color: "#3A2510", lineHeight: 1.9, borderBottom: i < d.events.eventsNote.split("\n").filter(Boolean).length - 1 ? "1px solid rgba(200,150,90,.15)" : "none", paddingBottom: 6, marginBottom: 6 }}>📍 {line}</p>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* ITINERARY */}
+      {orderedSelected.includes("itinerary") && d.itinerary?.itinNote && (
+        <div style={{ ...secStyle }}>
+          {secLabel("programa del día")}
+          {secTitle("Itinerario")}
+          {divider}
+          <div style={{ textAlign: "left", maxWidth: 260, margin: "0 auto" }}>
+            {d.itinerary.itinNote.split("\n").filter(Boolean).map((line, i) => (
+              <div key={i} style={{ display: "flex", gap: 10, alignItems: "flex-start", marginBottom: 10 }}>
+                <div style={{ width: 8, height: 8, borderRadius: "50%", background: GOLD, flexShrink: 0, marginTop: 5 }} />
+                <p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.82rem", color: "#3A2510", lineHeight: 1.8 }}>{line}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* DRESSCODE */}
+      {orderedSelected.includes("dresscode") && (d.dresscode?.ladies || d.dresscode?.gents) && (
+        <div style={{ ...secStyle }}>
+          {secLabel("código de vestimenta")}
+          {secTitle("Vestimenta Formal")}
+          {divider}
+          <div style={{ display: "flex", justifyContent: "center", gap: 28, marginTop: 8 }}>
+            {d.dresscode.ladies && <div><p style={{ fontFamily: "sans-serif", fontSize: "0.45rem", letterSpacing: 3, textTransform: "uppercase", color: GOLD, marginBottom: 4 }}>Mujeres</p><p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.8rem", color: "#5A3A44" }}>👗 {d.dresscode.ladies}</p></div>}
+            {d.dresscode.gents && <div><p style={{ fontFamily: "sans-serif", fontSize: "0.45rem", letterSpacing: 3, textTransform: "uppercase", color: GOLD, marginBottom: 4 }}>Hombres</p><p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.8rem", color: "#5A3A44" }}>🤵 {d.dresscode.gents}</p></div>}
+          </div>
+          {d.dresscode.avoid && <p style={{ fontFamily: "sans-serif", fontSize: "0.52rem", color: "#C84060", marginTop: 10 }}>⚠️ Evitar: {d.dresscode.avoid}</p>}
+        </div>
+      )}
+
+      {/* GALLERY */}
+      {orderedSelected.includes("gallery") && galleryPhotos.length > 0 && (
+        <div style={{ background: "#1C0F07", padding: "24px 0" }}>
+          <div style={{ textAlign: "center", marginBottom: 16 }}>
+            {secLabel("galería de fotos")}
+            <h3 style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "1.3rem", background: "linear-gradient(160deg,#FFF4A8,#E8C040 30%,#FFE880 60%,#A06818)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", display: "inline-block" }}>Nuestros Momentos</h3>
+          </div>
+          <div style={{ display: "flex", gap: 10, overflowX: "auto", padding: "0 16px", scrollbarWidth: "none" }}>
+            {galleryPhotos.slice(0, 6).map((p, i) => (
+              <div key={i} style={{ flexShrink: 0, width: 110, background: "white", padding: "5px 5px 22px", boxShadow: "0 8px 24px rgba(0,0,0,.5)", transform: i % 2 === 0 ? "rotate(-2deg)" : "rotate(2deg)" }}>
+                <img src={p.url} alt="" style={{ width: "100%", height: 90, objectFit: "cover", display: "block" }} />
+              </div>
+            ))}
+            {galleryPhotos.length > 6 && <div style={{ flexShrink: 0, width: 110, height: 120, background: "rgba(200,150,90,.15)", display: "flex", alignItems: "center", justifyContent: "center", color: GOLD, fontFamily: "Georgia,serif", fontSize: "1.4rem" }}>+{galleryPhotos.length - 6}</div>}
+          </div>
+        </div>
+      )}
+
+      {/* HOTELS */}
+      {orderedSelected.includes("hotels") && d.hotels?.hotelsNote && (
+        <div style={{ ...secStyle }}>
+          {secLabel("hospedaje")}
+          {secTitle("Opciones de Hospedaje")}
+          {divider}
+          <div style={{ textAlign: "left", maxWidth: 280, margin: "0 auto" }}>
+            {d.hotels.hotelsNote.split("\n").filter(Boolean).map((h, i) => (
+              <div key={i} style={{ background: "white", border: "1px solid rgba(200,150,90,.2)", padding: "10px 12px", marginBottom: 8, borderRadius: 3 }}>
+                <p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.82rem", color: "#3A2510" }}>🏨 {h}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* SONG */}
+      {orderedSelected.includes("song") && d.song?.songTitle && (
+        <div style={{ ...secStyle }}>
+          {secLabel("nuestra canción")}
+          {secTitle(d.song.songTitle)}
+          <p style={{ fontFamily: "sans-serif", fontSize: "0.55rem", letterSpacing: 2, textTransform: "uppercase", color: GOLD, marginTop: 4 }}>{d.song.songArtist}</p>
+          <div style={{ width: 56, height: 56, borderRadius: "50%", background: "conic-gradient(#3A2A2E 0deg,#7a6a52 60deg,#3A2A2E 120deg,#7a6a52 180deg,#3A2A2E 240deg,#7a6a52 300deg,#3A2A2E 360deg)", margin: "12px auto", display: "flex", alignItems: "center", justifyContent: "center", position: "relative" }}>
+            <div style={{ width: 16, height: 16, borderRadius: "50%", background: "#FEF9F6", position: "absolute" }} />
+          </div>
+        </div>
+      )}
+
+      {/* GIFTS */}
+      {orderedSelected.includes("gifts") && gifts.length > 0 && (
+        <div style={{ ...secStyle }}>
+          {secLabel("mesa de regalos")}
+          {secTitle("Un Regalo del Corazón")}
+          {divider}
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 10, marginTop: 8 }}>
+            {gifts.map((g, i) => (
+              <div key={i} style={{ background: "white", border: "1px solid rgba(200,150,90,.25)", padding: "12px 14px", borderRadius: 3, minWidth: 110, textAlign: "center" }}>
+                <div style={{ fontSize: "1.4rem", marginBottom: 4 }}>{g.type === "tienda" ? "🏬" : g.type === "paypal" ? "💙" : "🏦"}</div>
+                <p style={{ fontFamily: "sans-serif", fontSize: "0.55rem", color: GOLD, fontWeight: 700, letterSpacing: 1 }}>{g.type === "tienda" ? g.store || "Tienda" : g.type === "paypal" ? "PayPal" : "Transferencia"}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* RSVP */}
+      {orderedSelected.includes("rsvp") && (
+        <div style={{ ...secStyle, background: "rgba(232,160,180,.08)" }}>
+          {secLabel("confirmación de asistencia")}
+          {secTitle("Confirmar Asistencia")}
+          {d.rsvp?.deadline && <p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.78rem", color: "#8A5060", marginTop: 6 }}>Antes del {formatDate(d.rsvp.deadline)}</p>}
+          {divider}
+          <div style={{ maxWidth: 240, margin: "0 auto" }}>
+            {["Nombre","Apellido","Mensaje"].map(f => <div key={f} style={{ border: "1px solid rgba(200,150,90,.3)", background: "#FDFAF8", padding: "8px 10px", marginBottom: 8, borderRadius: 2, textAlign: "left" }}><span style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.75rem", color: "#AAA" }}>{f}...</span></div>)}
+            <div style={{ background: `linear-gradient(135deg,${GOLD},#A8720A)`, padding: "10px", textAlign: "center", borderRadius: 2, marginTop: 4 }}>
+              <span style={{ fontFamily: "sans-serif", fontSize: "0.52rem", letterSpacing: 3, textTransform: "uppercase", color: "white" }}>Confirmar</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* QUOTE */}
+      {orderedSelected.includes("quote") && d.quote?.quoteText && (
+        <div style={{ padding: "28px 20px", textAlign: "center", background: "linear-gradient(160deg,#2A1520,#1E0E18)" }}>
+          <p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.9rem", color: "white", lineHeight: 1.9, maxWidth: 260, margin: "0 auto" }}>
+            "{d.quote.quoteText}"
+          </p>
+          {d.quote.quoteSource && <p style={{ fontFamily: "sans-serif", fontSize: "0.44rem", letterSpacing: 3, color: "rgba(255,255,255,.4)", textTransform: "uppercase", marginTop: 10 }}>— {d.quote.quoteSource}</p>}
+        </div>
+      )}
+
+      {/* FOOTER */}
+      <div style={{ background: "#1A0C10", padding: "16px 20px", textAlign: "center" }}>
+        <span style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "1.1rem", ...goldText, opacity: 0.7 }}>Mak Invitations</span>
+      </div>
+    </div>
+  );
+}
+
+// ── MAIN APP ─────────────────────────────────────────────────
+export default function App() {
+  const [step, setStep] = useState(0);
+  const [eventType, setEventType] = useState(null);
+  const [plan, setPlan] = useState(null);
+  const [selectedSections, setSelectedSections] = useState(["hero", "countdown", "events", "gallery", "rsvp"]);
+  const [sectionOrder, setSectionOrder] = useState(ALL_SECTIONS.map(s => s.id));
+  const [sectionData, setSectionData] = useState({});
+  const [gifts, setGifts] = useState([]);
+  const [colorData, setColorData] = useState({ primary: "", secondary: "", accent: "", note: "" });
+  const [heroPhotos, setHeroPhotos] = useState([]);
+  const [galleryPhotos, setGalleryPhotos] = useState([]);
+  const [accepted, setAccepted] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [previewDevice, setPreviewDevice] = useState("mobile");
+
+  const selectedPlan = PLANS.find(p => p.id === plan);
+  const maxGallery = selectedPlan?.gallery || 12;
+  const orderedSelected = sectionOrder.filter(s => selectedSections.includes(s));
+
+  const toggleSection = id => { if (id === "hero") return; setSelectedSections(prev => prev.includes(id) ? prev.filter(s => s !== id) : [...prev, id]); };
+  const moveSection = (id, dir) => {
+    const ord = sectionOrder.filter(s => selectedSections.includes(s));
+    const idx = ord.indexOf(id); if (idx < 0) return;
+    const ni = idx + dir; if (ni < 0 || ni >= ord.length) return;
+    const next = [...ord]; [next[idx], next[ni]] = [next[ni], next[idx]];
+    setSectionOrder([...next, ...sectionOrder.filter(s => !selectedSections.includes(s))]);
+  };
+  const updateField = (sec, fld, val) => setSectionData(prev => ({ ...prev, [sec]: { ...(prev[sec] || {}), [fld]: val } }));
+
+  const cardStyle = { background: "white", border: "1px solid rgba(200,150,90,.2)", borderRadius: 4, padding: 20, marginBottom: 18 };
+  const secHead = (icon, label, desc) => (
+    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14, paddingBottom: 12, borderBottom: "1px solid rgba(200,150,90,.1)" }}>
+      <span style={{ fontSize: "1.2rem" }}>{icon}</span>
+      <div><p style={{ fontFamily: "sans-serif", fontSize: "0.6rem", fontWeight: 700, letterSpacing: 2, textTransform: "uppercase", color: GOLD }}>{label}</p><p style={{ fontFamily: "sans-serif", fontSize: "0.5rem", color: "#AAA" }}>{desc}</p></div>
+    </div>
+  );
+
+  if (submitted) return (
+    <div style={{ minHeight: "100vh", background: "linear-gradient(160deg,#FEF9F6,#F5EAF4)", display: "flex", alignItems: "center", justifyContent: "center", padding: 24 }}>
+      <div style={{ textAlign: "center", maxWidth: 460, padding: 36, background: "white", border: `1px solid rgba(200,150,90,.3)`, boxShadow: "0 20px 60px rgba(0,0,0,.1)", borderRadius: 4 }}>
+        <div style={{ fontSize: "2.8rem", marginBottom: 14 }}>💌</div>
+        <SectionTitle>¡Solicitud Enviada!</SectionTitle>
+        <p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", color: "#5A3A44", lineHeight: 1.9, marginBottom: 22, fontSize: "0.95rem" }}>El equipo de <strong>Mak Invitations</strong> te contactará en 24–48 horas para confirmar el pago y comenzar con tu invitación.</p>
+        <div style={{ background: "rgba(200,150,90,.07)", border: "1px solid rgba(200,150,90,.25)", padding: "14px 18px", marginBottom: 22, borderRadius: 3 }}>
+          <p style={{ fontFamily: "sans-serif", fontSize: "0.55rem", letterSpacing: 2, textTransform: "uppercase", color: GOLD, marginBottom: 6 }}>Resumen</p>
+          <p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", color: "#1A0C10", fontSize: "0.9rem" }}>{EVENT_TYPES.find(e => e.id === eventType)?.icon} {EVENT_TYPES.find(e => e.id === eventType)?.label} · Plan {selectedPlan?.label} · {selectedPlan?.price}</p>
+          <p style={{ fontFamily: "sans-serif", fontSize: "0.6rem", color: "#888", marginTop: 3 }}>{orderedSelected.length} secciones · {heroPhotos.length} portada · {galleryPhotos.length} galería</p>
+        </div>
+        <GoldBtn onClick={() => { setSubmitted(false); setStep(0); setEventType(null); setPlan(null); setGifts([]); setHeroPhotos([]); setGalleryPhotos([]); setAccepted(false); }}>Crear otra invitación</GoldBtn>
+      </div>
+    </div>
+  );
+
+  return (
+    <div style={{ minHeight: "100vh", background: "linear-gradient(160deg,#FEF9F6,#F5EAF4)" }}>
+      <div style={{ background: "rgba(254,249,246,.97)", borderBottom: "1px solid rgba(200,150,90,.18)", padding: "11px 20px", textAlign: "center", position: "sticky", top: 0, zIndex: 100, backdropFilter: "blur(12px)" }}>
+        <span style={{ fontFamily: "Georgia,serif", fontSize: "clamp(1rem,3vw,1.4rem)", fontStyle: "italic", background: `linear-gradient(160deg,#FFE08A,${GOLD} 40%,#F0D080 70%,#8B5E08)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", letterSpacing: 2 }}>Mak Invitations</span>
+        <span style={{ display: "block", fontFamily: "sans-serif", fontSize: "0.45rem", letterSpacing: 4, textTransform: "uppercase", color: GOLD, marginTop: 1 }}>Formulario de Pedido</span>
+      </div>
+
+      <div style={{ maxWidth: 920, margin: "0 auto", padding: "26px 14px 56px" }}>
+        <StepBar current={step} />
+
+        {/* STEP 0 — TIPO */}
+        {step === 0 && (
+          <div>
+            <SectionTitle>¿Qué tipo de invitación necesitas?</SectionTitle>
+            <p style={{ textAlign: "center", fontFamily: "sans-serif", fontSize: "0.63rem", color: "#888", letterSpacing: 1, marginBottom: 22 }}>Selecciona el tipo de evento</p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(118px,1fr))", gap: 11, marginBottom: 26 }}>
+              {EVENT_TYPES.map(e => (
+                <button key={e.id} onClick={() => setEventType(e.id)} style={{ padding: "18px 10px", border: `2px solid ${eventType === e.id ? GOLD : "rgba(200,150,90,.2)"}`, background: eventType === e.id ? "rgba(200,150,90,.1)" : "white", cursor: "pointer", borderRadius: 4, transform: eventType === e.id ? "translateY(-3px)" : "none", boxShadow: eventType === e.id ? `0 8px 22px rgba(200,150,90,.26)` : "0 2px 5px rgba(0,0,0,.04)", transition: "all .2s" }}>
+                  <div style={{ fontSize: "1.7rem", marginBottom: 5 }}>{e.icon}</div>
+                  <div style={{ fontFamily: "sans-serif", fontSize: "0.58rem", letterSpacing: 2, textTransform: "uppercase", color: eventType === e.id ? GOLD : "#5A3A44", fontWeight: 600 }}>{e.label}</div>
+                </button>
+              ))}
+            </div>
+            <div style={{ textAlign: "center" }}><GoldBtn onClick={() => setStep(1)} disabled={!eventType}>Siguiente →</GoldBtn></div>
+          </div>
+        )}
+
+        {/* STEP 1 — PLAN */}
+        {step === 1 && (
+          <div>
+            <SectionTitle>Elige tu Plan</SectionTitle>
+            <p style={{ textAlign: "center", fontFamily: "sans-serif", fontSize: "0.63rem", color: "#888", letterSpacing: 1, marginBottom: 22 }}>Dominio personalizado incluido por 1 año</p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))", gap: 14, marginBottom: 26 }}>
+              {PLANS.map(p => (
+                <button key={p.id} onClick={() => setPlan(p.id)} style={{ padding: "20px 16px", border: `2px solid ${plan === p.id ? p.color : "rgba(200,150,90,.2)"}`, background: "white", cursor: "pointer", borderRadius: 4, textAlign: "center", position: "relative", transform: plan === p.id ? "translateY(-4px)" : "none", boxShadow: plan === p.id ? `0 12px 28px rgba(0,0,0,.13)` : "0 2px 5px rgba(0,0,0,.04)", transition: "all .2s" }}>
+                  {p.badge && <div style={{ position: "absolute", top: -10, left: "50%", transform: "translateX(-50%)", background: p.color, color: "white", fontFamily: "sans-serif", fontSize: "0.45rem", letterSpacing: 2, padding: "3px 11px", borderRadius: 99, textTransform: "uppercase", fontWeight: 700 }}>{p.badge}</div>}
+                  <div style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "1.3rem", color: p.color, marginBottom: 2 }}>{p.label}</div>
+                  <div style={{ fontFamily: "sans-serif", fontSize: "1.1rem", fontWeight: 700, color: "#1A0C10", marginBottom: 10 }}>{p.price}</div>
+                  <ul style={{ listStyle: "none", padding: 0, textAlign: "left" }}>{p.features.map(f => <li key={f} style={{ fontFamily: "sans-serif", fontSize: "0.58rem", color: "#5A3A44", padding: "2px 0", display: "flex", gap: 5 }}><span style={{ color: p.color }}>✓</span>{f}</li>)}</ul>
+                </button>
+              ))}
+            </div>
+            <div style={{ display: "flex", justifyContent: "center", gap: 12 }}>
+              <GoldBtn variant="outline" onClick={() => setStep(0)}>← Anterior</GoldBtn>
+              <GoldBtn onClick={() => setStep(2)} disabled={!plan}>Siguiente →</GoldBtn>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 2 — SECCIONES */}
+        {step === 2 && (
+          <div>
+            <SectionTitle>Secciones de tu Invitación</SectionTitle>
+            <p style={{ textAlign: "center", fontFamily: "sans-serif", fontSize: "0.63rem", color: "#888", letterSpacing: 1, marginBottom: 22 }}>Activa las que desees y ordénalas</p>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 9, marginBottom: 18 }}>
+              {ALL_SECTIONS.map(s => {
+                const on = selectedSections.includes(s.id);
+                return (
+                  <button key={s.id} onClick={() => toggleSection(s.id)} style={{ padding: "11px 12px", border: `2px solid ${on ? GOLD : "rgba(200,150,90,.16)"}`, background: on ? "rgba(200,150,90,.08)" : "white", cursor: s.required ? "default" : "pointer", borderRadius: 4, textAlign: "left", display: "flex", alignItems: "center", gap: 7 }}>
+                    <span style={{ fontSize: "0.95rem" }}>{s.icon}</span>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ fontFamily: "sans-serif", fontSize: "0.58rem", fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: on ? GOLD : "#5A3A44" }}>{s.label}</div>
+                      <div style={{ fontFamily: "sans-serif", fontSize: "0.48rem", color: "#AAA" }}>{s.desc}</div>
+                    </div>
+                    {s.required ? <span style={{ fontFamily: "sans-serif", fontSize: "0.42rem", color: GOLD, background: "rgba(200,150,90,.14)", padding: "2px 5px", borderRadius: 99 }}>REQ</span>
+                      : <div style={{ width: 16, height: 16, borderRadius: "50%", border: `2px solid ${on ? GOLD : "rgba(200,150,90,.28)"}`, background: on ? GOLD : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{on && <span style={{ color: "white", fontSize: "0.52rem" }}>✓</span>}</div>}
+                  </button>
+                );
+              })}
+            </div>
+            <div style={{ ...cardStyle }}>
+              <p style={{ fontFamily: "sans-serif", fontSize: "0.56rem", letterSpacing: 2, textTransform: "uppercase", color: GOLD, fontWeight: 700, marginBottom: 10 }}>Orden · {orderedSelected.length} secciones</p>
+              {orderedSelected.map((id, i) => {
+                const sec = ALL_SECTIONS.find(s => s.id === id);
+                return (
+                  <div key={id} style={{ display: "flex", alignItems: "center", gap: 7, padding: "6px 8px", background: i % 2 === 0 ? "rgba(200,150,90,.04)" : "transparent", borderRadius: 3, marginBottom: 2 }}>
+                    <span style={{ fontFamily: "sans-serif", fontSize: "0.5rem", color: GOLD, width: 16, textAlign: "center", fontWeight: 700 }}>{i + 1}</span>
+                    <span style={{ fontSize: "0.85rem" }}>{sec?.icon}</span>
+                    <span style={{ fontFamily: "sans-serif", fontSize: "0.6rem", color: "#1A0C10", flex: 1 }}>{sec?.label}</span>
+                    {[["↑", -1], ["↓", 1]].map(([a, d]) => <button key={a} onClick={() => moveSection(id, d)} style={{ width: 22, height: 22, border: "1px solid rgba(200,150,90,.3)", background: "transparent", cursor: "pointer", borderRadius: 3, fontSize: "0.62rem" }}>{a}</button>)}
+                  </div>
+                );
+              })}
+            </div>
+            <div style={{ display: "flex", justifyContent: "center", gap: 12 }}>
+              <GoldBtn variant="outline" onClick={() => setStep(1)}>← Anterior</GoldBtn>
+              <GoldBtn onClick={() => setStep(3)}>Siguiente →</GoldBtn>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 3 — DATOS */}
+        {step === 3 && (
+          <div>
+            <SectionTitle>Datos de cada Sección</SectionTitle>
+            <p style={{ textAlign: "center", fontFamily: "sans-serif", fontSize: "0.63rem", color: "#888", letterSpacing: 1, marginBottom: 22 }}>Completa la información de tu invitación</p>
+            {orderedSelected.filter(id => id !== "gifts" && id !== "colors").map(id => {
+              const sec = ALL_SECTIONS.find(s => s.id === id);
+              const fields = SECTION_FIELDS[id] || [];
+              if (!fields.length) return null;
+              return (
+                <div key={id} style={cardStyle}>
+                  {secHead(sec?.icon, sec?.label, sec?.desc)}
+                  {fields.map(f => <Field key={f.id} f={f} value={sectionData[id]?.[f.id] || ""} onChange={v => updateField(id, f.id, v)} />)}
+                </div>
+              );
+            })}
+            <div style={{ display: "flex", justifyContent: "center", gap: 12 }}>
+              <GoldBtn variant="outline" onClick={() => setStep(2)}>← Anterior</GoldBtn>
+              <GoldBtn onClick={() => setStep(4)}>Siguiente →</GoldBtn>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 4 — REGALOS */}
+        {step === 4 && (
+          <div>
+            <SectionTitle>Mesa de Regalos</SectionTitle>
+            <p style={{ textAlign: "center", fontFamily: "sans-serif", fontSize: "0.63rem", color: "#888", letterSpacing: 1, marginBottom: 22 }}>Opciones de regalo para tus invitados</p>
+            {selectedSections.includes("gifts") ? (
+              <div style={cardStyle}>{secHead("🎁", "Mesa de Regalos", "Tienda, PayPal o transferencia")}<GiftsSection gifts={gifts} setGifts={setGifts} /></div>
+            ) : (
+              <div style={{ ...cardStyle, textAlign: "center", padding: 28 }}>
+                <p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", color: "#888" }}>No seleccionaste la sección de Mesa de Regalos.</p>
+                <p style={{ fontFamily: "sans-serif", fontSize: "0.58rem", color: "#AAA", marginTop: 6 }}>Regresa a Secciones para activarla.</p>
+              </div>
+            )}
+            <div style={{ display: "flex", justifyContent: "center", gap: 12 }}>
+              <GoldBtn variant="outline" onClick={() => setStep(3)}>← Anterior</GoldBtn>
+              <GoldBtn onClick={() => setStep(5)}>Siguiente →</GoldBtn>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 5 — COLORES */}
+        {step === 5 && (
+          <div>
+            <SectionTitle>Colores de tu Evento</SectionTitle>
+            <p style={{ textAlign: "center", fontFamily: "sans-serif", fontSize: "0.63rem", color: "#888", letterSpacing: 1, marginBottom: 22 }}>Cuéntanos los colores para diseñar tu invitación</p>
+            <div style={cardStyle}>{secHead("🎨", "Paleta de Colores", "Información para el equipo de diseño")}<ColorSection colorData={colorData} setColorData={setColorData} /></div>
+            <div style={{ display: "flex", justifyContent: "center", gap: 12 }}>
+              <GoldBtn variant="outline" onClick={() => setStep(4)}>← Anterior</GoldBtn>
+              <GoldBtn onClick={() => setStep(6)}>Siguiente →</GoldBtn>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 6 — FOTOS */}
+        {step === 6 && (
+          <div>
+            <SectionTitle>Fotografías</SectionTitle>
+            <p style={{ textAlign: "center", fontFamily: "sans-serif", fontSize: "0.63rem", color: "#888", letterSpacing: 1, marginBottom: 22 }}>Sube las fotos para portada y galería</p>
+            <div style={cardStyle}>{secHead("🏠", "Portada", "Slideshow principal · Máx. 5")}<PhotoUpload label="Portada / Hero" maxPhotos={5} photos={heroPhotos} onAdd={p => setHeroPhotos(prev => [...prev, p])} onRemove={i => setHeroPhotos(prev => prev.filter((_, idx) => idx !== i))} /></div>
+            {selectedSections.includes("gallery") && (
+              <div style={cardStyle}>
+                {secHead("📸", "Galería", `Plan ${selectedPlan?.label} · Máx. ${maxGallery} fotos`)}
+                <div style={{ background: "rgba(200,150,90,.06)", borderRadius: 3, padding: "8px 12px", marginBottom: 12 }}>
+                  <p style={{ fontFamily: "sans-serif", fontSize: "0.56rem", color: "#7A5A18" }}>Plan {selectedPlan?.label}: <strong>{maxGallery} fotos</strong> máx · {galleryPhotos.length} agregadas</p>
+                </div>
+                <PhotoUpload label="Galería" maxPhotos={maxGallery} photos={galleryPhotos} onAdd={p => setGalleryPhotos(prev => [...prev, p])} onRemove={i => setGalleryPhotos(prev => prev.filter((_, idx) => idx !== i))} />
+              </div>
+            )}
+            <div style={{ display: "flex", justifyContent: "center", gap: 12 }}>
+              <GoldBtn variant="outline" onClick={() => setStep(5)}>← Anterior</GoldBtn>
+              <GoldBtn onClick={() => setStep(7)}>Ver Preview →</GoldBtn>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 7 — PREVIEW */}
+        {step === 7 && (
+          <div>
+            <SectionTitle>Vista Previa</SectionTitle>
+            <p style={{ textAlign: "center", fontFamily: "sans-serif", fontSize: "0.63rem", color: "#888", letterSpacing: 1, marginBottom: 6 }}>
+              Así se verá aproximadamente tu invitación. El diseño final puede variar según los ajustes del equipo.
+            </p>
+
+            {/* Device toggle */}
+            <div style={{ display: "flex", justifyContent: "center", gap: 10, marginBottom: 24 }}>
+              {[["mobile","📱 Móvil"],["desktop","🖥️ Escritorio"]].map(([d, lbl]) => (
+                <button key={d} onClick={() => setPreviewDevice(d)} style={{ padding: "8px 18px", border: `1.5px solid ${previewDevice === d ? GOLD : "rgba(200,150,90,.3)"}`, background: previewDevice === d ? "rgba(200,150,90,.1)" : "white", cursor: "pointer", borderRadius: 3, fontFamily: "sans-serif", fontSize: "0.6rem", letterSpacing: 1, color: previewDevice === d ? GOLD : "#888" }}>{lbl}</button>
+              ))}
+            </div>
+
+            {/* Phone / browser frame */}
+            {previewDevice === "mobile" ? (
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <div style={{ width: 320, background: "#1A1A1A", borderRadius: 36, padding: "14px 10px", boxShadow: "0 24px 60px rgba(0,0,0,.45), inset 0 0 0 2px #333" }}>
+                  {/* Notch */}
+                  <div style={{ width: 80, height: 22, background: "#111", borderRadius: 99, margin: "0 auto 8px", display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
+                    <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#2A2A2A" }} />
+                    <div style={{ width: 30, height: 5, borderRadius: 99, background: "#222" }} />
+                  </div>
+                  {/* Screen */}
+                  <div style={{ background: "#FEF9F6", borderRadius: 24, overflow: "hidden", height: 560, overflowY: "auto" }}>
+                    <InvitationPreview eventType={eventType} sectionData={sectionData} orderedSelected={orderedSelected} heroPhotos={heroPhotos} galleryPhotos={galleryPhotos} gifts={gifts} colorData={colorData} />
+                  </div>
+                  {/* Home bar */}
+                  <div style={{ width: 90, height: 4, background: "#444", borderRadius: 99, margin: "10px auto 0" }} />
+                </div>
+              </div>
+            ) : (
+              <div style={{ background: "#2A2A2A", borderRadius: 8, padding: "10px 10px 6px", boxShadow: "0 16px 48px rgba(0,0,0,.4)" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 5, marginBottom: 6, paddingLeft: 8 }}>
+                  {["#FF5F56","#FFBD2E","#27C93F"].map(c => <div key={c} style={{ width: 10, height: 10, borderRadius: "50%", background: c }} />)}
+                  <div style={{ flex: 1, background: "#1A1A1A", borderRadius: 4, height: 22, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <span style={{ fontFamily: "sans-serif", fontSize: "0.52rem", color: "#666" }}>tuinvitacion.makinvitations.com</span>
+                  </div>
+                </div>
+                <div style={{ background: "#FEF9F6", borderRadius: 4, overflow: "hidden", height: 500, overflowY: "auto", maxWidth: 700, margin: "0 auto" }}>
+                  <InvitationPreview eventType={eventType} sectionData={sectionData} orderedSelected={orderedSelected} heroPhotos={heroPhotos} galleryPhotos={galleryPhotos} gifts={gifts} colorData={colorData} />
+                </div>
+              </div>
+            )}
+
+            <div style={{ background: "rgba(200,150,90,.07)", border: "1px dashed rgba(200,150,90,.4)", borderRadius: 4, padding: "12px 16px", marginTop: 20, marginBottom: 20, textAlign: "center" }}>
+              <p style={{ fontFamily: "sans-serif", fontSize: "0.58rem", color: "#7A5A18", lineHeight: 1.8 }}>
+                💡 Esta es una <strong>vista previa aproximada</strong>. El diseño final incluirá las fuentes, animaciones, colores personalizados ({colorData.primary || "por definir"}) y todos los detalles de tu invitación real.
+              </p>
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "center", gap: 12 }}>
+              <GoldBtn variant="outline" onClick={() => setStep(6)}>← Editar</GoldBtn>
+              <GoldBtn onClick={() => setStep(8)}>Continuar al Pago →</GoldBtn>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 8 — PAGO */}
+        {step === 8 && (
+          <div>
+            <SectionTitle>Pago y Confirmación</SectionTitle>
+            <p style={{ textAlign: "center", fontFamily: "sans-serif", fontSize: "0.63rem", color: "#888", letterSpacing: 1, marginBottom: 22 }}>Último paso — elige cómo pagar y envía tu solicitud</p>
+
+            {/* Precio */}
+            <div style={{ background: "linear-gradient(135deg,rgba(200,150,90,.12),rgba(200,150,90,.05))", border: `2px solid ${GOLD}`, borderRadius: 6, padding: 20, marginBottom: 20, textAlign: "center" }}>
+              <p style={{ fontFamily: "sans-serif", fontSize: "0.52rem", letterSpacing: 3, textTransform: "uppercase", color: GOLD, marginBottom: 4 }}>Total a pagar</p>
+              <p style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "2.4rem", background: `linear-gradient(160deg,#FFE08A,#C8860A 40%,#8B5E08)`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", lineHeight: 1.2 }}>{selectedPlan?.price}</p>
+              <p style={{ fontFamily: "sans-serif", fontSize: "0.6rem", color: "#5A3A44", marginTop: 4 }}>Plan {selectedPlan?.label} · Invitación digital · 1 año de dominio</p>
+            </div>
+
+            {/* Método */}
+            <div style={cardStyle}>
+              <p style={{ fontFamily: "sans-serif", fontSize: "0.56rem", letterSpacing: 2, textTransform: "uppercase", color: GOLD, fontWeight: 700, marginBottom: 12 }}>Método de pago preferido</p>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 9 }}>
+                {[
+                  { id: "spei", icon: "🏦", label: "SPEI / Transferencia", sub: "BBVA · Banorte · HSBC" },
+                  { id: "tarjeta", icon: "💳", label: "Tarjeta crédito / débito", sub: "Visa · Mastercard · Amex" },
+                  { id: "paypal", icon: "💙", label: "PayPal", sub: "paypal.me/makinvitations" },
+                  { id: "efectivo", icon: "💵", label: "Efectivo (OXXO / tienda)", sub: "Te enviamos referencia" },
+                ].map(m => (
+                  <button key={m.id} onClick={() => setAccepted(m.id)} style={{ padding: "12px 10px", border: `2px solid ${accepted === m.id ? GOLD : "rgba(200,150,90,.2)"}`, background: accepted === m.id ? "rgba(200,150,90,.09)" : "white", cursor: "pointer", borderRadius: 4, textAlign: "left" }}>
+                    <span style={{ fontSize: "1.2rem", display: "block", marginBottom: 3 }}>{m.icon}</span>
+                    <span style={{ fontFamily: "sans-serif", fontSize: "0.6rem", fontWeight: 700, color: accepted === m.id ? GOLD : "#1A0C10", display: "block" }}>{m.label}</span>
+                    <span style={{ fontFamily: "sans-serif", fontSize: "0.5rem", color: "#888" }}>{m.sub}</span>
+                  </button>
+                ))}
+              </div>
+              {accepted === "spei" && (
+                <div style={{ background: "#FFF8F0", border: "1px solid rgba(200,150,90,.28)", borderRadius: 3, padding: 14, marginTop: 14 }}>
+                  <p style={{ fontFamily: "sans-serif", fontSize: "0.54rem", letterSpacing: 2, textTransform: "uppercase", color: GOLD, fontWeight: 700, marginBottom: 8 }}>Datos bancarios</p>
+                  {[["Banco","BBVA Bancomer"],["Titular","Mak Invitations S.A. de C.V."],["CLABE","012 345 678 901 234 567"],["Concepto",`Inv-${plan?.toUpperCase()}-2026`]].map(([k,v]) => (
+                    <div key={k} style={{ display: "flex", justifyContent: "space-between", padding: "5px 0", borderBottom: "1px solid rgba(200,150,90,.08)" }}>
+                      <span style={{ fontFamily: "sans-serif", fontSize: "0.56rem", color: "#888" }}>{k}</span>
+                      <span style={{ fontFamily: "Georgia,serif", fontStyle: "italic", fontSize: "0.88rem", color: "#1A0C10", fontWeight: 600 }}>{v}</span>
+                    </div>
+                  ))}
+                  <p style={{ fontFamily: "sans-serif", fontSize: "0.52rem", color: "#C86020", marginTop: 8 }}>⚠️ Envía tu comprobante a makinvitacionsmx@gmail.com</p>
+                </div>
+              )}
+              {accepted === "paypal" && <div style={{ background: "#F0F4FF", border: "1px solid #6090D0", borderRadius: 3, padding: 12, marginTop: 12, textAlign: "center" }}><p style={{ fontFamily: "Georgia,serif", fontSize: "1rem", fontStyle: "italic", color: "#003087", fontWeight: 700 }}>paypal.me/makinvitations</p><p style={{ fontFamily: "sans-serif", fontSize: "0.52rem", color: "#888", marginTop: 4 }}>Incluye tu nombre en el concepto.</p></div>}
+              {accepted === "efectivo" && <div style={{ background: "#F0FFF4", border: "1px solid #68B07A", borderRadius: 3, padding: 12, marginTop: 12 }}><p style={{ fontFamily: "sans-serif", fontSize: "0.56rem", color: "#3A5040", lineHeight: 1.8 }}>Te enviaremos una referencia de pago por WhatsApp una vez recibido tu formulario.</p></div>}
+              {accepted === "tarjeta" && <div style={{ background: "#FFF5F0", border: "1px solid #E09060", borderRadius: 3, padding: 12, marginTop: 12 }}><p style={{ fontFamily: "sans-serif", fontSize: "0.56rem", color: "#7A3010", lineHeight: 1.8 }}>💳 El link de pago se enviará a tu WhatsApp. Procesamos con <strong>Conekta</strong> o <strong>Stripe</strong>.</p></div>}
+            </div>
+
+            <div style={{ background: "rgba(200,150,90,.05)", border: "1px dashed rgba(200,150,90,.35)", borderRadius: 4, padding: 14, marginBottom: 20 }}>
+              <p style={{ fontFamily: "sans-serif", fontSize: "0.56rem", color: "#7A5A18", lineHeight: 1.8 }}>ℹ️ Al enviar, el equipo revisará tu pedido y te contactará en <strong>24–48 horas</strong> para confirmar el pago e iniciar tu invitación.</p>
+            </div>
+
+            <div style={{ display: "flex", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
+              <GoldBtn variant="outline" onClick={() => setStep(7)}>← Ver Preview</GoldBtn>
+              <GoldBtn onClick={() => setSubmitted(true)} disabled={!accepted} style={{ padding: "13px 32px", fontSize: "0.95rem" }}>💌 Enviar Solicitud</GoldBtn>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
