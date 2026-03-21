@@ -3,447 +3,476 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Mak Invitations – Invitaciones Digitales de Boda</title>
+<title>Mak Invitations – Invitaciones Digitales</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Great+Vibes&family=Montserrat:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --cream:#FAF6F2;--blush:#EDD5D8;--rose:#B8707E;--mauve:#7A4A58;--deep:#2A1520;
   --sage:#8EA898;--sand:#C9A882;--muted:#8A6070;--white:#FFFBF9;
-  --serif:'Cormorant Garamond',serif;--script:'Great Vibes',cursive;--sans:'Montserrat',sans-serif;
-  --grad:linear-gradient(135deg,#D4909E 0%,#8EA898 40%,#C9A882 70%,#B8707E 100%);
+  --serif:'Cormorant Garamond',serif;
+  --script:'Great Vibes',cursive;
+  --sans:'Montserrat',sans-serif;
   --grad-text:linear-gradient(135deg,#C07888 0%,#7A9888 35%,#B89060 65%,#A06070 100%);
+  --grad:linear-gradient(135deg,#D4909E 0%,#8EA898 40%,#C9A882 70%,#B8707E 100%);
   --shadow:0 20px 60px rgba(42,21,32,.1);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--cream);color:var(--deep);font-family:var(--sans);overflow-x:hidden;}
+body{background:var(--cream);color:var(--deep);font-family:var(--sans);}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5%;height:62px;display:flex;align-items:center;justify-content:space-between;background:rgba(250,246,242,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(184,112,126,.12);}
-.nav-brand{font-family:var(--script);font-size:1.85rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.nav-links{display:flex;gap:28px;align-items:center;}
-.nav-links a{font-size:.56rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);text-decoration:none;font-weight:500;transition:color .2s;}
-.nav-links a:hover{color:var(--rose);}
-.nav-cta{padding:9px 20px;background:var(--deep);color:var(--blush) !important;border-radius:2px;font-weight:500 !important;letter-spacing:1.5px !important;transition:background .2s !important;}
-.nav-cta:hover{background:var(--mauve) !important;}
-.lang-sw{display:flex;align-items:center;gap:0;border:1px solid rgba(142,168,152,.35);border-radius:2px;overflow:hidden;flex-shrink:0;}
-.lang-sw button{background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:.54rem;letter-spacing:2px;font-weight:500;padding:6px 11px;color:var(--muted);transition:all .2s;}
-.lang-sw button.active{background:var(--deep);color:rgba(237,213,216,.9);}
-.lang-sw button:not(.active):hover{background:rgba(142,168,152,.1);color:var(--sage);}
-.lang-divider{width:1px;height:20px;background:rgba(142,168,152,.3);}
-@media(max-width:740px){.nav-links .hide-mob{display:none;}}
-@media(max-width:480px){.nav-links{gap:14px;}}
-
-/* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 24px 80px;position:relative;overflow:hidden;}
-.hero-bg-grad{position:absolute;inset:0;background:radial-gradient(ellipse at 15% 20%,rgba(142,168,152,.18) 0%,transparent 50%),radial-gradient(ellipse at 85% 80%,rgba(142,168,152,.14) 0%,transparent 50%),radial-gradient(ellipse at 80% 15%,rgba(201,168,130,.12) 0%,transparent 45%),radial-gradient(ellipse at 20% 85%,rgba(201,168,130,.1) 0%,transparent 45%),#FAF6F2;}
-.hero-petals{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
-.petal{position:absolute;opacity:0;animation:petalFall linear infinite;}
-@keyframes petalFall{0%{opacity:0;transform:translateY(-20px) rotate(0deg);}10%{opacity:.4;}80%{opacity:.2;}100%{opacity:0;transform:translateY(110vh) rotate(540deg);}}
-.hero-inner{position:relative;z-index:1;max-width:800px;}
-.hero-eyebrow{font-size:.56rem;letter-spacing:5px;text-transform:uppercase;color:var(--sage);margin-bottom:20px;font-weight:500;}
-.hero-title{font-family:var(--script);font-size:clamp(4rem,10vw,7.5rem);line-height:1.35;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;padding:0 8px 16px;display:inline-block;}
-.hero-tagline{font-family:var(--serif);font-style:italic;font-size:clamp(1.2rem,3vw,1.75rem);color:var(--muted);margin-bottom:10px;font-weight:300;line-height:1.6;}
-.hero-sub{font-size:.64rem;letter-spacing:1.5px;color:rgba(122,74,88,.55);margin-bottom:38px;font-weight:300;}
-.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-.btn-primary{padding:14px 36px;background:var(--deep);color:var(--blush);font-size:.58rem;letter-spacing:3px;text-transform:uppercase;text-decoration:none;font-weight:600;border:none;cursor:pointer;transition:all .25s;}
-.btn-primary:hover{background:var(--mauve);transform:translateY(-2px);}
-.btn-ghost{padding:14px 36px;background:transparent;color:var(--mauve);font-size:.58rem;letter-spacing:3px;text-transform:uppercase;text-decoration:none;font-weight:600;border:1.5px solid rgba(122,74,88,.3);cursor:pointer;transition:all .25s;}
-.btn-ghost:hover{border-color:var(--rose);color:var(--rose);}
-.hero-scroll{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.4;}
-.hero-scroll span{font-size:.44rem;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
-.scroll-line{width:1px;height:38px;background:linear-gradient(to bottom,var(--rose),transparent);animation:scrollPulse 2s ease-in-out infinite;}
-@keyframes scrollPulse{0%,100%{opacity:.3;}50%{opacity:1;}}
-
-/* ORNAMENT */
-.orn{text-align:center;padding:6px 0;}.orn svg{width:min(360px,86vw);}
-
-/* STATS */
-.stats{background:var(--white);padding:44px 5%;display:flex;justify-content:center;gap:clamp(28px,6vw,80px);flex-wrap:wrap;border-top:1px solid rgba(184,112,126,.1);border-bottom:1px solid rgba(184,112,126,.1);}
-.stat{text-align:center;}
-.stat-num{font-family:var(--serif);font-style:italic;font-size:clamp(2.2rem,5vw,3rem);font-weight:300;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
-.stat-lbl{font-size:.5rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-top:7px;font-weight:400;}
-
-/* SECTION HEADERS */
-.sec-wrap{text-align:center;margin-bottom:52px;}
-.sec-label{font-size:.52rem;letter-spacing:5px;text-transform:uppercase;color:var(--sage);font-weight:500;display:block;margin-bottom:10px;}
-.sec-title{font-family:var(--script);font-size:clamp(2.4rem,6vw,4rem);background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.3;margin-bottom:14px;display:inline-block;padding-bottom:4px;}
-.sec-body{font-family:var(--serif);font-style:italic;font-size:clamp(1.05rem,2.2vw,1.3rem);color:var(--muted);max-width:560px;margin:0 auto;line-height:1.9;}
-
-/* FEATURES */
-.features{padding:88px 5%;background:linear-gradient(180deg,var(--cream),#F2EEE8);}
-.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;max-width:1100px;margin:0 auto;}
-.feat-card{background:var(--white);padding:0 0 18px;border:1px solid rgba(184,112,126,.1);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;}
-.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);opacity:0;transition:opacity .3s;z-index:2;}
-.feat-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
-.feat-card:hover::before{opacity:1;}
-.feat-card-body{padding:0 18px;}
-.feat-icon{font-size:1.4rem;margin:12px 0 8px;display:block;}
-.feat-title{font-family:var(--serif);font-style:italic;font-weight:700;font-size:1.05rem;color:var(--deep);margin-bottom:5px;}
-.feat-desc{font-size:.62rem;color:var(--muted);line-height:1.9;font-weight:300;}
-.feat-badge{display:inline-block;margin-top:9px;font-size:.44rem;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;background:rgba(142,168,152,.12);color:var(--sage);border:1px solid rgba(142,168,152,.28);}
-.feat-badge.premium{background:rgba(184,112,126,.1);color:var(--rose);border-color:rgba(184,112,126,.28);}
-
-/* ── FEATURE PREVIEW ── */
-.feat-preview{
-  width:100%;height:132px;
-  background:linear-gradient(160deg,#2A1520,#1A0C18);
-  position:relative;overflow:hidden;
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:0;
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  height:64px;padding:0 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(250,246,242,.96);
+  backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(184,112,126,.12);
 }
-.feat-preview::after{
-  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
-  width:44px;height:11px;background:#1A0C18;
-  border-radius:0 0 8px 8px;z-index:10;
+.nav-logo{
+  display:flex;align-items:center;text-decoration:none;
+  width:160px;height:40px;flex-shrink:0;
+  overflow:hidden;font-size:0;
+}
+.nav-logo img{
+  height:40px;width:auto;max-width:160px;
+  display:block;
+}
+.nav-logo-text{
+  font-family:var(--script);font-size:1.7rem;
+  background:var(--grad-text);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  line-height:1;white-space:nowrap;
+}
+.nav-right{
+  display:flex;align-items:center;gap:24px;flex-shrink:0;
+}
+.nav-link{
+  font-family:var(--sans);font-size:11px;
+  letter-spacing:2px;text-transform:uppercase;
+  color:#8A6070;text-decoration:none;font-weight:500;
+  transition:color .2s;
+}
+.nav-link:hover{color:#B8707E;}
+.nav-btn{
+  font-family:var(--sans);font-size:11px;
+  letter-spacing:2px;text-transform:uppercase;font-weight:500;
+  padding:9px 20px;background:#2A1520;color:#EDD5D8;
+  border:none;cursor:pointer;text-decoration:none;
+  transition:background .2s;display:inline-block;
+}
+.nav-btn:hover{background:#7A4A58;}
+
+/* Globe dropdown */
+.lang-wrap{position:relative;}
+.lang-btn{
+  background:none;border:none;cursor:pointer;
+  display:flex;align-items:center;padding:4px;
+}
+.lang-btn svg{width:24px;height:24px;display:block;}
+.lang-menu{
+  display:none;position:absolute;top:calc(100% + 10px);right:0;
+  background:#FFFBF9;
+  box-shadow:0 8px 28px rgba(42,21,32,.12);
+  min-width:130px;z-index:1000;
+}
+.lang-wrap.open .lang-menu{display:block;}
+.lang-item{
+  display:block;width:100%;background:none;border:none;cursor:pointer;
+  text-align:left;padding:10px 16px;
+  font-family:var(--sans);font-size:11px;
+  letter-spacing:2px;text-transform:uppercase;font-weight:500;
+  color:#8A6070;transition:all .2s;
+}
+.lang-item:hover{color:#B8707E;background:rgba(184,112,126,.05);}
+.lang-item.on{color:#B8707E;font-weight:700;}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:110px 24px 80px;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse at 15% 20%,rgba(142,168,152,.18),transparent 50%),
+    radial-gradient(ellipse at 85% 80%,rgba(142,168,152,.14),transparent 50%),
+    radial-gradient(ellipse at 80% 15%,rgba(201,168,130,.12),transparent 45%),
+    #FAF6F2;
+}
+.hero-petals{position:absolute;inset:0;pointer-events:none;overflow:hidden;}
+.petal{position:absolute;opacity:0;animation:petalFall linear infinite;}
+@keyframes petalFall{
+  0%{opacity:0;transform:translateY(-20px) rotate(0deg);}
+  10%{opacity:.4;}80%{opacity:.2;}
+  100%{opacity:0;transform:translateY(110vh) rotate(540deg);}
+}
+.hero-inner{position:relative;z-index:1;max-width:720px;}
+.hero-logo-img{
+  height:clamp(80px,16vw,150px);width:auto;
+  display:block;margin:0 auto 20px;
+  object-fit:contain;
+}
+.hero-logo-text{
+  font-family:var(--script);
+  font-size:clamp(4rem,10vw,7rem);
+  line-height:1.3;
+  background:var(--grad-text);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  display:block;margin-bottom:14px;padding-bottom:8px;
+}
+.hero-tagline{
+  font-family:var(--serif);font-style:italic;
+  font-size:clamp(1.1rem,2.5vw,1.55rem);
+  color:var(--muted);margin-bottom:8px;font-weight:300;line-height:1.65;
+}
+.hero-sub{
+  font-size:10px;letter-spacing:1.5px;
+  color:rgba(122,74,88,.5);margin-bottom:38px;font-weight:300;
+}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.btn-primary{
+  padding:13px 34px;background:#2A1520;color:#EDD5D8;
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  text-decoration:none;font-weight:600;transition:all .25s;
+}
+.btn-primary:hover{background:#7A4A58;transform:translateY(-2px);}
+.btn-ghost{
+  padding:13px 34px;background:transparent;color:#7A4A58;
+  font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  text-decoration:none;font-weight:600;
+  border:1.5px solid rgba(122,74,88,.28);transition:all .25s;
+}
+.btn-ghost:hover{border-color:#B8707E;color:#B8707E;}
+.hero-scroll{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.35;
+}
+.hero-scroll span{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
+.scroll-line{width:1px;height:36px;background:linear-gradient(to bottom,#B8707E,transparent);animation:sp 2s ease-in-out infinite;}
+@keyframes sp{0%,100%{opacity:.3;}50%{opacity:1;}}
+
+/* ── ORN ── */
+.orn{text-align:center;padding:4px 0;}
+.orn svg{width:min(340px,80vw);}
+
+/* ── SEC HEAD ── */
+.sec-head{text-align:center;margin-bottom:52px;}
+.sec-label{
+  font-size:9px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--sage);font-weight:500;display:block;margin-bottom:10px;
+}
+.sec-title{
+  font-family:var(--script);font-size:clamp(2.2rem,5.5vw,3.6rem);
+  background:var(--grad-text);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;line-height:1.3;margin-bottom:12px;
+  display:inline-block;padding-bottom:4px;
+}
+.sec-body{
+  font-family:var(--serif);font-style:italic;
+  font-size:clamp(1rem,2vw,1.2rem);color:var(--muted);
+  max-width:520px;margin:0 auto;line-height:1.9;
 }
 
-/* — Preview 1: Envelope — */
-.fp-env{display:flex;flex-direction:column;align-items:center;justify-content:center;}
-.fp-env-box{width:80px;height:54px;position:relative;}
-.fp-env-back{position:absolute;inset:0;background:linear-gradient(160deg,#EAE0D4,#D8CFC0);border-radius:2px;}
-.fp-env-fl{position:absolute;top:0;left:0;right:0;height:52%;background:linear-gradient(170deg,#F2E8DC,#E0D4C4);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;animation:envOpen 3s ease-in-out infinite;}
-@keyframes envOpen{0%,30%{transform:perspective(200px) rotateX(0deg);}50%,80%{transform:perspective(200px) rotateX(-160deg);}100%{transform:perspective(200px) rotateX(0deg);}}
-.fp-env-b{position:absolute;bottom:0;left:0;right:0;height:55%;background:rgba(0,0,0,.07);clip-path:polygon(0 100%,50% 0%,100% 100%);}
-.fp-env-mono{position:absolute;top:50%;left:50%;transform:translate(-50%,-10%);font-family:'Great Vibes',cursive;font-size:1rem;color:rgba(200,150,80,.9);white-space:nowrap;z-index:5;}
-.fp-env-hint{font-size:.42rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:8px;}
+/* ── DEMOS ── */
+.demos{padding:90px 5% 100px;background:#FFFBF9;}
+.demo-inner{max-width:900px;margin:0 auto;}
+.demo-tabs{
+  display:flex;justify-content:center;margin-bottom:44px;
+  border:1px solid rgba(184,112,126,.15);
+  width:fit-content;max-width:100%;margin-left:auto;margin-right:auto;
+  flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+}
+.demo-tabs::-webkit-scrollbar{display:none;}
+.demo-tab{
+  padding:9px 22px;background:none;border:none;cursor:pointer;
+  font-family:var(--sans);font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;font-weight:500;flex-shrink:0;
+  color:var(--muted);transition:all .2s;white-space:nowrap;
+}
+.demo-tab:hover{color:var(--rose);}
+.demo-tab.on{background:var(--rose);color:white;}
+.demo-panel{display:none;flex-wrap:wrap;gap:14px;}
+.demo-panel.on{display:flex;}
+.mini-card{
+  width:154px;text-decoration:none;
+  border:1px solid rgba(184,112,126,.12);background:var(--cream);
+  transition:transform .3s,box-shadow .3s;
+  display:flex;flex-direction:column;position:relative;overflow:hidden;
+}
+.mini-card:hover{transform:translateY(-5px);box-shadow:0 16px 36px rgba(42,21,32,.12);}
+.mini-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--grad);opacity:0;transition:opacity .3s;z-index:2;
+}
+.mini-card:hover::before{opacity:1;}
+.mini-screen{
+  height:96px;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:10px;text-align:center;position:relative;overflow:hidden;
+}
+.mini-screen::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:28px;
+  background:linear-gradient(to top,rgba(0,0,0,.3),transparent);
+}
+.mini-names{
+  font-family:var(--script);font-size:1.05rem;
+  color:rgba(255,255,255,.92);line-height:1.2;
+  text-shadow:0 1px 8px rgba(0,0,0,.4);position:relative;z-index:1;
+}
+.mini-names span{color:rgba(196,104,122,.85);font-size:.7rem;display:block;margin:1px 0;}
+.mini-date{
+  font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(255,255,255,.4);margin-top:5px;position:relative;z-index:1;
+}
+.mini-body{padding:9px 12px 11px;}
+.mini-name{
+  font-family:var(--serif);font-style:italic;font-weight:600;
+  font-size:.82rem;color:var(--deep);margin-bottom:3px;
+}
+.mini-cta{
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--rose);font-weight:600;display:flex;align-items:center;gap:4px;
+}
+.mini-cta::after{content:'→';font-size:10px;}
+@media(max-width:480px){.mini-card{width:calc(50% - 7px);}}
 
-/* — Preview 2: Custom sparkle — */
-.fp-spark{position:relative;width:100%;height:100%;}
-.fp-spark-name{font-family:'Great Vibes',cursive;font-size:1.5rem;color:rgba(255,255,255,.9);text-align:center;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-shadow:0 0 20px rgba(184,112,126,.8);z-index:2;}
-.fp-spark-dot{position:absolute;border-radius:50%;animation:sparkAnim linear infinite;}
-@keyframes sparkAnim{0%{opacity:0;transform:scale(0);}30%{opacity:1;transform:scale(1);}100%{opacity:0;transform:scale(0) translate(var(--tx),var(--ty));}}
+/* ── RESPONSIVE TABS ── */
+@media(max-width:600px){
+  .demo-tabs,.price-tabs{width:100%;max-width:100%;}
+  .demo-tab,.price-tab{
+    font-size:8px;letter-spacing:1px;padding:8px 10px;
+  }
+  .nav-right{gap:12px;}
+  .nav-link{font-size:9px;letter-spacing:1px;}
+  .nav-btn{font-size:9px;letter-spacing:1px;padding:8px 12px;}
+}
 
-/* — Preview 3: RSVP WhatsApp — */
-.fp-rsvp{display:flex;flex-direction:column;align-items:center;gap:6px;width:90%;}
-.fp-rsvp-f{background:rgba(255,255,255,.06);border:1px solid rgba(184,112,126,.25);padding:5px 10px;font-size:.48rem;color:rgba(255,255,255,.45);letter-spacing:1px;width:100%;border-radius:1px;}
-.fp-rsvp-btn{background:#25D366;color:white;padding:6px 14px;font-size:.46rem;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:5px;border-radius:2px;margin-top:2px;}
-
-/* — Preview 4: QR Code — */
-.fp-qr{display:flex;flex-direction:column;align-items:center;gap:8px;}
-.fp-qr-box{width:58px;height:58px;background:white;padding:4px;display:grid;grid-template-columns:repeat(7,1fr);gap:1px;}
-.fp-qr-cell{border-radius:.5px;}
-.fp-qr-code{font-size:.42rem;letter-spacing:3px;color:rgba(201,168,130,.7);text-transform:uppercase;}
-
-/* — Preview 5: Parents — */
-.fp-parents{display:flex;flex-direction:column;align-items:center;gap:4px;width:90%;}
-.fp-par-role{font-size:.4rem;letter-spacing:4px;text-transform:uppercase;color:rgba(201,168,130,.7);}
-.fp-par-names{font-family:'Great Vibes',cursive;font-size:1.1rem;color:rgba(255,255,255,.88);text-align:center;line-height:1.3;}
-.fp-par-div{width:40px;height:.5px;background:rgba(201,168,130,.4);margin:3px 0;}
-
-/* — Preview 6: Godparents — */
-.fp-god{display:flex;gap:12px;align-items:flex-start;}
-.fp-god-item{display:flex;flex-direction:column;align-items:center;gap:4px;}
-.fp-god-circle{width:36px;height:36px;border-radius:50%;background:rgba(184,112,126,.18);border:1.5px solid rgba(184,112,126,.5);display:flex;align-items:center;justify-content:center;font-size:.9rem;}
-.fp-god-lbl{font-size:.38rem;color:rgba(255,255,255,.55);letter-spacing:1px;text-align:center;max-width:48px;line-height:1.4;}
-
-/* — Preview 7: Love Story — */
-.fp-love{display:flex;align-items:center;gap:0;width:86%;}
-.fp-love-dot{width:8px;height:8px;border-radius:50%;background:#B8707E;flex-shrink:0;}
-.fp-love-line{flex:1;height:1px;background:rgba(184,112,126,.4);}
-.fp-love-ev{display:flex;flex-direction:column;align-items:center;gap:2px;}
-.fp-love-icon{font-size:.9rem;}
-.fp-love-txt{font-size:.36rem;color:rgba(255,255,255,.5);letter-spacing:1px;}
-
-/* — Preview 8: Itinerary — */
-.fp-itin{display:flex;flex-direction:column;gap:6px;width:88%;}
-.fp-itin-row{display:flex;align-items:center;gap:8px;}
-.fp-itin-dot{width:7px;height:7px;border-radius:50%;border:1.5px solid #C9A882;flex-shrink:0;}
-.fp-itin-dot.active{background:#C9A882;}
-.fp-itin-time{font-size:.4rem;color:rgba(201,168,130,.8);width:32px;flex-shrink:0;letter-spacing:1px;}
-.fp-itin-ev{font-size:.44rem;color:rgba(255,255,255,.65);letter-spacing:.5px;}
-.fp-itin-line{width:1px;height:10px;background:rgba(201,168,130,.25);margin-left:3px;}
-
-/* — Preview 9: Admin Panel — */
-.fp-admin{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;width:92%;}
-.fp-admin-card{background:rgba(255,255,255,.05);border:1px solid rgba(184,112,126,.2);padding:7px 12px;text-align:center;flex:1;min-width:52px;}
-.fp-admin-num{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.5rem;color:#EDD5D8;line-height:1;}
-.fp-admin-lbl{font-size:.38rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:3px;}
-
-/* — Preview 10: Multi-language — */
-.fp-lang{display:flex;flex-direction:column;align-items:center;gap:8px;width:88%;}
-.fp-lang-row{display:flex;gap:6px;}
-.fp-lang-btn{padding:5px 10px;border:1px solid rgba(184,112,126,.3);background:rgba(255,255,255,.04);font-size:.46rem;color:rgba(255,255,255,.7);letter-spacing:1px;display:flex;align-items:center;gap:4px;cursor:default;}
-.fp-lang-btn.active{background:rgba(184,112,126,.25);border-color:rgba(184,112,126,.6);}
-.fp-lang-text{font-family:'Great Vibes',cursive;font-size:1rem;color:rgba(255,255,255,.6);letter-spacing:2px;}
-
-/* — Preview 11: Countdown — */
-.fp-cd{display:flex;gap:8px;align-items:flex-end;}
-.fp-cd-unit{text-align:center;}
-.fp-cd-num{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:2rem;font-weight:300;background:linear-gradient(160deg,#E8C068,#C8965A 30%,#F0D080);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
-.fp-cd-lbl{font-size:.36rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.35);}
-
-/* — Preview 12: Gallery — */
-.fp-gal{position:relative;width:100%;height:100%;}
-.fp-gal-rope{position:absolute;top:20px;left:0;right:0;height:2px;background:#4A2E08;}
-.fp-gal-photos{position:absolute;top:18px;left:0;right:0;display:flex;justify-content:center;gap:14px;}
-.fp-gal-item{display:flex;flex-direction:column;align-items:center;}
-.fp-gal-clip{width:1px;height:10px;background:#8B6010;}
-.fp-gal-photo{width:36px;height:46px;padding:2px 2px 10px;background:white;box-shadow:0 4px 12px rgba(0,0,0,.4);}
-.fp-gal-photo div{width:100%;height:100%;background:var(--bg);}
-
-/* — Preview 13: Events + Map — */
-.fp-ev{display:flex;flex-direction:column;gap:5px;width:88%;}
-.fp-ev-card{background:rgba(255,255,255,.06);border:1px solid rgba(201,168,130,.2);padding:8px 10px;}
-.fp-ev-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:rgba(255,255,255,.85);margin-bottom:3px;}
-.fp-ev-detail{font-size:.42rem;color:rgba(201,168,130,.7);letter-spacing:1px;}
-.fp-ev-map{display:inline-flex;align-items:center;gap:4px;margin-top:5px;padding:3px 8px;border:1px solid rgba(201,168,130,.4);font-size:.4rem;color:rgba(201,168,130,.8);letter-spacing:2px;}
-
-/* — Preview 14: Music — */
-.fp-music{display:flex;flex-direction:column;align-items:center;gap:8px;}
-.fp-music-bars{display:flex;align-items:flex-end;gap:3px;height:36px;}
-.fp-music-bar{width:4px;border-radius:2px;background:linear-gradient(to top,#B8707E,#EDD5D8);animation:barAnim ease-in-out infinite;}
-@keyframes barAnim{0%,100%{height:4px;}50%{height:var(--h);}}
-.fp-music-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.78rem;color:rgba(255,255,255,.7);}
-.fp-music-artist{font-size:.4rem;letter-spacing:2px;color:rgba(201,168,130,.6);}
-.fp-music-play{width:28px;height:28px;border-radius:50%;background:rgba(184,112,126,.35);border:1.5px solid rgba(184,112,126,.6);display:flex;align-items:center;justify-content:center;font-size:.7rem;}
-
-/* — Preview 15: Gift registry — */
-.fp-gift{perspective:400px;width:90px;height:68px;cursor:default;}
-.fp-gift-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:giftFlip 4s ease-in-out infinite;}
-@keyframes giftFlip{0%,40%{transform:rotateY(0deg);}55%,95%{transform:rotateY(180deg);}100%{transform:rotateY(0deg);}}
-.fp-gift-f,.fp-gift-b{position:absolute;inset:0;-webkit-backface-visibility:hidden;backface-visibility:hidden;border:1px solid rgba(201,168,130,.3);background:rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:4px;}
-.fp-gift-b{transform:rotateY(180deg);background:rgba(255,255,255,.08);}
-.fp-gift-icon{font-size:1.2rem;}
-.fp-gift-lbl{font-size:.38rem;letter-spacing:2px;text-transform:uppercase;color:rgba(201,168,130,.7);}
-.fp-gift-val{font-size:.46rem;color:rgba(255,255,255,.65);letter-spacing:1px;}
-
-/* — Preview 16: Dress code — */
-.fp-dress{display:flex;gap:20px;align-items:flex-end;}
-.fp-dress-col{display:flex;flex-direction:column;align-items:center;gap:4px;}
-.fp-dress-lbl{font-size:.38rem;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,130,.7);}
-.fp-dress-svg{display:block;}
-
-/* — Preview 17: Hotels — */
-.fp-hotel{display:flex;flex-direction:column;gap:5px;width:88%;}
-.fp-hotel-card{background:rgba(255,255,255,.05);border:1px solid rgba(201,168,130,.2);padding:7px 10px;}
-.fp-hotel-name{font-size:.5rem;color:rgba(255,255,255,.75);margin-bottom:2px;letter-spacing:.5px;}
-.fp-hotel-stars{color:#C9A882;font-size:.55rem;letter-spacing:1px;}
-.fp-hotel-note{font-size:.4rem;color:rgba(255,255,255,.38);margin-top:2px;line-height:1.5;}
-
-/* — Preview 18: Calendar — */
-.fp-cal{display:flex;flex-direction:column;align-items:center;gap:7px;width:88%;}
-.fp-cal-icon{font-size:1.8rem;line-height:1;}
-.fp-cal-btns{display:flex;gap:5px;}
-.fp-cal-btn{padding:4px 8px;border:1px solid rgba(201,168,130,.35);font-size:.38rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.6);}
-.fp-cal-btn.g{background:rgba(66,133,244,.12);border-color:rgba(66,133,244,.35);}
-.fp-cal-btn.a{background:rgba(255,255,255,.05);}
-
-/* — Preview 19: Quote — */
-.fp-quote{display:flex;flex-direction:column;align-items:center;gap:5px;width:88%;text-align:center;}
-.fp-quote-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.72rem;color:rgba(255,255,255,.75);line-height:1.7;}
-.fp-quote-src{font-size:.4rem;letter-spacing:3px;text-transform:uppercase;color:rgba(201,168,130,.55);}
-
-/* — Preview 20: Floral petals — */
-.fp-floral{position:relative;width:100%;height:100%;overflow:hidden;}
-.fp-petal{position:absolute;border-radius:50%;animation:fpAnim linear infinite;}
-@keyframes fpAnim{0%{opacity:0;transform:translateY(-10px) rotate(0deg);}10%{opacity:.6;}90%{opacity:.3;}100%{opacity:0;transform:translateY(140px) rotate(360deg);}}
-
-/* LANGUAGE SECTION */
-.lang-section{padding:80px 5%;background:var(--deep);}
-.lang-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch;}
-@media(max-width:660px){.lang-inner{grid-template-columns:1fr;}}
-.lang-card{padding:34px 28px;border:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden;}
-.lang-card.basic{background:rgba(255,255,255,.03);}
-.lang-card.prem{background:rgba(237,213,216,.05);border-color:rgba(184,112,126,.22);}
-.lang-badge-pill{font-size:.44rem;letter-spacing:3px;text-transform:uppercase;padding:4px 12px;border:1px solid;display:inline-block;margin-bottom:16px;}
-.lang-card.basic .lang-badge-pill{color:rgba(255,255,255,.4);border-color:rgba(255,255,255,.13);}
-.lang-card.prem .lang-badge-pill{color:var(--blush);border-color:rgba(237,213,216,.35);}
-.lang-ttl{font-family:var(--serif);font-style:italic;font-size:1.45rem;color:white;margin-bottom:6px;}
-.lang-card.prem .lang-ttl{background:linear-gradient(135deg,#EDD5D8,#C9A882);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.lang-desc{font-size:.66rem;color:rgba(255,255,255,.42);line-height:1.9;font-weight:300;margin-bottom:18px;}
-.lang-flags{display:flex;gap:8px;flex-wrap:wrap;}
-.lang-flag{display:flex;align-items:center;gap:6px;padding:6px 11px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);}
-.lang-card.prem .lang-flag{background:rgba(237,213,216,.06);border-color:rgba(184,112,126,.18);}
-.lang-flag span{font-size:.56rem;color:rgba(255,255,255,.6);letter-spacing:1px;}
-.lang-plus{font-family:var(--serif);font-style:italic;font-size:.88rem;color:rgba(184,112,126,.6);margin-top:10px;}
-
-/* DEMO */
-.demo{padding:88px 5%;background:var(--cream);}
-.demo-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
-@media(max-width:760px){.demo-inner{grid-template-columns:1fr;}}
-.phone-wrap{display:flex;justify-content:center;}
-.phone{width:252px;height:505px;background:#FAF6F2;border-radius:42px;border:7px solid #1E1018;box-shadow:0 40px 80px rgba(42,21,32,.35),inset 0 0 0 1px rgba(255,255,255,.07);position:relative;overflow:hidden;}
-.phone-notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:74px;height:20px;background:#1E1018;border-radius:0 0 14px 14px;z-index:10;}
-.phone-screen{position:absolute;inset:0;overflow:hidden;border-radius:35px;}
-.pslide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;}
-.pslide.active{opacity:1;}
-.ps1-bg{position:absolute;inset:0;background:linear-gradient(160deg,#2A1520,#1A0C18);}
-.ps1-ov{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(184,112,126,.18),transparent 70%);}
-.ps1-c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;}
-.ps1-names{font-family:var(--script);font-size:2.1rem;color:rgba(255,255,255,.92);text-shadow:0 2px 10px rgba(0,0,0,.4);line-height:1.3;}
-.ps1-line{width:44px;height:1px;background:rgba(201,168,130,.45);margin:10px auto;}
-.ps1-date{font-size:.42rem;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.55);}
-.ps1-loc{font-family:var(--serif);font-style:italic;font-size:.8rem;color:rgba(237,213,216,.75);margin-top:5px;}
-.ps2{position:absolute;inset:0;background:var(--white);display:flex;flex-direction:column;align-items:center;padding:34px 16px 16px;}
-.ps2-ttl{font-family:var(--script);font-size:1.45rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px;}
-.ps2-nums{display:flex;justify-content:center;gap:10px;}
-.ps2-u{text-align:center;}
-.ps2-num{font-family:var(--serif);font-size:1.7rem;font-style:italic;font-weight:300;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
-.ps2-lbl{font-size:.36rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
-.ps3{position:absolute;inset:0;background:linear-gradient(160deg,#F2EEF0,#EAE4E8);display:flex;flex-direction:column;align-items:center;padding:32px 14px 16px;}
-.ps3-ttl{font-family:var(--script);font-size:1.45rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;}
-.ps3-row{display:flex;gap:6px;justify-content:center;}
-.ps3-p{width:66px;height:84px;border-radius:3px;box-shadow:0 6px 16px rgba(42,21,32,.2);}
-.ps4{position:absolute;inset:0;background:var(--white);padding:32px 16px 16px;}
-.ps4-ttl{font-family:var(--script);font-size:1.45rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-align:center;margin-bottom:13px;}
-.ps4-f{border:1px solid rgba(184,112,126,.22);padding:7px 10px;margin-bottom:7px;font-family:var(--serif);font-style:italic;font-size:.7rem;color:rgba(122,74,88,.4);width:100%;display:block;}
-.ps4-btn{width:100%;padding:10px;background:var(--deep);color:rgba(237,213,216,.9);font-size:.42rem;letter-spacing:2px;text-transform:uppercase;border:none;margin-top:6px;cursor:pointer;}
-.phone-dots{display:flex;gap:7px;justify-content:center;margin-top:13px;}
-.ph-dot{width:7px;height:7px;border-radius:50%;background:rgba(184,112,126,.2);border:none;cursor:pointer;padding:0;transition:all .3s;}
-.ph-dot.active{background:var(--rose);transform:scale(1.35);}
-.demo-text{text-align:left;}
-@media(max-width:760px){.demo-text{text-align:center;}}
-.demo-list{margin-top:28px;display:flex;flex-direction:column;gap:18px;}
-.demo-item{display:flex;align-items:flex-start;gap:13px;}
-.demo-check{width:25px;height:25px;border-radius:50%;background:rgba(142,168,152,.1);border:1.5px solid rgba(142,168,152,.38);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:4px;}
-.demo-check svg{width:11px;height:11px;}
-.demo-item-title{font-family:var(--serif);font-style:italic;font-weight:700;font-size:1.05rem;color:var(--deep);margin-bottom:2px;}
-.demo-item-desc{font-size:.62rem;color:var(--muted);line-height:1.85;font-weight:300;}
-
-/* HOW */
-.how{padding:88px 5%;background:linear-gradient(160deg,#F2EEE8,var(--cream));}
-.steps{display:flex;justify-content:center;gap:0;max-width:900px;margin:0 auto;flex-wrap:wrap;}
-.step{flex:1;min-width:180px;max-width:210px;text-align:center;padding:0 14px;position:relative;}
-.step:not(:last-child)::after{content:'';position:absolute;top:27px;right:-12px;width:24px;height:1px;background:linear-gradient(to right,rgba(184,112,126,.35),rgba(184,112,126,.06));}
-@media(max-width:600px){.step:not(:last-child)::after{display:none;}}
-.step-num{width:54px;height:54px;border-radius:50%;background:var(--deep);color:var(--blush);font-family:var(--serif);font-style:italic;font-size:1.4rem;font-weight:300;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 8px 24px rgba(42,21,32,.22);}
-.step-title{font-family:var(--serif);font-style:italic;font-weight:700;font-size:1.05rem;color:var(--deep);margin-bottom:7px;}
-.step-desc{font-size:.62rem;color:var(--muted);line-height:1.9;font-weight:300;}
-
-/* EXAMPLES */
-.examples{padding:88px 5%;background:var(--white);}
-.ex-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;max-width:1100px;margin:0 auto;}
-.ex-card{position:relative;overflow:hidden;cursor:pointer;}
-.ex-ph{width:100%;height:310px;display:flex;align-items:center;justify-content:center;transition:transform .45s;}
-.ex-card:hover .ex-ph{transform:scale(1.04);}
-.ex-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(42,21,32,.8) 0%,transparent 55%);opacity:0;transition:opacity .3s;}
-.ex-card:hover .ex-overlay{opacity:1;}
-.ex-info{position:absolute;bottom:0;left:0;right:0;padding:20px 18px;transform:translateY(6px);transition:all .3s;opacity:0;}
-.ex-card:hover .ex-info{opacity:1;transform:none;}
-.ex-name{font-family:var(--script);font-size:1.65rem;color:white;display:block;margin-bottom:3px;}
-.ex-tag{font-size:.44rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.6);}
-.pl-inner{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;padding:22px;}
-.pl-couple{font-family:var(--script);font-size:1.9rem;text-align:center;}
-.pl-date{font-size:.48rem;letter-spacing:4px;text-transform:uppercase;}
-.pl-div{width:34px;height:1px;}
-
-/* PRICING */
-.pricing{padding:88px 5%;background:var(--deep);position:relative;overflow:hidden;}
-.pricing::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(237,213,216,.04),transparent 55%),radial-gradient(ellipse at 80% 30%,rgba(142,168,152,.03),transparent 55%);}
+/* ── PRICING ── */
+.pricing{
+  padding:90px 5% 100px;background:#2A1520;
+  position:relative;overflow:hidden;
+}
+.pricing::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse at 20% 50%,rgba(237,213,216,.04),transparent 55%),
+    radial-gradient(ellipse at 80% 30%,rgba(142,168,152,.03),transparent 55%);
+}
 .pricing .sec-label{color:rgba(142,168,152,.75);}
-.pricing .sec-title{background:linear-gradient(135deg,#EDD5D8,#C9A882 40%,#EDD5D8 70%,#B8707E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.pricing .sec-body{color:rgba(255,255,255,.38);}
-.plans{display:flex;justify-content:center;gap:16px;max-width:980px;margin:0 auto;flex-wrap:wrap;align-items:stretch;}
-.plan{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:32px 24px;flex:1;min-width:220px;max-width:295px;text-align:center;position:relative;transition:transform .3s;}
+.pricing .sec-title{
+  background:linear-gradient(135deg,#EDD5D8,#C9A882 40%,#EDD5D8 70%,#B8707E);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.pricing .sec-body{color:rgba(255,255,255,.35);}
+.pricing .sec-head{position:relative;z-index:1;}
+
+.price-tabs{
+  display:flex;justify-content:center;margin-bottom:44px;
+  border:1px solid rgba(255,255,255,.08);
+  width:fit-content;max-width:100%;margin-left:auto;margin-right:auto;
+  flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;
+  position:relative;z-index:1;
+}
+.price-tabs::-webkit-scrollbar{display:none;}
+.price-tab{
+  padding:9px 22px;background:none;border:none;cursor:pointer;
+  font-family:var(--sans);font-size:10px;letter-spacing:2px;
+  text-transform:uppercase;font-weight:500;flex-shrink:0;
+  color:rgba(255,255,255,.32);transition:all .2s;white-space:nowrap;
+}
+.price-tab.on{background:#B8707E;color:white;}
+
+.plans-panel{
+  display:none;justify-content:center;gap:20px;
+  max-width:860px;margin:0 auto;flex-wrap:wrap;
+  align-items:stretch;position:relative;z-index:1;
+}
+.plans-panel.on{display:flex;}
+
+.plan{
+  flex:1;min-width:230px;max-width:400px;
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  padding:30px 24px;text-align:center;position:relative;
+  transition:transform .3s;display:flex;flex-direction:column;
+}
 .plan.featured{border-color:rgba(184,112,126,.32);background:rgba(237,213,216,.05);}
 .plan:hover{transform:translateY(-5px);}
-.plan-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--rose);color:white;font-size:.42rem;letter-spacing:2px;text-transform:uppercase;padding:4px 13px;font-weight:600;white-space:nowrap;}
-.plan-name{font-family:var(--serif);font-style:italic;font-weight:700;font-size:1.28rem;color:rgba(255,255,255,.82);margin-bottom:6px;}
-.plan-price{font-family:var(--serif);font-size:2.7rem;font-weight:300;font-style:italic;color:white;line-height:1;margin:11px 0 3px;}
-.plan.featured .plan-price{background:linear-gradient(135deg,#EDD5D8,#C9A882);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.plan-currency{font-size:.54rem;letter-spacing:2px;color:rgba(255,255,255,.28);margin-bottom:20px;}
-.plan-feats{list-style:none;text-align:left;margin-bottom:24px;display:flex;flex-direction:column;gap:8px;}
-.plan-feats li{font-size:.61rem;color:rgba(255,255,255,.5);display:flex;align-items:flex-start;gap:7px;line-height:1.65;font-weight:300;}
-.plan-feats li::before{content:'·';color:var(--rose);flex-shrink:0;font-size:1rem;line-height:1.2;}
-.plan-feats li.hi{color:rgba(237,213,216,.78);}
-.plan-feats li.hi::before{content:'✦';font-size:.52rem;margin-top:3px;}
-.plan-btn{display:block;width:100%;padding:12px;border:1px solid rgba(255,255,255,.13);color:rgba(255,255,255,.6);font-size:.56rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .2s;font-weight:500;}
-.plan-btn:hover{border-color:rgba(184,112,126,.45);color:var(--blush);}
-.plan.featured .plan-btn{background:var(--rose);border-color:transparent;color:white;}
+.plan-badge{
+  position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+  background:#B8707E;color:white;
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  padding:4px 14px;font-weight:600;white-space:nowrap;
+}
+.plan-name{
+  font-family:var(--serif);font-style:italic;font-weight:700;
+  font-size:1.2rem;color:rgba(255,255,255,.82);margin-bottom:6px;
+}
+.plan-price{
+  font-family:var(--serif);font-size:2.8rem;font-weight:300;
+  font-style:italic;color:white;line-height:1;margin:12px 0 3px;
+}
+.plan.featured .plan-price{
+  background:linear-gradient(135deg,#EDD5D8,#C9A882);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.plan-currency{
+  font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.25);margin-bottom:20px;
+}
+.plan-feats{
+  list-style:none;text-align:left;margin-bottom:22px;
+  display:flex;flex-direction:column;gap:8px;flex:1;
+}
+.plan-feats li{
+  font-size:10px;color:rgba(255,255,255,.42);
+  display:flex;align-items:flex-start;gap:7px;
+  line-height:1.7;font-weight:300;
+}
+.plan-feats li::before{content:'·';color:#B8707E;flex-shrink:0;font-size:1rem;line-height:1.2;}
+.plan-feats li.hi{color:rgba(237,213,216,.8);}
+.plan-feats li.hi::before{content:'✦';font-size:9px;margin-top:4px;}
+.plan-btn{
+  display:block;width:100%;padding:11px;
+  border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.5);
+  font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;transition:all .2s;font-weight:500;
+}
+.plan-btn:hover{border-color:rgba(184,112,126,.45);color:#EDD5D8;}
+.plan.featured .plan-btn{background:#B8707E;border-color:transparent;color:white;}
 .plan.featured .plan-btn:hover{background:#A86070;}
 
-/* TESTIMONIALS */
-.testimonials{padding:88px 5%;background:var(--cream);}
-.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;max-width:960px;margin:0 auto;}
-.test-card{background:var(--white);padding:26px 22px;border:1px solid rgba(184,112,126,.1);position:relative;}
-.test-stars{color:var(--rose);font-size:.62rem;letter-spacing:2px;margin-bottom:11px;opacity:.88;}
-.test-quote{font-family:var(--serif);font-style:italic;font-size:.96rem;color:var(--deep);line-height:1.9;margin-bottom:14px;}
-.test-author{font-size:.5rem;letter-spacing:2px;text-transform:uppercase;color:var(--sage);font-weight:500;}
-.test-card::before{content:'\201C';font-family:var(--serif);font-size:5rem;color:rgba(184,112,126,.06);position:absolute;top:8px;left:14px;line-height:1;}
+.qr-note{
+  max-width:860px;margin:28px auto 0;
+  background:rgba(184,112,126,.07);border:1px solid rgba(184,112,126,.18);
+  padding:14px 20px;display:flex;align-items:flex-start;gap:12px;
+  position:relative;z-index:1;
+}
+.qr-note-dot{width:6px;height:6px;border-radius:50%;background:#B8707E;flex-shrink:0;margin-top:5px;}
+.qr-note-text{font-size:10px;color:rgba(255,255,255,.4);line-height:1.85;font-weight:300;}
 
-/* FAQ */
-.faq{padding:88px 5%;background:linear-gradient(160deg,#F2EEE8,var(--cream));}
-.faq-list{max-width:700px;margin:0 auto;}
-.faq-item{border-bottom:1px solid rgba(184,112,126,.12);}
-.faq-q{width:100%;text-align:left;padding:19px 0;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:14px;}
-.faq-q-text{font-family:var(--serif);font-style:italic;font-weight:600;font-size:1.06rem;color:var(--deep);}
-.faq-icon{font-size:1.1rem;color:var(--rose);transition:transform .3s;flex-shrink:0;}
-.faq-item.open .faq-icon{transform:rotate(45deg);}
-.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;}
-.faq-item.open .faq-a{max-height:220px;padding-bottom:16px;}
-.faq-a p{font-size:.68rem;color:var(--muted);line-height:1.95;font-weight:300;}
+/* ── CONTACT ── */
+.contact{
+  background:#2A1520;padding:64px 5%;
+  text-align:center;position:relative;overflow:hidden;
+}
+.contact::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 0%,rgba(184,112,126,.08),transparent 65%);
+}
+.contact-inner{position:relative;z-index:1;}
+.cs-eyebrow{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:rgba(142,168,152,.65);margin-bottom:14px;}
+.cs-title{
+  font-family:var(--script);font-size:clamp(2rem,5vw,3.4rem);
+  background:linear-gradient(135deg,#EDD5D8,#C9A882 40%,#EDD5D8);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:12px;display:inline-block;
+}
+.cs-body{
+  font-family:var(--serif);font-style:italic;
+  font-size:clamp(.95rem,1.8vw,1.15rem);
+  color:rgba(255,255,255,.35);margin-bottom:32px;
+}
+.cs-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-wa{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 28px;background:#25D366;color:white;
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  font-weight:600;text-decoration:none;transition:all .2s;
+}
+.btn-wa:hover{background:#1EAF56;transform:translateY(-2px);}
+.btn-email{
+  padding:13px 28px;background:transparent;
+  color:rgba(255,255,255,.5);
+  font-size:10px;letter-spacing:2.5px;text-transform:uppercase;
+  font-weight:600;text-decoration:none;
+  border:1.5px solid rgba(255,255,255,.14);transition:all .2s;
+}
+.btn-email:hover{border-color:rgba(184,112,126,.45);color:#EDD5D8;}
 
-/* CTA */
-.cta-final{padding:100px 5%;text-align:center;background:linear-gradient(160deg,#2A1520,#1A0C18);position:relative;overflow:hidden;}
-.cta-final::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(184,112,126,.09),transparent 65%),radial-gradient(ellipse at 20% 100%,rgba(142,168,152,.05),transparent 60%);}
-.cta-final .sec-label{color:rgba(142,168,152,.65);}
-.cta-final .sec-title{background:linear-gradient(135deg,#EDD5D8,#C9A882 40%,#EDD5D8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.cta-final .sec-body{color:rgba(255,255,255,.38);}
-.cta-bg-name{font-family:var(--script);font-size:clamp(3rem,7vw,6rem);color:rgba(255,255,255,.04);position:absolute;bottom:22px;left:50%;transform:translateX(-50%);white-space:nowrap;pointer-events:none;}
+/* ── FOOTER ── */
+footer{background:#120810;padding:36px 5%;text-align:center;}
+.footer-logo{height:48px;width:auto;display:block;margin:0 auto 8px;object-fit:contain;opacity:.7;}
+.footer-logo-text{
+  font-family:var(--script);font-size:1.9rem;
+  background:var(--grad-text);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;display:block;margin-bottom:4px;
+}
+.footer-url{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.16);display:block;margin-bottom:16px;}
+.footer-copy{font-size:9px;color:rgba(255,255,255,.1);letter-spacing:1px;}
 
-/* FOOTER */
-footer{background:#120810;padding:42px 5%;text-align:center;}
-.footer-brand{font-family:var(--script);font-size:2.1rem;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:5px;}
-.footer-url{font-size:.48rem;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.18);display:block;margin-bottom:20px;}
-.footer-links{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:16px;}
-.footer-links a{font-size:.5rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.2);text-decoration:none;transition:color .2s;}
-.footer-links a:hover{color:rgba(184,112,126,.65);}
-.footer-copy{font-size:.48rem;color:rgba(255,255,255,.11);letter-spacing:1px;}
-.wa-float{position:fixed;bottom:26px;right:20px;z-index:200;width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(37,211,102,.42);text-decoration:none;transition:transform .2s;}
+/* ── WA FLOAT ── */
+.wa-float{
+  position:fixed;bottom:24px;right:20px;z-index:200;
+  width:50px;height:50px;border-radius:50%;background:#25D366;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 18px rgba(37,211,102,.42);
+  text-decoration:none;transition:transform .2s;
+}
 .wa-float:hover{transform:scale(1.1);}
 .wa-float svg{width:25px;height:25px;fill:white;}
 
-/* EVENT TYPE CARDS */
-.ev-card{background:var(--cream);border:1px solid rgba(184,112,126,.12);overflow:hidden;transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;}
-.ev-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);}
-.ev-card-header{height:180px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-.ev-card-icon{font-size:3.8rem;position:relative;z-index:1;}
-.ev-card-body{padding:24px 22px;flex:1;display:flex;flex-direction:column;}
-.ev-card-tag{font-size:.46rem;letter-spacing:3px;text-transform:uppercase;font-weight:600;display:inline-block;padding:3px 9px;margin-bottom:12px;border:1px solid;width:fit-content;}
-.ev-card-name{font-family:var(--serif);font-style:italic;font-weight:700;font-size:1.3rem;color:var(--deep);margin-bottom:7px;}
-.ev-card-desc{font-size:.65rem;color:var(--muted);line-height:1.9;font-weight:300;flex:1;}
-.ev-card-price-row{display:flex;align-items:flex-end;justify-content:space-between;margin-top:18px;padding-top:14px;border-top:1px solid rgba(184,112,126,.1);}
-.ev-card-from{font-size:.48rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:400;}
-.ev-card-price{font-family:var(--serif);font-style:italic;font-size:1.9rem;font-weight:300;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;}
-.ev-card-btn{display:block;text-align:center;margin-top:14px;padding:10px;font-size:.54rem;letter-spacing:2px;text-transform:uppercase;text-decoration:none;font-weight:600;transition:all .2s;border:1px solid;}
-
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .72s ease,transform .72s ease;}
-.reveal.vis{opacity:1;transform:none;}
+/* ── REVEAL ── */
+.reveal{opacity:1;transform:none;}
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <span class="nav-brand">Mak Invitations</span>
-  <div class="nav-links">
-    <a href="#events-section" class="hide-mob" data-i18n="nav_events"></a>
-    <a href="#features" class="hide-mob" data-i18n="nav_feat"></a>
-    <a href="#examples" class="hide-mob" data-i18n="nav_ex"></a>
-    <a href="#pricing" class="hide-mob" data-i18n="nav_price"></a>
-    <a href="#faq" class="hide-mob">FAQ</a>
-    <a href="#contact" class="nav-cta" data-i18n="nav_cta"></a>
-    <div class="lang-sw">
-      <button id="sw-es" class="active" onclick="setLang('es')">ES</button>
-      <div class="lang-divider"></div>
-      <button id="sw-en" onclick="setLang('en')">EN</button>
+  <a href="#" class="nav-logo">
+    <img src="img/LOGO.png" alt="" class="nav-logo-img">
+  </a>
+  <div class="nav-right">
+    <a href="#demos" class="nav-link" data-i18n="nav_demos">Demos</a>
+    <a href="#precios" class="nav-link" data-i18n="nav_price">Precios</a>
+    <a href="#contacto" class="nav-btn" data-i18n="nav_cta">Cotizar</a>
+    <!-- Globe language switcher -->
+    <div class="lang-wrap" id="lang-wrap">
+      <svg width="0" height="0" style="position:absolute;pointer-events:none;">
+        <defs>
+          <linearGradient id="gg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%"   stop-color="#C07888"/>
+            <stop offset="35%"  stop-color="#7A9888"/>
+            <stop offset="65%"  stop-color="#B89060"/>
+            <stop offset="100%" stop-color="#A06070"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <button class="lang-btn" onclick="toggleLang(event)" aria-label="Idioma">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9" stroke="url(#gg)" stroke-width="1.5"/>
+          <ellipse cx="12" cy="12" rx="3.8" ry="9" stroke="url(#gg)" stroke-width="1.3"/>
+          <line x1="3" y1="12" x2="21" y2="12" stroke="url(#gg)" stroke-width="1.3"/>
+          <path d="M4.8 7.5 Q12 5.5 19.2 7.5" stroke="url(#gg)" stroke-width="1.1" fill="none"/>
+          <path d="M4.8 16.5 Q12 18.5 19.2 16.5" stroke="url(#gg)" stroke-width="1.1" fill="none"/>
+        </svg>
+      </button>
+      <div class="lang-menu">
+        <button class="lang-item on" id="li-es" onclick="setLang('es')">ES — Español</button>
+        <button class="lang-item" id="li-en" onclick="setLang('en')">EN — English</button>
+      </div>
     </div>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg-grad"></div>
+  <div class="hero-bg"></div>
   <div class="hero-petals" id="petals"></div>
   <div class="hero-inner reveal">
-    <p class="hero-eyebrow" data-i18n="hero_eyebrow"></p>
-    <h1 class="hero-title">Mak Invitations</h1>
+    <span class="hero-logo-text">Mak Invitations</span>
     <p class="hero-tagline" data-i18n="hero_tagline"></p>
     <p class="hero-sub" data-i18n="hero_sub"></p>
     <div class="hero-btns">
-      <a href="#examples" class="btn-primary" data-i18n="hero_btn1"></a>
-      <a href="#pricing" class="btn-ghost" data-i18n="hero_btn2"></a>
+      <a href="#demos" class="btn-primary" data-i18n="hero_btn1"></a>
+      <a href="#contacto" class="btn-ghost" data-i18n="hero_btn2"></a>
     </div>
   </div>
   <div class="hero-scroll"><span data-i18n="scroll"></span><div class="scroll-line"></div></div>
@@ -451,934 +480,308 @@ footer{background:#120810;padding:42px 5%;text-align:center;}
 
 <div class="orn"><svg viewBox="0 0 360 20" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="10" x2="138" y2="10" stroke="#C4849A" stroke-width=".6" opacity=".4"/><polygon points="150,10 156,5 162,10 156,15" fill="none" stroke="#C4849A" stroke-width=".8"/><circle cx="178" cy="10" r="2.2" fill="#C4849A" opacity=".7"/><polygon points="194,10 200,5 206,10 200,15" fill="none" stroke="#C4849A" stroke-width=".8"/><line x1="218" y1="10" x2="360" y2="10" stroke="#C4849A" stroke-width=".6" opacity=".4"/></svg></div>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="stat reveal"><div class="stat-num">100%</div><div class="stat-lbl" data-i18n="stat1"></div></div>
-  <div class="stat reveal"><div class="stat-num">2+</div><div class="stat-lbl" data-i18n="stat2"></div></div>
-  <div class="stat reveal"><div class="stat-num">∞</div><div class="stat-lbl" data-i18n="stat3"></div></div>
-  <div class="stat reveal"><div class="stat-num">48h</div><div class="stat-lbl" data-i18n="stat4"></div></div>
-</div>
-
-<!-- FEATURES -->
-<section class="features" id="features">
-  <div class="sec-wrap reveal">
-    <span class="sec-label" data-i18n="feat_lbl"></span>
-    <h2 class="sec-title" data-i18n="feat_title"></h2>
-    <p class="sec-body" data-i18n="feat_body"></p>
+<!-- DEMOS -->
+<section class="demos" id="demos">
+  <div class="sec-head reveal">
+    <span class="sec-label" data-i18n="demos_lbl"></span>
+    <h2 class="sec-title" data-i18n="demos_title"></h2>
+    <p class="sec-body" data-i18n="demos_body"></p>
   </div>
-  <div class="features-grid">
-
-    <!-- F1: Animación Entrada (Sobre) -->
-    <div class="feat-card reveal">
-      <div class="feat-preview">
-        <div class="fp-env">
-          <div class="fp-env-box">
-            <div class="fp-env-back"></div>
-            <div class="fp-env-b"></div>
-            <div class="fp-env-fl"></div>
-            <div class="fp-env-mono">V &amp; R</div>
-          </div>
-          <div class="fp-env-hint" data-i18n="fp_tap"></div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">✉️</span>
-        <div class="feat-title" data-i18n="f1_title"></div>
-        <p class="feat-desc" data-i18n="f1_desc"></p>
-        <span class="feat-badge" data-i18n="f1_badge"></span>
-      </div>
-    </div>
-
-    <!-- F2: Animación Única -->
-    <div class="feat-card reveal">
-      <div class="feat-preview fp-spark" id="fp-spark">
-        <div class="fp-spark-name">Valentina &amp; Rodrigo</div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">✨</span>
-        <div class="feat-title" data-i18n="f2_title"></div>
-        <p class="feat-desc" data-i18n="f2_desc"></p>
-        <span class="feat-badge premium" data-i18n="f2_badge"></span>
-      </div>
-    </div>
-
-    <!-- F3: RSVP WhatsApp -->
-    <div class="feat-card reveal">
-      <div class="feat-preview" style="flex-direction:column;gap:0;padding:14px 0 0;">
-        <div style="font-family:'Great Vibes',cursive;font-size:1rem;color:rgba(255,255,255,.7);margin-bottom:8px;" data-i18n="phone_rsvp"></div>
-        <div class="fp-rsvp">
-          <div class="fp-rsvp-f" data-i18n="fp_rsvp_name"></div>
-          <div class="fp-rsvp-f" data-i18n="fp_rsvp_adults"></div>
-          <div class="fp-rsvp-btn">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-            WhatsApp
-          </div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">💬</span>
-        <div class="feat-title" data-i18n="f3_title"></div>
-        <p class="feat-desc" data-i18n="f3_desc"></p>
-        <span class="feat-badge" data-i18n="f3_badge"></span>
-      </div>
-    </div>
-
-    <!-- F4: RSVP + QR -->
-    <div class="feat-card reveal">
-      <div class="feat-preview">
-        <div class="fp-qr">
-          <div class="fp-qr-box" id="fp-qr-grid"></div>
-          <div class="fp-qr-code">CONF-XR4K8M</div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">🎟️</span>
-        <div class="feat-title" data-i18n="f4_title"></div>
-        <p class="feat-desc" data-i18n="f4_desc"></p>
-        <span class="feat-badge premium" data-i18n="f4_badge"></span>
-      </div>
-    </div>
-
-    <!-- F5: Nombramientos (padres/padrinos) -->
-    <div class="feat-card reveal">
-      <div class="feat-preview" style="flex-direction:column;gap:6px;">
-        <div class="fp-parents">
-          <div class="fp-par-role" data-i18n="fp_bride_parents"></div>
-          <div class="fp-par-names">Ernesto &amp; Xóchitl</div>
-          <div class="fp-par-div"></div>
-          <div class="fp-par-role" data-i18n="fp_groom_parents"></div>
-          <div class="fp-par-names">Jobanjit &amp; Devinder</div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">👨‍👩‍👧</span>
-        <div class="feat-title" data-i18n="f5_title"></div>
-        <p class="feat-desc" data-i18n="f5_desc"></p>
-      </div>
-    </div>
-
-    <!-- F6: Padrinos y madrinas -->
-    <div class="feat-card reveal">
-      <div class="feat-preview">
-        <div class="fp-god">
-          <div class="fp-god-item"><div class="fp-god-circle">💒</div><div class="fp-god-lbl" data-i18n="fp_god1"></div></div>
-          <div class="fp-god-item"><div class="fp-god-circle">🎂</div><div class="fp-god-lbl" data-i18n="fp_god2"></div></div>
-          <div class="fp-god-item"><div class="fp-god-circle">🌹</div><div class="fp-god-lbl" data-i18n="fp_god3"></div></div>
-          <div class="fp-god-item"><div class="fp-god-circle">🥂</div><div class="fp-god-lbl" data-i18n="fp_god4"></div></div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">🌹</span>
-        <div class="feat-title" data-i18n="f6_title"></div>
-        <p class="feat-desc" data-i18n="f6_desc"></p>
-      </div>
-    </div>
-
-    <!-- F7: Historia de Amor -->
-    <div class="feat-card reveal">
-      <div class="feat-preview" style="flex-direction:column;gap:6px;">
-        <div style="font-size:.42rem;letter-spacing:4px;text-transform:uppercase;color:rgba(201,168,130,.6);" data-i18n="fp_love_label"></div>
-        <div class="fp-love">
-          <div class="fp-love-ev"><div class="fp-love-icon">☕</div><div class="fp-love-txt" data-i18n="fp_love1"></div></div>
-          <div class="fp-love-line"></div>
-          <div class="fp-love-dot"></div>
-          <div class="fp-love-line"></div>
-          <div class="fp-love-ev"><div class="fp-love-icon">✈️</div><div class="fp-love-txt" data-i18n="fp_love2"></div></div>
-          <div class="fp-love-line"></div>
-          <div class="fp-love-dot"></div>
-          <div class="fp-love-line"></div>
-          <div class="fp-love-ev"><div class="fp-love-icon">💍</div><div class="fp-love-txt" data-i18n="fp_love3"></div></div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">💍</span>
-        <div class="feat-title" data-i18n="f7_title"></div>
-        <p class="feat-desc" data-i18n="f7_desc"></p>
-      </div>
-    </div>
-
-    <!-- F8: Itinerario -->
-    <div class="feat-card reveal">
-      <div class="feat-preview" style="padding:10px 0;">
-        <div class="fp-itin">
-          <div class="fp-itin-row"><div class="fp-itin-dot active"></div><div class="fp-itin-time">4:00 PM</div><div class="fp-itin-ev">⛪ <span data-i18n="fp_itin1"></span></div></div>
-          <div class="fp-itin-line"></div>
-          <div class="fp-itin-row"><div class="fp-itin-dot active"></div><div class="fp-itin-time">7:00 PM</div><div class="fp-itin-ev">🌹 <span data-i18n="fp_itin2"></span></div></div>
-          <div class="fp-itin-line"></div>
-          <div class="fp-itin-row"><div class="fp-itin-dot"></div><div class="fp-itin-time">9:00 PM</div><div class="fp-itin-ev">💃 <span data-i18n="fp_itin3"></span></div></div>
-          <div class="fp-itin-line"></div>
-          <div class="fp-itin-row"><div class="fp-itin-dot"></div><div class="fp-itin-time">2:00 AM</div><div class="fp-itin-ev">🌙 <span data-i18n="fp_itin4"></span></div></div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">📋</span>
-        <div class="feat-title" data-i18n="f8_title"></div>
-        <p class="feat-desc" data-i18n="f8_desc"></p>
-      </div>
-    </div>
-
-    <!-- F9: Panel Admin -->
-    <div class="feat-card reveal">
-      <div class="feat-preview" style="flex-direction:column;gap:8px;">
-        <div style="font-size:.4rem;letter-spacing:4px;text-transform:uppercase;color:rgba(142,168,152,.7);" data-i18n="fp_admin_label"></div>
-        <div class="fp-admin">
-          <div class="fp-admin-card"><div class="fp-admin-num" id="admin-conf">48</div><div class="fp-admin-lbl" data-i18n="fp_admin1"></div></div>
-          <div class="fp-admin-card"><div class="fp-admin-num">124</div><div class="fp-admin-lbl" data-i18n="fp_admin2"></div></div>
-          <div class="fp-admin-card"><div class="fp-admin-num">12</div><div class="fp-admin-lbl" data-i18n="fp_admin3"></div></div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">📊</span>
-        <div class="feat-title" data-i18n="f9_title"></div>
-        <p class="feat-desc" data-i18n="f9_desc"></p>
-        <span class="feat-badge premium" data-i18n="f9_badge"></span>
-      </div>
-    </div>
-
-    <!-- F10: Multi-idioma -->
-    <div class="feat-card reveal">
-      <div class="feat-preview" style="flex-direction:column;gap:8px;">
-        <div class="fp-lang-text" data-i18n="fp_lang_title"></div>
-        <div class="fp-lang-row">
-          <div class="fp-lang-btn active">🇲🇽 ES</div>
-          <div class="fp-lang-btn">🇺🇸 EN</div>
-          <div class="fp-lang-btn">🇮🇳 PA</div>
-        </div>
-        <div class="fp-lang-row">
-          <div class="fp-lang-btn">🇫🇷 FR</div>
-          <div class="fp-lang-btn">🇩🇪 DE</div>
-          <div class="fp-lang-btn">🇧🇷 PT</div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">🌍</span>
-        <div class="feat-title" data-i18n="f10_title"></div>
-        <p class="feat-desc" data-i18n="f10_desc"></p>
-        <span class="feat-badge" data-i18n="f10_badge"></span>
-      </div>
-    </div>
-
-    <!-- F11: Cuenta Regresiva -->
-    <div class="feat-card reveal">
-      <div class="feat-preview" style="flex-direction:column;gap:6px;">
-        <div style="font-size:.42rem;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px;" data-i18n="phone_cd"></div>
-        <div class="fp-cd">
-          <div class="fp-cd-unit"><div class="fp-cd-num" id="fp-cd-d">--</div><div class="fp-cd-lbl" data-i18n="phone_d"></div></div>
-          <div class="fp-cd-unit"><div class="fp-cd-num" id="fp-cd-h">--</div><div class="fp-cd-lbl" data-i18n="phone_h"></div></div>
-          <div class="fp-cd-unit"><div class="fp-cd-num" id="fp-cd-m">--</div><div class="fp-cd-lbl" data-i18n="phone_m"></div></div>
-          <div class="fp-cd-unit"><div class="fp-cd-num" id="fp-cd-s">--</div><div class="fp-cd-lbl" data-i18n="phone_s"></div></div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">⏱️</span>
-        <div class="feat-title" data-i18n="f11_title"></div>
-        <p class="feat-desc" data-i18n="f11_desc"></p>
-      </div>
-    </div>
-
-    <!-- F12: Galería Interactiva -->
-    <div class="feat-card reveal">
-      <div class="feat-preview fp-gal">
-        <div class="fp-gal-rope"></div>
-        <div class="fp-gal-photos">
-          <div class="fp-gal-item"><div class="fp-gal-clip"></div><div class="fp-gal-photo"><div style="background:linear-gradient(160deg,#E8C4D0,#C090A0);width:100%;height:100%;"></div></div></div>
-          <div class="fp-gal-item" style="margin-top:12px;"><div class="fp-gal-clip"></div><div class="fp-gal-photo"><div style="background:linear-gradient(160deg,#C8D0E0,#90A0C0);width:100%;height:100%;"></div></div></div>
-          <div class="fp-gal-item" style="margin-top:-8px;"><div class="fp-gal-clip"></div><div class="fp-gal-photo"><div style="background:linear-gradient(160deg,#D8C8BC,#B09080);width:100%;height:100%;"></div></div></div>
-          <div class="fp-gal-item" style="margin-top:6px;"><div class="fp-gal-clip"></div><div class="fp-gal-photo"><div style="background:linear-gradient(160deg,#C8D8C0,#8AB090);width:100%;height:100%;"></div></div></div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">📸</span>
-        <div class="feat-title" data-i18n="f12_title"></div>
-        <p class="feat-desc" data-i18n="f12_desc"></p>
-      </div>
-    </div>
-
-    <!-- F13: Eventos con Mapa -->
-    <div class="feat-card reveal">
-      <div class="feat-preview" style="padding:10px 0;">
-        <div class="fp-ev">
-          <div class="fp-ev-card">
-            <div class="fp-ev-title" data-i18n="fp_ev_ceremo"></div>
-            <div class="fp-ev-detail" data-i18n="fp_ev_time1"></div>
-            <div class="fp-ev-detail" data-i18n="fp_ev_addr1"></div>
-          </div>
-          <div class="fp-ev-card">
-            <div class="fp-ev-title" data-i18n="fp_ev_recep"></div>
-            <div class="fp-ev-detail" data-i18n="fp_ev_time2"></div>
-            <div class="fp-ev-map">📍 <span data-i18n="fp_ev_map"></span></div>
-          </div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">🗺️</span>
-        <div class="feat-title" data-i18n="f13_title"></div>
-        <p class="feat-desc" data-i18n="f13_desc"></p>
-      </div>
-    </div>
-
-    <!-- F14: Música -->
-    <div class="feat-card reveal">
-      <div class="feat-preview" style="flex-direction:column;gap:8px;">
-        <div class="fp-music-bars">
-          <div class="fp-music-bar" style="--h:30px;animation-duration:0.9s;"></div>
-          <div class="fp-music-bar" style="--h:22px;animation-duration:1.1s;animation-delay:.1s;"></div>
-          <div class="fp-music-bar" style="--h:36px;animation-duration:0.7s;animation-delay:.2s;"></div>
-          <div class="fp-music-bar" style="--h:18px;animation-duration:1.2s;animation-delay:.15s;"></div>
-          <div class="fp-music-bar" style="--h:32px;animation-duration:0.8s;animation-delay:.05s;"></div>
-          <div class="fp-music-bar" style="--h:26px;animation-duration:1.0s;animation-delay:.3s;"></div>
-          <div class="fp-music-bar" style="--h:20px;animation-duration:0.85s;animation-delay:.25s;"></div>
-        </div>
-        <div class="fp-music-title">Perfect</div>
-        <div class="fp-music-artist">ED SHEERAN</div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">🎵</span>
-        <div class="feat-title" data-i18n="f14_title"></div>
-        <p class="feat-desc" data-i18n="f14_desc"></p>
-      </div>
-    </div>
-
-    <!-- F15: Mesa de Regalos -->
-    <div class="feat-card reveal">
-      <div class="feat-preview" style="gap:10px;">
-        <div class="fp-gift">
-          <div class="fp-gift-inner">
-            <div class="fp-gift-f"><div class="fp-gift-icon">🏦</div><div class="fp-gift-lbl" data-i18n="fp_gift_bank"></div></div>
-            <div class="fp-gift-b"><div class="fp-gift-lbl" data-i18n="fp_gift_holder"></div><div class="fp-gift-val">Valentina R.</div><div class="fp-gift-lbl" style="margin-top:4px;" data-i18n="fp_gift_card"></div><div class="fp-gift-val">5264 •••• 1278</div></div>
-          </div>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-start;">
-          <div style="display:flex;align-items:center;gap:6px;padding:5px 10px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);">
-            <span style="font-family:Arial Black,sans-serif;font-size:1rem;font-weight:900;color:#003087;">P</span><span style="font-family:Arial Black,sans-serif;font-size:.8rem;font-weight:900;color:#009cde;margin-left:-5px;margin-top:3px;">P</span>
-            <span style="font-size:.42rem;color:rgba(255,255,255,.5);letter-spacing:1px;">PayPal</span>
-          </div>
-          <div style="font-size:.38rem;color:rgba(255,255,255,.3);letter-spacing:2px;padding-left:2px;" data-i18n="fp_gift_tap"></div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">🎁</span>
-        <div class="feat-title" data-i18n="f15_title"></div>
-        <p class="feat-desc" data-i18n="f15_desc"></p>
-      </div>
-    </div>
-
-    <!-- F16: Código de Vestimenta -->
-    <div class="feat-card reveal">
-      <div class="feat-preview">
-        <div class="fp-dress">
-          <div class="fp-dress-col">
-            <div class="fp-dress-lbl" data-i18n="fp_dress_ladies"></div>
-            <svg viewBox="0 0 70 140" class="fp-dress-svg" style="width:46px;height:auto;" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="35" cy="14" rx="10" ry="11" fill="#F8C4BC"/>
-              <path d="M26,12 Q20,22 18,42 L17,68 Q35,76 53,68 L52,42 Q50,22 44,12Z" fill="rgba(184,112,126,.7)"/>
-              <path d="M18,42 L8,44 L7,54 L17,52Z" fill="#F8C4BC"/><path d="M52,42 L62,44 L63,54 L53,52Z" fill="#F8C4BC"/>
-              <path d="M17,66 L6,120 L6,124 Q35,130 64,124 L64,120 L53,66Z" fill="rgba(237,213,216,.85)"/>
-            </svg>
-            <div class="fp-dress-lbl" style="color:rgba(255,255,255,.5);font-size:.38rem;" data-i18n="fp_dress_gown"></div>
-          </div>
-          <div class="fp-dress-col">
-            <div class="fp-dress-lbl" data-i18n="fp_dress_gents"></div>
-            <svg viewBox="0 0 70 140" class="fp-dress-svg" style="width:46px;height:auto;" xmlns="http://www.w3.org/2000/svg">
-              <ellipse cx="35" cy="12" rx="9" ry="11" fill="#F5C0B0"/>
-              <path d="M26,22 Q22,30 21,48 L20,72 L50,72 L49,48 Q48,30 44,22Z" fill="rgba(42,21,32,.8)"/>
-              <path d="M33,22 L35,50 L37,22" fill="rgba(255,255,255,.6)"/>
-              <rect x="20" y="70" width="30" height="4" fill="#1A0C10"/>
-              <path d="M20,74 L14,120 L14,130 L56,130 L56,120 L50,74Z" fill="rgba(42,21,32,.75)"/>
-            </svg>
-            <div class="fp-dress-lbl" style="color:rgba(255,255,255,.5);font-size:.38rem;" data-i18n="fp_dress_suit"></div>
-          </div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">👗</span>
-        <div class="feat-title" data-i18n="f16_title"></div>
-        <p class="feat-desc" data-i18n="f16_desc"></p>
-      </div>
-    </div>
-
-    <!-- F17: Hoteles -->
-    <div class="feat-card reveal">
-      <div class="feat-preview" style="padding:12px 0;">
-        <div class="fp-hotel">
-          <div class="fp-hotel-card">
-            <div class="fp-hotel-name">City Express Chihuahua</div>
-            <div class="fp-hotel-stars">★★★★☆</div>
-            <div class="fp-hotel-note" data-i18n="fp_hotel1"></div>
-          </div>
-          <div class="fp-hotel-card">
-            <div class="fp-hotel-name">Hampton Inn Hilton</div>
-            <div class="fp-hotel-stars">★★★★☆</div>
-            <div class="fp-hotel-note" data-i18n="fp_hotel2"></div>
-          </div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">🏨</span>
-        <div class="feat-title" data-i18n="f17_title"></div>
-        <p class="feat-desc" data-i18n="f17_desc"></p>
-      </div>
-    </div>
-
-    <!-- F18: Agregar al Calendario -->
-    <div class="feat-card reveal">
-      <div class="feat-preview" style="flex-direction:column;gap:8px;">
-        <div class="fp-cal-icon">📅</div>
-        <div style="font-size:.42rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);" data-i18n="fp_cal_title"></div>
-        <div class="fp-cal-btns">
-          <div class="fp-cal-btn g">📅 Google</div>
-          <div class="fp-cal-btn a">🍎 Apple</div>
-          <div class="fp-cal-btn" style="background:rgba(0,72,153,.1);border-color:rgba(0,72,153,.3);">📘 Outlook</div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">📅</span>
-        <div class="feat-title" data-i18n="f18_title"></div>
-        <p class="feat-desc" data-i18n="f18_desc"></p>
-      </div>
-    </div>
-
-    <!-- F19: Frase/Verso -->
-    <div class="feat-card reveal">
-      <div class="feat-preview" style="flex-direction:column;gap:6px;padding:0 14px;">
-        <div class="fp-quote">
-          <div class="fp-quote-text" data-i18n="fp_verse_text"></div>
-          <div class="fp-quote-src">— Moroni 7:45</div>
-        </div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">🕊️</span>
-        <div class="feat-title" data-i18n="f19_title"></div>
-        <p class="feat-desc" data-i18n="f19_desc"></p>
-      </div>
-    </div>
-
-    <!-- F20: Animaciones Florales -->
-    <div class="feat-card reveal">
-      <div class="feat-preview fp-floral" id="fp-floral">
-        <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Great Vibes',cursive;font-size:1.2rem;color:rgba(255,255,255,.55);z-index:2;white-space:nowrap;">Mak Invitations</div>
-      </div>
-      <div class="feat-card-body">
-        <span class="feat-icon">🌸</span>
-        <div class="feat-title" data-i18n="f20_title"></div>
-        <p class="feat-desc" data-i18n="f20_desc"></p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- EVENT TYPES -->
-<section id="events-section" style="padding:88px 5%;background:var(--white);">
-  <div class="sec-wrap reveal">
-    <span class="sec-label" data-i18n="ev_lbl"></span>
-    <h2 class="sec-title" data-i18n="ev_title"></h2>
-    <p class="sec-body" data-i18n="ev_body"></p>
-  </div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:1100px;margin:0 auto;" id="ev-grid"></div>
-</section>
-
-<!-- LANGUAGE SECTION -->
-<section class="lang-section" id="languages">
-  <div class="sec-wrap reveal" style="margin-bottom:38px;">
-    <span class="sec-label" style="color:rgba(142,168,152,.75);" data-i18n="lang_lbl"></span>
-    <h2 class="sec-title" style="background:linear-gradient(135deg,#EDD5D8,#C9A882 40%,#EDD5D8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;" data-i18n="lang_title"></h2>
-    <p class="sec-body" style="color:rgba(255,255,255,.38);" data-i18n="lang_body"></p>
-  </div>
-  <div class="lang-inner reveal">
-    <div class="lang-card basic">
-      <span class="lang-badge-pill" data-i18n="lang_basic_badge"></span>
-      <div class="lang-ttl" data-i18n="lang_basic_title"></div>
-      <p class="lang-desc" data-i18n="lang_basic_desc"></p>
-      <div class="lang-flags">
-        <div class="lang-flag"><span>🇲🇽</span><span>Español</span></div>
-        <div class="lang-flag"><span>🇺🇸</span><span>English</span></div>
-      </div>
-      <p class="lang-plus" data-i18n="lang_basic_plus"></p>
-    </div>
-    <div class="lang-card prem">
-      <span class="lang-badge-pill" data-i18n="lang_prem_badge"></span>
-      <div class="lang-ttl" data-i18n="lang_prem_title"></div>
-      <p class="lang-desc" data-i18n="lang_prem_desc"></p>
-      <div class="lang-flags">
-        <div class="lang-flag"><span>🇲🇽</span><span>Español</span></div>
-        <div class="lang-flag"><span>🇺🇸</span><span>English</span></div>
-        <div class="lang-flag"><span>🇮🇳</span><span>Punjabi</span></div>
-        <div class="lang-flag"><span>🇫🇷</span><span>Français</span></div>
-        <div class="lang-flag"><span>🇩🇪</span><span>Deutsch</span></div>
-        <div class="lang-flag"><span>🇧🇷</span><span>Português</span></div>
-      </div>
-      <p class="lang-plus" data-i18n="lang_prem_plus"></p>
-    </div>
-  </div>
-</section>
-
-<!-- DEMO PHONE -->
-<section class="demo" id="demo">
   <div class="demo-inner">
-    <div class="phone-wrap reveal">
-      <div>
-        <div class="phone">
-          <div class="phone-notch"></div>
-          <div class="phone-screen">
-            <div class="pslide active" id="ps-1"><div class="ps1-bg"></div><div class="ps1-ov"></div><div class="ps1-c"><div class="ps1-names">Valentina<br>&amp; Rodrigo</div><div class="ps1-line"></div><div class="ps1-date">SAT · 15 · NOV · 2025</div><div class="ps1-loc">Hacienda San Ángel · CDMX</div></div></div>
-            <div class="pslide" id="ps-2"><div class="ps2"><div class="ps2-ttl" data-i18n="phone_cd"></div><div class="ps2-nums"><div class="ps2-u"><div class="ps2-num" id="ps-d">--</div><div class="ps2-lbl" data-i18n="phone_d"></div></div><div class="ps2-u"><div class="ps2-num" id="ps-h">--</div><div class="ps2-lbl" data-i18n="phone_h"></div></div><div class="ps2-u"><div class="ps2-num" id="ps-m">--</div><div class="ps2-lbl" data-i18n="phone_m"></div></div><div class="ps2-u"><div class="ps2-num" id="ps-s">--</div><div class="ps2-lbl" data-i18n="phone_s"></div></div></div></div></div>
-            <div class="pslide" id="ps-3"><div class="ps3"><div class="ps3-ttl" data-i18n="phone_gal"></div><div class="ps3-row"><div class="ps3-p" style="background:linear-gradient(160deg,#E8C4D0,#C090A0);"></div><div class="ps3-p" style="background:linear-gradient(160deg,#C8D0E0,#90A0C0);margin-top:-14px;"></div><div class="ps3-p" style="background:linear-gradient(160deg,#D8C8BC,#B09080);margin-top:10px;"></div></div></div></div>
-            <div class="pslide" id="ps-4"><div class="ps4"><div class="ps4-ttl" data-i18n="phone_rsvp"></div><input class="ps4-f" data-ph-es="Tu nombre..." data-ph-en="Your name..." placeholder="Tu nombre..." readonly><input class="ps4-f" data-ph-es="Apellido..." data-ph-en="Last name..." placeholder="Apellido..." readonly><input class="ps4-f" data-ph-es="Número de adultos" data-ph-en="Number of adults" placeholder="Número de adultos" readonly><button class="ps4-btn" data-i18n="phone_send"></button></div></div>
-          </div>
+    <div class="demo-tabs reveal">
+      <button class="demo-tab on" onclick="showDTab('boda')" id="dtab-boda" data-i18n="tab_boda"></button>
+      <button class="demo-tab" onclick="showDTab('xv')"   id="dtab-xv"   data-i18n="tab_xv"></button>
+      <button class="demo-tab" onclick="showDTab('baby')" id="dtab-baby" data-i18n="tab_baby"></button>
+      <button class="demo-tab" onclick="showDTab('kids')" id="dtab-kids" data-i18n="tab_kids"></button>
+    </div>
+
+    <div class="demo-panel on" id="dpanel-boda">
+      <a href="demos/weddings/valentina-rodrigo/index.html" target="_blank" class="mini-card">
+        <div class="mini-screen" style="background:linear-gradient(160deg,#2A1520,#1A0C18);">
+          <div class="mini-names">Valentina<span>&amp;</span>Rodrigo</div>
+          <div class="mini-date">15 · NOV · 2025</div>
         </div>
-        <div class="phone-dots"><button class="ph-dot active" onclick="goSlide(0)"></button><button class="ph-dot" onclick="goSlide(1)"></button><button class="ph-dot" onclick="goSlide(2)"></button><button class="ph-dot" onclick="goSlide(3)"></button></div>
-      </div>
+        <div class="mini-body">
+          <div class="mini-name">Valentina &amp; Rodrigo</div>
+          <div class="mini-cta" data-i18n="d_btn"></div>
+        </div>
+      </a>
+      <a href="demos/weddings/maria-jose/index.html" target="_blank" class="mini-card">
+        <div class="mini-screen" style="background:linear-gradient(160deg,#1A1428,#0E0C1E);">
+          <div class="mini-names">María<span>&amp;</span>José</div>
+          <div class="mini-date">12 · ABR · 2026</div>
+        </div>
+        <div class="mini-body">
+          <div class="mini-name">María &amp; José</div>
+          <div class="mini-cta" data-i18n="d_btn"></div>
+        </div>
+      </a>
     </div>
-    <div class="demo-text reveal">
-      <span class="sec-label" data-i18n="demo_lbl"></span>
-      <h2 class="sec-title" style="display:block;text-align:left;" data-i18n="demo_title"></h2>
-      <p class="sec-body" style="text-align:left;margin:0;" data-i18n="demo_body"></p>
-      <div class="demo-list">
-        <div class="demo-item"><div class="demo-check"><svg viewBox="0 0 24 24" fill="none" stroke="#8EA898" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="demo-item-title" data-i18n="di1_t"></div><div class="demo-item-desc" data-i18n="di1_d"></div></div></div>
-        <div class="demo-item"><div class="demo-check"><svg viewBox="0 0 24 24" fill="none" stroke="#8EA898" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="demo-item-title" data-i18n="di2_t"></div><div class="demo-item-desc" data-i18n="di2_d"></div></div></div>
-        <div class="demo-item"><div class="demo-check"><svg viewBox="0 0 24 24" fill="none" stroke="#8EA898" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="demo-item-title" data-i18n="di3_t"></div><div class="demo-item-desc" data-i18n="di3_d"></div></div></div>
-        <div class="demo-item"><div class="demo-check"><svg viewBox="0 0 24 24" fill="none" stroke="#8EA898" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="demo-item-title" data-i18n="di4_t"></div><div class="demo-item-desc" data-i18n="di4_d"></div></div></div>
-      </div>
+
+    <div class="demo-panel" id="dpanel-xv">
+      <a href="demos/xv/sofia/index.html" target="_blank" class="mini-card">
+        <div class="mini-screen" style="background:linear-gradient(160deg,#1E1030,#140820);">
+          <div class="mini-names" style="font-size:.95rem;">Sofía</div>
+          <div class="mini-date" data-i18n="d_prox"></div>
+        </div>
+        <div class="mini-body">
+          <div class="mini-name">Sofía</div>
+          <div class="mini-cta" data-i18n="d_btn"></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="demo-panel" id="dpanel-baby">
+      <a href="demos/babyshower/camila/index.html" target="_blank" class="mini-card">
+        <div class="mini-screen" style="background:linear-gradient(160deg,#EAF5EE,#C8E8D4);">
+          <div class="mini-names" style="color:rgba(30,80,55,.85);font-size:.95rem;">Camila</div>
+          <div class="mini-date" style="color:rgba(30,80,55,.4);" data-i18n="d_prox"></div>
+        </div>
+        <div class="mini-body">
+          <div class="mini-name">Camila</div>
+          <div class="mini-cta" data-i18n="d_btn"></div>
+        </div>
+      </a>
+    </div>
+
+    <div class="demo-panel" id="dpanel-kids">
+      <a href="demos/infantil/Mateo/index.html" target="_blank" class="mini-card">
+        <div class="mini-screen" style="background:linear-gradient(160deg,#EAF0F8,#C8D8F0);">
+          <div class="mini-names" style="color:rgba(35,60,110,.85);font-size:.95rem;">Mateo</div>
+          <div class="mini-date" style="color:rgba(35,60,110,.4);" data-i18n="d_prox"></div>
+        </div>
+        <div class="mini-body">
+          <div class="mini-name">Mateo</div>
+          <div class="mini-cta" data-i18n="d_btn"></div>
+        </div>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- HOW -->
-<section class="how" id="how">
-  <div class="sec-wrap reveal">
-    <span class="sec-label" data-i18n="how_lbl"></span>
-    <h2 class="sec-title" data-i18n="how_title"></h2>
-    <p class="sec-body" data-i18n="how_body"></p>
-  </div>
-  <div class="steps">
-    <div class="step reveal"><div class="step-num">1</div><div class="step-title" data-i18n="s1_t"></div><p class="step-desc" data-i18n="s1_d"></p></div>
-    <div class="step reveal"><div class="step-num">2</div><div class="step-title" data-i18n="s2_t"></div><p class="step-desc" data-i18n="s2_d"></p></div>
-    <div class="step reveal"><div class="step-num">3</div><div class="step-title" data-i18n="s3_t"></div><p class="step-desc" data-i18n="s3_d"></p></div>
-    <div class="step reveal"><div class="step-num">4</div><div class="step-title" data-i18n="s4_t"></div><p class="step-desc" data-i18n="s4_d"></p></div>
-  </div>
-</section>
-
-<!-- EXAMPLES -->
-<section class="examples" id="examples">
-  <div class="sec-wrap reveal">
-    <span class="sec-label" data-i18n="ex_lbl"></span>
-    <h2 class="sec-title" data-i18n="ex_title"></h2>
-    <p class="sec-body" data-i18n="ex_body"></p>
-  </div>
-  <div class="ex-grid">
-    <div class="ex-card reveal"><div class="ex-ph" style="background:linear-gradient(160deg,#F2E4EA,#E0C8D4,#C8A8B8);"><div class="pl-inner"><div class="pl-couple" style="color:rgba(100,50,70,.65);">Valentina &amp; Rodrigo</div><div class="pl-div" style="background:rgba(184,112,126,.4);"></div><div class="pl-date" style="color:rgba(100,50,70,.45);">15 · Nov · 2025</div></div></div><div class="ex-overlay"></div><div class="ex-info"><span class="ex-name">Valentina &amp; Rodrigo</span><span class="ex-tag" data-i18n="ex1_tag"></span></div></div>
-    <div class="ex-card reveal"><div class="ex-ph" style="background:linear-gradient(160deg,#E4EAF2,#C8D4E0,#A8B8C8);"><div class="pl-inner"><div class="pl-couple" style="color:rgba(50,60,90,.65);">Isabella &amp; Mateo</div><div class="pl-div" style="background:rgba(100,130,160,.4);"></div><div class="pl-date" style="color:rgba(50,60,90,.45);">22 · Mar · 2026</div></div></div><div class="ex-overlay"></div><div class="ex-info"><span class="ex-name">Isabella &amp; Mateo</span><span class="ex-tag" data-i18n="ex2_tag"></span></div></div>
-    <div class="ex-card reveal"><div class="ex-ph" style="background:linear-gradient(160deg,#F2ECE4,#E0D4C0,#C8B898);"><div class="pl-inner"><div class="pl-couple" style="color:rgba(90,70,40,.65);">Sofía &amp; Andrés</div><div class="pl-div" style="background:rgba(160,130,80,.4);"></div><div class="pl-date" style="color:rgba(90,70,40,.45);">7 · Jun · 2026</div></div></div><div class="ex-overlay"></div><div class="ex-info"><span class="ex-name">Sofía &amp; Andrés</span><span class="ex-tag" data-i18n="ex3_tag"></span></div></div>
-    <div class="ex-card reveal"><div class="ex-ph" style="background:linear-gradient(160deg,#E4F2EA,#C8E0D0,#A8C8B4);"><div class="pl-inner"><div class="pl-couple" style="color:rgba(40,80,55,.65);">Camila &amp; Diego</div><div class="pl-div" style="background:rgba(80,150,100,.4);"></div><div class="pl-date" style="color:rgba(40,80,55,.45);">14 · Feb · 2026</div></div></div><div class="ex-overlay"></div><div class="ex-info"><span class="ex-name">Camila &amp; Diego</span><span class="ex-tag" data-i18n="ex4_tag"></span></div></div>
-    <div class="ex-card reveal"><div class="ex-ph" style="background:linear-gradient(160deg,#F0EAF4,#DDD0E8,#C0A8D0);"><div class="pl-inner"><div class="pl-couple" style="color:rgba(80,50,100,.65);">Xóchitl &amp; Sarbjit</div><div class="pl-div" style="background:rgba(140,100,180,.4);"></div><div class="pl-date" style="color:rgba(80,50,100,.45);">3 · Jul · 2026</div></div></div><div class="ex-overlay"></div><div class="ex-info"><span class="ex-name">Xóchitl &amp; Sarbjit</span><span class="ex-tag" data-i18n="ex5_tag"></span></div></div>
-    <div class="ex-card reveal"><div class="ex-ph" style="background:linear-gradient(160deg,#2A1520,#1A0C18,#3A2030);"><div class="pl-inner"><div class="pl-couple" style="color:rgba(237,213,216,.7);">Lucía &amp; Fernando</div><div class="pl-div" style="background:rgba(184,112,126,.5);"></div><div class="pl-date" style="color:rgba(237,213,216,.45);">29 · Ago · 2026</div></div></div><div class="ex-overlay"></div><div class="ex-info"><span class="ex-name">Lucía &amp; Fernando</span><span class="ex-tag" data-i18n="ex6_tag"></span></div></div>
-  </div>
-</section>
+<div class="orn"><svg viewBox="0 0 360 20" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="10" x2="138" y2="10" stroke="#C4849A" stroke-width=".6" opacity=".4"/><polygon points="150,10 156,5 162,10 156,15" fill="none" stroke="#C4849A" stroke-width=".8"/><circle cx="178" cy="10" r="2.2" fill="#C4849A" opacity=".7"/><polygon points="194,10 200,5 206,10 200,15" fill="none" stroke="#C4849A" stroke-width=".8"/><line x1="218" y1="10" x2="360" y2="10" stroke="#C4849A" stroke-width=".6" opacity=".4"/></svg></div>
 
 <!-- PRICING -->
-<section class="pricing" id="pricing">
-  <div class="sec-wrap reveal">
+<section class="pricing" id="precios">
+  <div class="sec-head reveal">
     <span class="sec-label" data-i18n="price_lbl"></span>
     <h2 class="sec-title" data-i18n="price_title"></h2>
     <p class="sec-body" data-i18n="price_body"></p>
   </div>
-  <div class="plans">
-    <div class="plan reveal">
-      <div class="plan-name" data-i18n="p1_name"></div>
-      <div class="plan-price">$999</div>
-      <div class="plan-currency" data-i18n="p_currency"></div>
-      <ul class="plan-feats" id="p1-feats"></ul>
-      <a href="#contact" class="plan-btn" data-i18n="p_btn"></a>
-    </div>
-    <div class="plan featured reveal">
-      <div class="plan-badge" data-i18n="p_popular"></div>
-      <div class="plan-name" data-i18n="p2_name"></div>
-      <div class="plan-price">$1,499</div>
-      <div class="plan-currency" data-i18n="p_currency"></div>
-      <ul class="plan-feats" id="p2-feats"></ul>
-      <a href="#contact" class="plan-btn" data-i18n="p_btn"></a>
-    </div>
-    <div class="plan reveal">
-      <div class="plan-name" data-i18n="p3_name"></div>
-      <div class="plan-price">$2,199</div>
-      <div class="plan-currency" data-i18n="p_currency"></div>
-      <ul class="plan-feats" id="p3-feats"></ul>
-      <a href="#contact" class="plan-btn" data-i18n="p_btn"></a>
-    </div>
+  <div class="price-tabs reveal">
+    <button class="price-tab on" onclick="showPTab('boda')" id="ptab-boda" data-i18n="tab_boda"></button>
+    <button class="price-tab" onclick="showPTab('xv')"   id="ptab-xv"   data-i18n="tab_xv"></button>
+    <button class="price-tab" onclick="showPTab('baby')" id="ptab-baby" data-i18n="tab_baby"></button>
+    <button class="price-tab" onclick="showPTab('kids')" id="ptab-kids" data-i18n="tab_kids"></button>
+  </div>
+
+  <div class="plans-panel on" id="ppanel-boda">
+    <div class="plan reveal"><div class="plan-name" data-i18n="p_esencial"></div><div class="plan-price">$599</div><div class="plan-currency" data-i18n="p_curr"></div><ul class="plan-feats" id="pf-boda-e"></ul><a href="#contacto" class="plan-btn" data-i18n="p_btn"></a></div>
+    <div class="plan featured reveal"><div class="plan-badge" data-i18n="p_popular"></div><div class="plan-name" data-i18n="p_premium"></div><div class="plan-price">$999</div><div class="plan-currency" data-i18n="p_curr"></div><ul class="plan-feats" id="pf-boda-p"></ul><a href="#contacto" class="plan-btn" data-i18n="p_btn"></a></div>
+  </div>
+  <div class="plans-panel" id="ppanel-xv">
+    <div class="plan reveal"><div class="plan-name" data-i18n="p_esencial"></div><div class="plan-price">$599</div><div class="plan-currency" data-i18n="p_curr"></div><ul class="plan-feats" id="pf-xv-e"></ul><a href="#contacto" class="plan-btn" data-i18n="p_btn"></a></div>
+    <div class="plan featured reveal"><div class="plan-badge" data-i18n="p_popular"></div><div class="plan-name" data-i18n="p_premium"></div><div class="plan-price">$999</div><div class="plan-currency" data-i18n="p_curr"></div><ul class="plan-feats" id="pf-xv-p"></ul><a href="#contacto" class="plan-btn" data-i18n="p_btn"></a></div>
+  </div>
+  <div class="plans-panel" id="ppanel-baby">
+    <div class="plan reveal"><div class="plan-name" data-i18n="p_esencial"></div><div class="plan-price">$349</div><div class="plan-currency" data-i18n="p_curr"></div><ul class="plan-feats" id="pf-baby-e"></ul><a href="#contacto" class="plan-btn" data-i18n="p_btn"></a></div>
+    <div class="plan featured reveal"><div class="plan-badge" data-i18n="p_popular"></div><div class="plan-name" data-i18n="p_premium"></div><div class="plan-price">$599</div><div class="plan-currency" data-i18n="p_curr"></div><ul class="plan-feats" id="pf-baby-p"></ul><a href="#contacto" class="plan-btn" data-i18n="p_btn"></a></div>
+  </div>
+  <div class="plans-panel" id="ppanel-kids">
+    <div class="plan reveal"><div class="plan-name" data-i18n="p_esencial"></div><div class="plan-price">$349</div><div class="plan-currency" data-i18n="p_curr"></div><ul class="plan-feats" id="pf-kids-e"></ul><a href="#contacto" class="plan-btn" data-i18n="p_btn"></a></div>
+    <div class="plan featured reveal"><div class="plan-badge" data-i18n="p_popular"></div><div class="plan-name" data-i18n="p_premium"></div><div class="plan-price">$599</div><div class="plan-currency" data-i18n="p_curr"></div><ul class="plan-feats" id="pf-kids-p"></ul><a href="#contacto" class="plan-btn" data-i18n="p_btn"></a></div>
+  </div>
+
+  <div class="qr-note reveal">
+    <div class="qr-note-dot"></div>
+    <p class="qr-note-text" data-i18n="qr_note"></p>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="testimonials" id="testimonials">
-  <div class="sec-wrap reveal">
-    <span class="sec-label" data-i18n="test_lbl"></span>
-    <h2 class="sec-title" data-i18n="test_title"></h2>
-  </div>
-  <div class="test-grid">
-    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-quote" data-i18n="t1_q"></p><div class="test-author" data-i18n="t1_a"></div></div>
-    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-quote" data-i18n="t2_q"></p><div class="test-author" data-i18n="t2_a"></div></div>
-    <div class="test-card reveal"><div class="test-stars">★★★★★</div><p class="test-quote" data-i18n="t3_q"></p><div class="test-author" data-i18n="t3_a"></div></div>
-  </div>
-</section>
+<div class="orn"><svg viewBox="0 0 360 20" xmlns="http://www.w3.org/2000/svg"><line x1="0" y1="10" x2="138" y2="10" stroke="#C4849A" stroke-width=".6" opacity=".4"/><polygon points="150,10 156,5 162,10 156,15" fill="none" stroke="#C4849A" stroke-width=".8"/><circle cx="178" cy="10" r="2.2" fill="#C4849A" opacity=".7"/><polygon points="194,10 200,5 206,10 200,15" fill="none" stroke="#C4849A" stroke-width=".8"/><line x1="218" y1="10" x2="360" y2="10" stroke="#C4849A" stroke-width=".6" opacity=".4"/></svg></div>
 
-<!-- FAQ -->
-<section class="faq" id="faq">
-  <div class="sec-wrap reveal">
-    <span class="sec-label" data-i18n="faq_lbl"></span>
-    <h2 class="sec-title" data-i18n="faq_title"></h2>
-  </div>
-  <div class="faq-list reveal" id="faq-list"></div>
-</section>
-
-<!-- CTA -->
-<section class="cta-final" id="contact">
-  <div style="position:relative;z-index:1;" class="reveal">
-    <span class="sec-label" data-i18n="cta_lbl"></span>
-    <h2 class="sec-title" style="display:block;margin-bottom:14px;" data-i18n="cta_title"></h2>
-    <p class="sec-body" style="margin-bottom:38px;" data-i18n="cta_body"></p>
-    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-      <a href="https://wa.me/526142198023?text=Hola%2C%20me%20interesa%20una%20invitaci%C3%B3n%20digital" target="_blank" class="btn-primary" style="display:flex;align-items:center;gap:9px;background:var(--rose);color:white;"><svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg><span data-i18n="cta_wa"></span></a>
-      <a href="mailto:makinvitationsmx@gmail.com" class="btn-ghost" style="color:rgba(255,255,255,.55);border-color:rgba(255,255,255,.18);" data-i18n="cta_email"></a>
+<!-- CONTACT -->
+<section class="contact" id="contacto">
+  <div class="contact-inner reveal">
+    <p class="cs-eyebrow" data-i18n="cta_eyebrow"></p>
+    <h2 class="cs-title" data-i18n="cta_title"></h2>
+    <p class="cs-body" data-i18n="cta_body"></p>
+    <div class="cs-btns">
+      <a href="https://wa.me/526142198023?text=Hola%2C%20me%20interesa%20una%20invitaci%C3%B3n%20digital" target="_blank" class="btn-wa">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        <span data-i18n="cta_wa"></span>
+      </a>
+      <a href="/cdn-cgi/l/email-protection#4825292321263e213c293c2127263b2530082f25292124662b2725" class="btn-email" data-i18n="cta_email"></a>
     </div>
-    <p style="font-size:.5rem;letter-spacing:2px;color:rgba(255,255,255,.16);margin-top:28px;">makinvitations.com.mx</p>
   </div>
-  <div class="cta-bg-name">Mak Invitations</div>
 </section>
 
 <footer>
-  <span class="footer-brand">Mak Invitations</span>
+  <img src="img/LOGO.png" alt="Mak Invitations" class="footer-logo"
+       onerror="this.style.display='none';document.getElementById('footer-logo-txt').style.display='block';">
+  <span id="footer-logo-txt" class="footer-logo-text" style="display:none;">Mak Invitations</span>
   <span class="footer-url">makinvitations.com.mx</span>
-  <div class="footer-links">
-    <a href="#features" data-i18n="nav_feat"></a>
-    <a href="#examples" data-i18n="nav_ex"></a>
-    <a href="#pricing" data-i18n="nav_price"></a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact" data-i18n="nav_contact"></a>
-  </div>
   <p class="footer-copy" data-i18n="footer_copy"></p>
 </footer>
 
-<a href="https://wa.me/526142198023?text=Hola%2C%20me%20interesa%20una%20invitaci%C3%B3n%20digital" target="_blank" class="wa-float"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></a>
+<a href="https://wa.me/526142198023?text=Hola%2C%20me%20interesa%20una%20invitaci%C3%B3n%20digital" target="_blank" class="wa-float">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
 
-<script>
-var T={
-es:{
-  nav_events:'Eventos',nav_feat:'Características',nav_ex:'Ejemplos',nav_price:'Precios',nav_cta:'Cotizar',nav_contact:'Contacto',
-  ev_lbl:'Más que bodas',ev_title:'Para cada celebración',ev_body:'Creamos invitaciones digitales elegantes para todos los momentos importantes de tu vida.',
-  ev_cards:[
-    {icon:'💍',gradient:'linear-gradient(135deg,#F2E4EA,#DDD0E0)',tag:'Bodas',tagColor:'#B8707E',tagBg:'rgba(184,112,126,.08)',name:'Invitación de Boda',desc:'La experiencia completa: sobre animado, galería, RSVP, múltiples idiomas, mesa de regalos y mucho más.',from:'Desde',price:'$999',btnTxt:'Ver planes',btnColor:'#B8707E',btnBg:'rgba(184,112,126,.08)',link:'#pricing'},
-    {icon:'👑',gradient:'linear-gradient(135deg,#F8F0E0,#E8D4A0)',tag:'XV Años',tagColor:'#A8780A',tagBg:'rgba(168,120,10,.08)',name:'XV Años',desc:'Una invitación digna de una reina. Galería, itinerario, mesa de regalos y RSVP personalizado.',from:'Desde',price:'$799',btnTxt:'Cotizar',btnColor:'#A8780A',btnBg:'rgba(168,120,10,.08)',link:'#contact'},
-    {icon:'🎂',gradient:'linear-gradient(135deg,#EAF0F8,#C8D8F0)',tag:'Cumpleaños',tagColor:'#4878B8',tagBg:'rgba(72,120,184,.08)',name:'Fiesta Infantil',desc:'Divertida, colorida y fácil de compartir con temática personalizada y RSVP por WhatsApp.',from:'Desde',price:'$349',btnTxt:'Cotizar',btnColor:'#4878B8',btnBg:'rgba(72,120,184,.08)',link:'#contact'},
-    {icon:'🍼',gradient:'linear-gradient(135deg,#EAF5EE,#C8E8D4)',tag:'Baby Shower',tagColor:'#3A8858',tagBg:'rgba(58,136,88,.08)',name:'Baby Shower',desc:'Con cuenta regresiva para la llegada del bebé, galería y lista de regalos.',from:'Desde',price:'$399',btnTxt:'Cotizar',btnColor:'#3A8858',btnBg:'rgba(58,136,88,.08)',link:'#contact'},
-    {icon:'🎊',gradient:'linear-gradient(135deg,#F5EAF5,#E0C8E8)',tag:'Especiales',tagColor:'#7848A8',tagBg:'rgba(120,72,168,.08)',name:'Otros Eventos',desc:'Aniversarios, graduaciones, bautizos, primera comunión y cualquier celebración especial.',from:'Desde',price:'$349',btnTxt:'Cotizar',btnColor:'#7848A8',btnBg:'rgba(120,72,168,.08)',link:'#contact'},
-    {icon:'🥂',gradient:'linear-gradient(135deg,#F0EAE0,#DDD0C0)',tag:'Corporativo',tagColor:'#604830',tagBg:'rgba(96,72,48,.08)',name:'Eventos Corporativos',desc:'Lanzamientos, cenas de empresa e inauguraciones con diseño profesional y elegante.',from:'Desde',price:'$599',btnTxt:'Cotizar',btnColor:'#604830',btnBg:'rgba(96,72,48,.08)',link:'#contact'}
-  ],
-  hero_eyebrow:'✦  Invitaciones Digitales de Boda  ✦',
-  hero_tagline:'Invitaciones digitales que cuentan tu historia.',
-  hero_sub:'ELEGANTES · INTERACTIVAS · COMPLETAMENTE PERSONALIZADAS',
-  hero_btn1:'Ver Ejemplos',hero_btn2:'Ver Precios',scroll:'Descubrir',
-  stat1:'Digital · Sin Papel',stat2:'Idiomas Disponibles',stat3:'Invitados Sin Costo Extra',stat4:'Tiempo de Entrega',
-  feat_lbl:'Lo que incluye',feat_title:'Todo lo que necesitas',feat_body:'Cada invitación es una experiencia digital completa — no solo un link.',
-  /* preview i18n */
-  fp_tap:'toca para abrir',fp_rsvp_name:'Tu nombre...',fp_rsvp_adults:'Número de adultos',
-  fp_bride_parents:'PADRES DE LA NOVIA',fp_groom_parents:'PADRES DEL NOVIO',
-  fp_god1:'Ceremonia',fp_god2:'Pastel',fp_god3:'Flores',fp_god4:'Brindis',
-  fp_love_label:'NUESTRA HISTORIA',fp_love1:'Primer café',fp_love2:'Viaje juntos',fp_love3:'Propuesta',
-  fp_itin1:'Ceremonia',fp_itin2:'Recepción',fp_itin3:'Vals',fp_itin4:'Hasta pronto',
-  fp_admin_label:'PANEL DE ADMINISTRACIÓN',fp_admin1:'Confirmados',fp_admin2:'Adultos',fp_admin3:'Pendientes',
-  fp_lang_title:'Tu boda, en su idioma',
-  fp_ev_ceremo:'Ceremonia',fp_ev_time1:'Jue. 2 Jul · 4:00 PM',fp_ev_addr1:'Templo · Cd. Juárez',
-  fp_ev_recep:'Recepción',fp_ev_time2:'Vie. 3 Jul · 7:30 PM',fp_ev_map:'Google Maps',
-  fp_gift_bank:'Transferencia Bancaria',fp_gift_holder:'Titular',fp_gift_card:'Núm. Tarjeta',fp_gift_tap:'toca para ver datos ↻',
-  fp_dress_ladies:'MUJERES',fp_dress_gents:'HOMBRES',fp_dress_gown:'Vestido Largo',fp_dress_suit:'Traje Formal',
-  fp_hotel1:'Desayuno · Gym · Parking',fp_hotel2:'Alberca · Parking gratuito',
-  fp_cal_title:'AGREGAR AL CALENDARIO',
-  fp_verse_text:'"Y la caridad es sufrida, es benigna, no tiene envidia..."',
-  /* features */
-  f1_title:'Animación de Entrada',f1_desc:'Sobre animado que tus invitados abren con un toque, o pluma escribiendo los nombres letra por letra.',f1_badge:'Esencial · 2 opciones incluidas',
-  f2_title:'Animación Única & Exclusiva',f2_desc:'Diseñamos una animación completamente personalizada y única para tu boda. Solo en plan Exclusivo.',f2_badge:'Solo plan Exclusivo',
-  f3_title:'RSVP por WhatsApp',f3_desc:'Tus invitados confirman en segundos y su respuesta llega directo a tu WhatsApp.',f3_badge:'Desde plan Esencial',
-  f4_title:'RSVP + Código QR',f4_desc:'Al confirmar, cada invitado recibe un código QR único de acceso para el control de entrada.',f4_badge:'Solo Premium & Exclusivo',
-  f5_title:'Nombramientos',f5_desc:'Sección elegante para presentar a los padres de los novios o a los padrinos y madrinas con sus nombres y reconocimiento especial.',
-  f6_title:'Padrinos y Madrinas',f6_desc:'Reconoce a quienes hacen posible tu boda con sección dedicada a cada padrino y su aportación.',
-  f7_title:'Historia de Amor',f7_desc:'Comparte los momentos más especiales: cómo se conocieron, la propuesta y el camino hasta el altar.',
-  f8_title:'Itinerario del Día',f8_desc:'Línea de tiempo elegante con todos los momentos del gran día — desde la ceremonia hasta la última canción.',
-  f9_title:'Panel de Administración',f9_desc:'Consulta en tiempo real quién confirmó, cuántos adultos asistirán y los mensajes de tus invitados.',f9_badge:'Solo Premium & Exclusivo',
-  f10_title:'Multi-idioma',f10_desc:'Desde 2 idiomas en Esencial hasta idiomas ilimitados en Premium. Ideal para bodas internacionales.',f10_badge:'Desde plan Esencial',
-  f11_title:'Cuenta Regresiva',f11_desc:'Contador elegante en tiempo real hasta el gran día. Mantiene la emoción viva con cada visita.',
-  f12_title:'Galería Interactiva',f12_desc:'Galería estilo ropa tendida con fotos de los novios. Animada, táctil y completamente personalizada.',
-  f13_title:'Eventos con Mapa',f13_desc:'Ceremonia, recepción y más. Cada evento con dirección, horario y botón de Google Maps integrado.',
-  f14_title:'Música Personalizada',f14_desc:'Su canción favorita suena de fondo mientras los invitados leen la invitación.',
-  f15_title:'Mesa de Regalos',f15_desc:'Transferencias bancarias, PayPal o tiendas en línea — todo integrado con toque para copiar datos.',
-  f16_title:'Código de Vestimenta',f16_desc:'Imagen de dresscode con paleta de colores sugeridos y colores a evitar, para que todos lleguen perfectos.',
-  f17_title:'Hoteles Recomendados',f17_desc:'Opciones de hospedaje para invitados foráneos con estrellas, descripción y link a Google Maps.',
-  f18_title:'Agregar al Calendario',f18_desc:'Un toque y el evento queda guardado en Google Calendar, Apple Calendar u Outlook.',
-  f19_title:'Frase o Verso Especial',f19_desc:'Incluye una cita bíblica, poema o frase que represente su amor — con diseño tipográfico destacado.',
-  f20_title:'Animaciones Florales',f20_desc:'Pétalos flotantes interactivos que reaccionan al cursor. Una experiencia visualmente única.',
-  lang_lbl:'Idiomas',lang_title:'Tu boda, en su idioma',lang_body:'Porque cada familia merece sentirse incluida.',
-  lang_basic_badge:'Plan Esencial',lang_basic_title:'Dos idiomas',lang_basic_desc:'Perfecta para bodas con invitados de dos culturas. Eligen el idioma que prefieren al abrir.',lang_basic_plus:'+ cualquier combinación de 2 idiomas',
-  lang_prem_badge:'Plan Premium & Exclusivo',lang_prem_title:'Idiomas ilimitados',lang_prem_desc:'Sin límite de idiomas. Agrega todos los que necesites para que cada invitado viva la experiencia completa.',lang_prem_plus:'+ cualquier idioma que necesites',
-  demo_lbl:'Vista previa',demo_title:'Una experiencia que enamora',demo_body:'Cada sección está cuidadosamente diseñada para sorprender a tus invitados desde el primer toque.',
-  di1_t:'Completamente responsiva',di1_d:'Se ve perfecta en celular, tablet y computadora.',
-  di2_t:'Sin descargar ninguna app',di2_d:'Solo un link — compártelo por WhatsApp, correo o redes.',
-  di3_t:'Panel de administración',di3_d:'Consulta en tiempo real quién confirmó y cuántos adultos asistirán.',
-  di4_t:'Activa durante 12 meses',di4_d:'Tu invitación permanece activa desde que la publicamos hasta un año después de tu boda.',
-  phone_cd:'Cuenta Regresiva',phone_d:'Días',phone_h:'Hrs',phone_m:'Min',phone_s:'Seg',
-  phone_gal:'Nuestros Momentos',phone_rsvp:'Confirmar',phone_send:'Enviar Confirmación ✦',
-  how_lbl:'Proceso',how_title:'Así de fácil',how_body:'De idea a invitación publicada en menos de 48 horas.',
-  s1_t:'Nos contactas',s1_d:'Escríbenos por WhatsApp o llena el formulario con los datos de tu boda.',
-  s2_t:'Envías tus datos',s2_d:'Fotos, nombres, fechas, música y todo lo que quieras incluir.',
-  s3_t:'Revisamos juntos',s3_d:'Te enviamos una vista previa para que apruebes o solicites cambios.',
-  s4_t:'¡Lista para compartir!',s4_d:'Recibes tu link único listo para enviar a todos tus invitados.',
-  ex_lbl:'Estilos',ex_title:'Diseños que enamoran',ex_body:'Cada invitación es única. Estos son algunos estilos de inspiración.',
-  ex1_tag:'Rosa & Malva · 2 Idiomas',ex2_tag:'Azul Cielo · 2 Idiomas',ex3_tag:'Arena & Cobre · 2 Idiomas',
-  ex4_tag:'Jardín Sage · 2 Idiomas',ex5_tag:'Multicultural · 3 Idiomas',ex6_tag:'Dark & Glamour · 4 Idiomas',
-  price_lbl:'Inversión',price_title:'Precios claros',price_body:'Sin costos ocultos. Sin límite de invitados. Todo incluido.',
-  p1_name:'Esencial',p2_name:'Premium',p3_name:'Exclusivo',p_currency:'MXN · Pago único',p_btn:'Elegir plan',p_popular:'✦ Más Popular ✦',
-  p1_feats:[
-    {hi:true,t:'Diseño personalizado'},
-    {hi:true,t:'Animación de entrada (sobre o pluma)'},
-    {hi:true,t:'2 idiomas a elegir'},
-    {hi:true,t:'RSVP por WhatsApp'},
-    {hi:false,t:'Nombramientos (padres / padrinos)'},
-    {hi:false,t:'2 eventos con mapa'},
-    {hi:false,t:'Itinerario del día'},
-    {hi:false,t:'Galería (hasta 12 fotos)'},
-    {hi:false,t:'Mesa de regalos'},
-    {hi:false,t:'Código de vestimenta'},
-    {hi:false,t:'Agregar al calendario'},
-    {hi:false,t:'Frase o verso especial'},
-    {hi:false,t:'Cuenta regresiva · Música de fondo'},
-    {hi:false,t:'3 rondas de revisiones'},
-    {hi:false,t:'Primera entrega en 7 días hábiles'},
-    {hi:false,t:'Activa 12 meses'}
-  ],
-  p2_feats:[
-    {hi:true,t:'Todo lo del plan Esencial'},
-    {hi:true,t:'Idiomas ilimitados'},
-    {hi:true,t:'RSVP + código QR de acceso'},
-    {hi:true,t:'Panel admin en tiempo real'},
-    {hi:false,t:'Historia de amor'},
-    {hi:false,t:'Galería ilimitada de fotos'},
-    {hi:false,t:'Hoteles recomendados'},
-    {hi:false,t:'Cambios ilimitados'}
-  ],
-  p3_feats:[
-    {hi:true,t:'Todo lo del plan Premium'},
-    {hi:true,t:'Animación única & exclusiva'},
-    {hi:true,t:'RSVP + código QR de acceso'},
-    {hi:true,t:'Panel admin en tiempo real'},
-    {hi:false,t:'Dominio personalizado'},
-    {hi:false,t:'Video de bienvenida'},
-    {hi:false,t:'Check-in digital en el evento'},
-    {hi:false,t:'Soporte prioritario'},
-    {hi:false,t:'Activa 24 meses'}
-  ],
-  test_lbl:'Opiniones',test_title:'Lo que dicen las parejas',
-  t1_q:'Todos mis invitados me preguntaron cómo hicimos la invitación. Se veía increíble y fue súper fácil confirmar asistencia. ¡100% recomendada!',t1_a:'Valentina R. · Guadalajara',
-  t2_q:'La parte de los 3 idiomas fue perfecta para nuestra boda multicultural. La familia de Canadá pudo leer todo en inglés sin ningún problema.',t2_a:'Xóchitl O. · Chihuahua',
-  t3_q:'El sobre animado me hizo llorar de emoción cuando lo vi por primera vez. Es exactamente lo que imaginé, solo que mucho mejor.',t3_a:'Camila T. · Monterrey',
-  faq_lbl:'Preguntas frecuentes',faq_title:'Resolvemos tus dudas',
-  faqs:[
-    {q:'¿Cuánto tiempo tarda en estar lista mi invitación?',a:'Una vez que nos envíes todos los datos y fotos, tendrás la primera entrega en un máximo de 7 días hábiles. Los cambios de revisiones se hacen el mismo día.'},
-    {q:'¿Cuántos idiomas puedo incluir?',a:'El plan Esencial incluye 2 idiomas a tu elección. Los planes Premium y Exclusivo permiten idiomas ilimitados — perfecto para bodas multiculturales.'},
-    {q:'¿Cómo la comparto con mis invitados?',a:'Recibes un link único que puedes compartir por WhatsApp, Instagram, correo o cualquier red social. También puedes generar un código QR para imprimir en tus save-the-dates.'},
-    {q:'¿Hay un límite de invitados?',a:'No. Puedes compartir tu invitación con 10 o 1,000 personas — el precio es el mismo sin importar cuántos invitados la vean.'},
-    {q:'¿Puedo hacer cambios después de publicarla?',a:'Sí. El plan Esencial incluye 3 rondas de revisiones. Los planes Premium y Exclusivo incluyen cambios ilimitados.'},
-    {q:'¿Funcionan en iPhone y Android?',a:'Absolutamente. Nuestras invitaciones están optimizadas para todos los dispositivos modernos. Solo necesitan abrir el link, sin descargar ninguna app.'}
-  ],
-  cta_lbl:'¿Lista para decir Sí?',cta_title:'Empieza tu invitación hoy',cta_body:'Escríbenos y te mandamos una cotización personalizada en menos de 1 hora.',
-  cta_wa:'WhatsApp',cta_email:'Enviar Email',
-  footer_copy:'© 2025 Mak Invitations · Todos los derechos reservados · Hecho con ✦ en México'
-},
-en:{
-  nav_events:'Events',nav_feat:'Features',nav_ex:'Examples',nav_price:'Pricing',nav_cta:'Get a Quote',nav_contact:'Contact',
-  ev_lbl:'More than weddings',ev_title:'For every celebration',ev_body:'We create elegant digital invitations for every important moment in your life.',
-  ev_cards:[
-    {icon:'💍',gradient:'linear-gradient(135deg,#F2E4EA,#DDD0E0)',tag:'Weddings',tagColor:'#B8707E',tagBg:'rgba(184,112,126,.08)',name:'Wedding Invitation',desc:'The full experience: animated envelope, gallery, RSVP, multiple languages, gift registry and much more.',from:'From',price:'$999',btnTxt:'See plans',btnColor:'#B8707E',btnBg:'rgba(184,112,126,.08)',link:'#pricing'},
-    {icon:'👑',gradient:'linear-gradient(135deg,#F8F0E0,#E8D4A0)',tag:'Quinceañera',tagColor:'#A8780A',tagBg:'rgba(168,120,10,.08)',name:'Quinceañera',desc:'An invitation fit for a queen. Gallery, itinerary, gift registry and personalized RSVP.',from:'From',price:'$799',btnTxt:'Get a quote',btnColor:'#A8780A',btnBg:'rgba(168,120,10,.08)',link:'#contact'},
-    {icon:'🎂',gradient:'linear-gradient(135deg,#EAF0F8,#C8D8F0)',tag:"Kids' Party",tagColor:'#4878B8',tagBg:'rgba(72,120,184,.08)',name:"Kids' Birthday",desc:'Fun, colorful and easy to share with a custom theme and RSVP via WhatsApp.',from:'From',price:'$349',btnTxt:'Get a quote',btnColor:'#4878B8',btnBg:'rgba(72,120,184,.08)',link:'#contact'},
-    {icon:'🍼',gradient:'linear-gradient(135deg,#EAF5EE,#C8E8D4)',tag:'Baby Shower',tagColor:'#3A8858',tagBg:'rgba(58,136,88,.08)',name:'Baby Shower',desc:'With baby arrival countdown, gallery and gift list.',from:'From',price:'$399',btnTxt:'Get a quote',btnColor:'#3A8858',btnBg:'rgba(58,136,88,.08)',link:'#contact'},
-    {icon:'🎊',gradient:'linear-gradient(135deg,#F5EAF5,#E0C8E8)',tag:'Special Events',tagColor:'#7848A8',tagBg:'rgba(120,72,168,.08)',name:'Other Events',desc:'Anniversaries, graduations, baptisms, first communions and any special celebration.',from:'From',price:'$349',btnTxt:'Get a quote',btnColor:'#7848A8',btnBg:'rgba(120,72,168,.08)',link:'#contact'},
-    {icon:'🥂',gradient:'linear-gradient(135deg,#F0EAE0,#DDD0C0)',tag:'Corporate',tagColor:'#604830',tagBg:'rgba(96,72,48,.08)',name:'Corporate Events',desc:'Product launches, company dinners and grand openings with a professional design.',from:'From',price:'$599',btnTxt:'Get a quote',btnColor:'#604830',btnBg:'rgba(96,72,48,.08)',link:'#contact'}
-  ],
-  hero_eyebrow:'✦  Digital Wedding Invitations  ✦',
-  hero_tagline:'Digital invitations that tell your love story.',
-  hero_sub:'ELEGANT · INTERACTIVE · FULLY PERSONALIZED',
-  hero_btn1:'See Examples',hero_btn2:'See Pricing',scroll:'Discover',
-  stat1:'Digital · Paperless',stat2:'Languages Available',stat3:'Unlimited Guests',stat4:'Delivery Time',
-  feat_lbl:"What's included",feat_title:'Everything you need',feat_body:'Each invitation is a complete digital experience — not just a link.',
-  fp_tap:'tap to open',fp_rsvp_name:'Your name...',fp_rsvp_adults:'Number of adults',
-  fp_bride_parents:"BRIDE'S PARENTS",fp_groom_parents:"GROOM'S PARENTS",
-  fp_god1:'Ceremony',fp_god2:'Cake',fp_god3:'Flowers',fp_god4:'Toast',
-  fp_love_label:'OUR STORY',fp_love1:'First coffee',fp_love2:'Trip together',fp_love3:'Proposal',
-  fp_itin1:'Ceremony',fp_itin2:'Reception',fp_itin3:'First Dance',fp_itin4:'Farewell',
-  fp_admin_label:'ADMIN DASHBOARD',fp_admin1:'Confirmed',fp_admin2:'Adults',fp_admin3:'Pending',
-  fp_lang_title:'Your wedding, their language',
-  fp_ev_ceremo:'Ceremony',fp_ev_time1:'Thu Jul 2 · 4:00 PM',fp_ev_addr1:'Temple · Cd. Juárez',
-  fp_ev_recep:'Reception',fp_ev_time2:'Fri Jul 3 · 7:30 PM',fp_ev_map:'Google Maps',
-  fp_gift_bank:'Bank Transfer',fp_gift_holder:'Account holder',fp_gift_card:'Card number',fp_gift_tap:'tap to see details ↻',
-  fp_dress_ladies:'WOMEN',fp_dress_gents:'MEN',fp_dress_gown:'Long Gown',fp_dress_suit:'Formal Suit',
-  fp_hotel1:'Breakfast · Gym · Parking',fp_hotel2:'Pool · Free parking',
-  fp_cal_title:'ADD TO CALENDAR',
-  fp_verse_text:'"Charity suffereth long, and is kind, envieth not..."',
-  f1_title:'Opening Animation',f1_desc:'Animated envelope guests open with a tap, or a quill pen writing names letter by letter.',f1_badge:'Essential · 2 options included',
-  f2_title:'Unique & Custom Animation',f2_desc:'We design a completely unique animation exclusively for your wedding. Exclusive plan only.',f2_badge:'Exclusive plan only',
-  f3_title:'RSVP via WhatsApp',f3_desc:'Guests confirm in seconds and their response goes straight to your WhatsApp.',f3_badge:'From Essential plan',
-  f4_title:'RSVP + QR Code',f4_desc:'Upon confirming, each guest receives a unique QR access code for entry control.',f4_badge:'Premium & Exclusive only',
-  f5_title:'Honors & Acknowledgments',f5_desc:'Elegant section honoring both families, parents or godparents with a dedicated layout and special recognition.',
-  f6_title:'Sponsors & Godparents',f6_desc:'Recognize everyone who makes your wedding possible with a dedicated section for each padrino.',
-  f7_title:'Love Story',f7_desc:'Share the most special moments: how you met, the proposal, and the road to the altar.',
-  f8_title:'Day-of Itinerary',f8_desc:'Elegant timeline with every moment of the big day — from the ceremony to the last song.',
-  f9_title:'Admin Dashboard',f9_desc:'Check in real time who confirmed, how many adults will attend, and guests\' messages.',f9_badge:'Premium & Exclusive only',
-  f10_title:'Multi-language',f10_desc:'From 2 languages on Essential to unlimited on Premium. Perfect for international weddings.',f10_badge:'From Essential plan',
-  f11_title:'Countdown Timer',f11_desc:'Elegant real-time countdown to the big day. Keeps excitement alive with every visit.',
-  f12_title:'Interactive Gallery',f12_desc:'Clothesline-style gallery with couple photos. Animated, touchable and fully personalized.',
-  f13_title:'Events with Map',f13_desc:'Ceremony, reception and more. Each event with address, time and integrated Google Maps button.',
-  f14_title:'Personalized Music',f14_desc:'Their favorite song plays in the background as guests read the invitation.',
-  f15_title:'Gift Registry',f15_desc:'Bank transfers, PayPal or online stores — all integrated with tap-to-copy account details.',
-  f16_title:'Dress Code',f16_desc:'Dresscode image with suggested color palette and colors to avoid so everyone looks perfect.',
-  f17_title:'Hotel Recommendations',f17_desc:'Lodging options for out-of-town guests with star ratings, descriptions and Google Maps links.',
-  f18_title:'Add to Calendar',f18_desc:'One tap and the event is saved to Google Calendar, Apple Calendar, or Outlook.',
-  f19_title:'Special Quote or Verse',f19_desc:'Include a Bible verse, poem, or meaningful quote with beautiful typographic design.',
-  f20_title:'Floral Animations',f20_desc:'Interactive floating petals that react to the cursor. A visually stunning experience.',
-  lang_lbl:'Languages',lang_title:'Your wedding, in their language',lang_body:'Because every family deserves to feel included.',
-  lang_basic_badge:'Essential Plan',lang_basic_title:'Two languages',lang_basic_desc:'Perfect for weddings with guests from two cultures. They choose their language upon opening.',lang_basic_plus:'+ any combination of 2 languages',
-  lang_prem_badge:'Premium & Exclusive Plans',lang_prem_title:'Unlimited languages',lang_prem_desc:'No language limit. Add as many as needed so every guest experiences the full invitation.',lang_prem_plus:'+ any language you need',
-  demo_lbl:'Preview',demo_title:'An experience that captivates',demo_body:'Every section is carefully crafted to delight your guests from the very first tap.',
-  di1_t:'Fully responsive',di1_d:'Looks perfect on mobile, tablet and desktop — no matter the device.',
-  di2_t:'No app download needed',di2_d:'Just a link — share via WhatsApp, email, or social media.',
-  di3_t:'Admin dashboard',di3_d:'Check in real time who confirmed and how many adults will attend.',
-  di4_t:'Active for 12 months',di4_d:'Your invitation stays live from launch until one year after your wedding day.',
-  phone_cd:'Countdown',phone_d:'Days',phone_h:'Hrs',phone_m:'Min',phone_s:'Sec',
-  phone_gal:'Our Moments',phone_rsvp:'RSVP',phone_send:'Send Confirmation ✦',
-  how_lbl:'Process',how_title:'That easy',how_body:'From idea to published invitation in less than 48 hours.',
-  s1_t:'Contact us',s1_d:'Message us on WhatsApp or fill out the form with your wedding details.',
-  s2_t:'Send your content',s2_d:'Photos, names, dates, music and everything you want to include.',
-  s3_t:'We review together',s3_d:'We send a preview for your approval or any requested changes.',
-  s4_t:'Ready to share!',s4_d:'You receive your unique link ready to send to all your guests.',
-  ex_lbl:'Styles',ex_title:"Designs you'll love",ex_body:'Every invitation is unique. These are some styles for inspiration.',
-  ex1_tag:'Rose & Mauve · 2 Languages',ex2_tag:'Sky Blue · 2 Languages',ex3_tag:'Sand & Copper · 2 Languages',
-  ex4_tag:'Sage Garden · 2 Languages',ex5_tag:'Multicultural · 3 Languages',ex6_tag:'Dark & Glamour · 4 Languages',
-  price_lbl:'Investment',price_title:'Clear pricing',price_body:'No hidden fees. No guest limit. Everything included.',
-  p1_name:'Essential',p2_name:'Premium',p3_name:'Exclusive',p_currency:'MXN · One-time payment',p_btn:'Choose plan',p_popular:'✦ Most Popular ✦',
-  p1_feats:[
-    {hi:true,t:'Custom design'},
-    {hi:true,t:'Opening animation (envelope or quill)'},
-    {hi:true,t:'2 languages of your choice'},
-    {hi:true,t:'RSVP via WhatsApp'},
-    {hi:false,t:'Honors & acknowledgments (parents / godparents)'},
-    {hi:false,t:'2 events with map'},
-    {hi:false,t:'Day-of itinerary'},
-    {hi:false,t:'Gallery (up to 12 photos)'},
-    {hi:false,t:'Gift registry'},
-    {hi:false,t:'Dress code'},
-    {hi:false,t:'Add to calendar'},
-    {hi:false,t:'Special quote or verse'},
-    {hi:false,t:'Countdown timer · Background music'},
-    {hi:false,t:'3 rounds of revisions'},
-    {hi:false,t:'First delivery in 7 business days'},
-    {hi:false,t:'Active 12 months'}
-  ],
-  p2_feats:[
-    {hi:true,t:'Everything in Essential'},
-    {hi:true,t:'Unlimited languages'},
-    {hi:true,t:'RSVP + QR access code'},
-    {hi:true,t:'Real-time admin dashboard'},
-    {hi:false,t:'Love story'},
-    {hi:false,t:'Unlimited photo gallery'},
-    {hi:false,t:'Hotel recommendations'},
-    {hi:false,t:'Unlimited revisions'}
-  ],
-  p3_feats:[
-    {hi:true,t:'Everything in Premium'},
-    {hi:true,t:'Unique & custom animation'},
-    {hi:true,t:'RSVP + QR access code'},
-    {hi:true,t:'Real-time admin dashboard'},
-    {hi:false,t:'Custom domain'},
-    {hi:false,t:'Welcome video'},
-    {hi:false,t:'Digital check-in at the event'},
-    {hi:false,t:'Priority support'},
-    {hi:false,t:'Active 24 months'}
-  ],
-  test_lbl:'Reviews',test_title:'What couples are saying',
-  t1_q:'All my guests asked how we made the invitation. It looked incredible and confirming was super easy. 100% recommended!',t1_a:'Valentina R. · Guadalajara',
-  t2_q:'The 3-language feature was perfect for our multicultural wedding. The family in Canada could read everything in English without any issues.',t2_a:'Xóchitl O. · Chihuahua',
-  t3_q:'The animated envelope made me cry when I first saw it. It was exactly what I imagined, only so much better.',t3_a:'Camila T. · Monterrey',
-  faq_lbl:'FAQ',faq_title:'Your questions, answered',
-  faqs:[
-    {q:'How long does it take to have my invitation ready?',a:'Once you send us all details and photos, you will have the first delivery in a maximum of 7 business days. Revision changes are done same day.'},
-    {q:'How many languages can I include?',a:'The Essential plan includes 2 languages of your choice. Premium and Exclusive plans allow unlimited languages — perfect for multicultural weddings.'},
-    {q:'How do I share it with my guests?',a:'You receive a unique link you can share via WhatsApp, Instagram, email or any social network. You can also generate a QR code for your save-the-dates.'},
-    {q:'Is there a guest limit?',a:'No. You can share your invitation with 10 or 1,000 people — the price is the same regardless of how many guests view it.'},
-    {q:'Can I make changes after it\'s published?',a:'Yes. The Essential plan includes 3 rounds of revisions. Premium and Exclusive plans include unlimited revisions.'},
-    {q:'Do they work on iPhone and Android?',a:'Absolutely. Our invitations are optimized for all modern devices. Guests only need to open the link — no app required.'}
-  ],
-  cta_lbl:'Ready to say Yes?',cta_title:'Start your invitation today',cta_body:"Message us and we'll send you a personalized quote in less than 1 hour.",
-  cta_wa:'WhatsApp',cta_email:'Send Email',
-  footer_copy:'© 2025 Mak Invitations · All rights reserved · Made with ✦ in Mexico'
-}
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ── PLAN DATA ── */
+var PLANS = {
+  es:{
+    boda:{
+      e:[{hi:true,t:'Diseño completamente personalizado'},{hi:true,t:'Animación de entrada (sobre animado)'},{hi:true,t:'2 idiomas a elegir'},{hi:true,t:'RSVP por WhatsApp'},{hi:false,t:'Ceremonia y recepción con mapa'},{hi:false,t:'Itinerario del día'},{hi:false,t:'Padres y padrinos'},{hi:false,t:'Galería de fotos (hasta 12)'},{hi:false,t:'Mesa de regalos · Código de vestimenta'},{hi:false,t:'Cuenta regresiva · Música de fondo'},{hi:false,t:'Activa 12 meses'}],
+      p:[{hi:true,t:'Todo lo del plan Esencial'},{hi:true,t:'RSVP + código QR único por invitado'},{hi:true,t:'Página de control de entrada (escaneo QR)'},{hi:true,t:'Lista de invitados en tiempo real'},{hi:false,t:'Historia de amor'},{hi:false,t:'Galería ilimitada de fotos'},{hi:false,t:'Hoteles recomendados'},{hi:false,t:'Cambios ilimitados'},{hi:false,t:'Activa 12 meses'}]
+    },
+    xv:{
+      e:[{hi:true,t:'Diseño completamente personalizado'},{hi:true,t:'Animación de entrada (sobre animado)'},{hi:true,t:'2 idiomas a elegir'},{hi:true,t:'RSVP por WhatsApp'},{hi:false,t:'Evento con mapa (salón de fiestas)'},{hi:false,t:'Itinerario del día'},{hi:false,t:'Galería de fotos (hasta 12)'},{hi:false,t:'Mesa de regalos · Código de vestimenta'},{hi:false,t:'Cuenta regresiva · Música de fondo'},{hi:false,t:'Activa 12 meses'}],
+      p:[{hi:true,t:'Todo lo del plan Esencial'},{hi:true,t:'RSVP + código QR único por invitado'},{hi:true,t:'Página de control de entrada (escaneo QR)'},{hi:true,t:'Lista de invitados en tiempo real'},{hi:false,t:'Vals y chambelanes'},{hi:false,t:'Galería ilimitada de fotos'},{hi:false,t:'Cambios ilimitados'},{hi:false,t:'Activa 12 meses'}]
+    },
+    baby:{
+      e:[{hi:true,t:'Diseño completamente personalizado'},{hi:true,t:'Animación de entrada'},{hi:true,t:'RSVP por WhatsApp'},{hi:false,t:'Cuenta regresiva para la llegada del bebé'},{hi:false,t:'Galería de fotos'},{hi:false,t:'Lista de regalos'},{hi:false,t:'Evento con mapa'},{hi:false,t:'Música de fondo'},{hi:false,t:'Activa 6 meses'}],
+      p:[{hi:true,t:'Todo lo del plan Esencial'},{hi:true,t:'RSVP + código QR único por invitado'},{hi:true,t:'Panel de control de invitados'},{hi:true,t:'Lista de asistentes en tiempo real'},{hi:false,t:'Galería ilimitada de fotos'},{hi:false,t:'Cambios ilimitados'},{hi:false,t:'Activa 6 meses'}]
+    },
+    kids:{
+      e:[{hi:true,t:'Diseño completamente personalizado'},{hi:true,t:'Animación de entrada'},{hi:true,t:'RSVP por WhatsApp'},{hi:false,t:'Cuenta regresiva'},{hi:false,t:'Galería de fotos'},{hi:false,t:'Evento con mapa'},{hi:false,t:'Música de fondo'},{hi:false,t:'Activa 3 meses'}],
+      p:[{hi:true,t:'Todo lo del plan Esencial'},{hi:true,t:'RSVP + código QR único por invitado'},{hi:true,t:'Panel de control de invitados'},{hi:true,t:'Lista de asistentes en tiempo real'},{hi:false,t:'Galería ilimitada de fotos'},{hi:false,t:'Cambios ilimitados'},{hi:false,t:'Activa 3 meses'}]
+    }
+  },
+  en:{
+    boda:{
+      e:[{hi:true,t:'Fully custom design'},{hi:true,t:'Opening animation (animated envelope)'},{hi:true,t:'2 languages of your choice'},{hi:true,t:'RSVP via WhatsApp'},{hi:false,t:'Ceremony & reception with map'},{hi:false,t:'Day-of itinerary'},{hi:false,t:'Parents & godparents'},{hi:false,t:'Photo gallery (up to 12)'},{hi:false,t:'Gift registry · Dress code'},{hi:false,t:'Countdown timer · Background music'},{hi:false,t:'Active 12 months'}],
+      p:[{hi:true,t:'Everything in Essential'},{hi:true,t:'RSVP + unique QR code per guest'},{hi:true,t:'Entry control page with QR scanning'},{hi:true,t:'Real-time guest list'},{hi:false,t:'Love story'},{hi:false,t:'Unlimited photo gallery'},{hi:false,t:'Hotel recommendations'},{hi:false,t:'Unlimited revisions'},{hi:false,t:'Active 12 months'}]
+    },
+    xv:{
+      e:[{hi:true,t:'Fully custom design'},{hi:true,t:'Opening animation (animated envelope)'},{hi:true,t:'2 languages of your choice'},{hi:true,t:'RSVP via WhatsApp'},{hi:false,t:'Event with map (venue)'},{hi:false,t:'Day-of itinerary'},{hi:false,t:'Photo gallery (up to 12)'},{hi:false,t:'Gift registry · Dress code'},{hi:false,t:'Countdown timer · Background music'},{hi:false,t:'Active 12 months'}],
+      p:[{hi:true,t:'Everything in Essential'},{hi:true,t:'RSVP + unique QR code per guest'},{hi:true,t:'Entry control page with QR scanning'},{hi:true,t:'Real-time guest list'},{hi:false,t:'Waltz & chambelanes'},{hi:false,t:'Unlimited photo gallery'},{hi:false,t:'Unlimited revisions'},{hi:false,t:'Active 12 months'}]
+    },
+    baby:{
+      e:[{hi:true,t:'Fully custom design'},{hi:true,t:'Opening animation'},{hi:true,t:'RSVP via WhatsApp'},{hi:false,t:'Baby arrival countdown'},{hi:false,t:'Photo gallery'},{hi:false,t:'Gift list'},{hi:false,t:'Event with map'},{hi:false,t:'Background music'},{hi:false,t:'Active 6 months'}],
+      p:[{hi:true,t:'Everything in Essential'},{hi:true,t:'RSVP + unique QR code per guest'},{hi:true,t:'Guest control dashboard'},{hi:true,t:'Real-time attendee list'},{hi:false,t:'Unlimited photo gallery'},{hi:false,t:'Unlimited revisions'},{hi:false,t:'Active 6 months'}]
+    },
+    kids:{
+      e:[{hi:true,t:'Fully custom design'},{hi:true,t:'Opening animation'},{hi:true,t:'RSVP via WhatsApp'},{hi:false,t:'Countdown timer'},{hi:false,t:'Photo gallery'},{hi:false,t:'Event with map'},{hi:false,t:'Background music'},{hi:false,t:'Active 3 months'}],
+      p:[{hi:true,t:'Everything in Essential'},{hi:true,t:'RSVP + unique QR code per guest'},{hi:true,t:'Guest control dashboard'},{hi:true,t:'Real-time attendee list'},{hi:false,t:'Unlimited photo gallery'},{hi:false,t:'Unlimited revisions'},{hi:false,t:'Active 3 months'}]
+    }
+  }
 };
 
-var curLang='es';
-function setLang(l){
-  curLang=l;
-  document.getElementById('sw-es').classList.toggle('active',l==='es');
-  document.getElementById('sw-en').classList.toggle('active',l==='en');
-  var t=T[l];
-  document.querySelectorAll('[data-i18n]').forEach(function(el){
-    var k=el.getAttribute('data-i18n');
-    if(t[k]!==undefined)el.textContent=t[k];
+/* ── TRANSLATIONS ── */
+var T = {
+  es:{
+    nav_demos:'Demos', nav_price:'Precios', nav_cta:'Cotizar',
+    hero_tagline:'Invitaciones digitales que cuentan tu historia.',
+    hero_sub:'ELEGANTES · INTERACTIVAS · COMPLETAMENTE PERSONALIZADAS',
+    hero_btn1:'Ver Demos', hero_btn2:'Cotizar', scroll:'Descubrir',
+    demos_lbl:'Ejemplos reales', demos_title:'Mira cómo lucen',
+    demos_body:'Cada invitación es una experiencia digital completa. Selecciona una categoría.',
+    tab_boda:'Boda', tab_xv:'XV Años', tab_baby:'Baby Shower', tab_kids:'Fiesta Infantil',
+    d_btn:'Ver Demo', d_prox:'Próximamente',
+    price_lbl:'Inversión', price_title:'Precios claros', price_body:'Sin costos ocultos. Sin límite de invitados.',
+    p_esencial:'Esencial', p_premium:'Con QR + Control',
+    p_curr:'MXN · Pago único', p_btn:'Elegir plan', p_popular:'Más Completo',
+    qr_note:'El plan Con QR + Control incluye: código QR único por invitado al confirmar asistencia, página de escaneo para el día del evento y lista de asistentes en tiempo real.',
+    cta_eyebrow:'Lista para empezar', cta_title:'Empieza tu invitación',
+    cta_body:'Escríbenos y te mandamos una cotización en menos de 1 hora.',
+    cta_wa:'WhatsApp', cta_email:'Enviar Email',
+    footer_copy:'© 2025 Mak Invitations · Todos los derechos reservados · Hecho con amor en México'
+  },
+  en:{
+    nav_demos:'Demos', nav_price:'Pricing', nav_cta:'Get Quote',
+    hero_tagline:'Digital invitations that tell your love story.',
+    hero_sub:'ELEGANT · INTERACTIVE · FULLY PERSONALIZED',
+    hero_btn1:'See Demos', hero_btn2:'Get Quote', scroll:'Discover',
+    demos_lbl:'Real examples', demos_title:'See how they look',
+    demos_body:'Each invitation is a complete digital experience. Select a category.',
+    tab_boda:'Wedding', tab_xv:'Quinceañera', tab_baby:'Baby Shower', tab_kids:"Kids' Party",
+    d_btn:'See Demo', d_prox:'Coming soon',
+    price_lbl:'Investment', price_title:'Clear pricing', price_body:'No hidden fees. No guest limit.',
+    p_esencial:'Essential', p_premium:'With QR + Control',
+    p_curr:'MXN · One-time payment', p_btn:'Choose plan', p_popular:'Most Complete',
+    qr_note:'The With QR + Control plan includes: a unique QR code per guest upon RSVP, a scanning page for the day of the event, and a real-time attendee list.',
+    cta_eyebrow:'Ready to start', cta_title:'Start your invitation',
+    cta_body:"Message us and we'll send you a quote in less than 1 hour.",
+    cta_wa:'WhatsApp', cta_email:'Send Email',
+    footer_copy:'© 2025 Mak Invitations · All rights reserved · Made with love in Mexico'
+  }
+};
+
+/* ── HELPERS ── */
+var CATS = ['boda','xv','baby','kids'];
+
+function fillList(id, arr) {
+  var ul = document.getElementById(id);
+  if (!ul) return;
+  ul.innerHTML = '';
+  arr.forEach(function(f) {
+    var li = document.createElement('li');
+    if (f.hi) li.className = 'hi';
+    li.textContent = f.t;
+    ul.appendChild(li);
   });
-  ['p1','p2','p3'].forEach(function(p){
-    var ul=document.getElementById(p+'-feats');if(!ul)return;ul.innerHTML='';
-    (t[p+'_feats']||[]).forEach(function(f){
-      var li=document.createElement('li');if(f.hi)li.className='hi';li.textContent=f.t;ul.appendChild(li);
-    });
-  });
-  var fl=document.getElementById('faq-list');
-  if(fl){fl.innerHTML='';(t.faqs||[]).forEach(function(f){var item=document.createElement('div');item.className='faq-item';item.innerHTML='<button class="faq-q" onclick="toggleFAQ(this)"><span class="faq-q-text">'+f.q+'</span><span class="faq-icon">+</span></button><div class="faq-a"><p>'+f.a+'</p></div>';fl.appendChild(item);});}
-  var grid=document.getElementById('ev-grid');
-  if(grid){grid.innerHTML='';(t.ev_cards||[]).forEach(function(c){
-    var card=document.createElement('div');card.className='ev-card reveal';
-    card.innerHTML='<div class="ev-card-header" style="background:'+c.gradient+';"><span class="ev-card-icon">'+c.icon+'</span></div><div class="ev-card-body"><span class="ev-card-tag" style="color:'+c.tagColor+';background:'+c.tagBg+';border-color:'+c.tagColor+'40;">'+c.tag+'</span><div class="ev-card-name">'+c.name+'</div><p class="ev-card-desc">'+c.desc+'</p><div class="ev-card-price-row"><span class="ev-card-from">'+c.from+'</span><span class="ev-card-price">'+c.price+' <span style="font-size:.7rem;font-family:var(--sans);font-weight:300;color:var(--muted);">MXN</span></span></div><a href="'+c.link+'" class="ev-card-btn" style="color:'+c.btnColor+';background:'+c.btnBg+';border-color:'+c.tagColor+'40;">'+c.btnTxt+'</a></div>';
-    grid.appendChild(card);obs.observe(card);
-  });}
-  document.querySelectorAll('[data-ph-es]').forEach(function(el){el.placeholder=l==='en'?(el.getAttribute('data-ph-en')||''):(el.getAttribute('data-ph-es')||'');});
-  document.documentElement.lang=l;
 }
 
-/* petals */
-(function(){var cont=document.getElementById('petals');var colors=['rgba(210,185,185,.45)','rgba(195,185,175,.4)','rgba(185,195,185,.38)','rgba(200,190,180,.4)'];for(var i=0;i<16;i++){var p=document.createElement('div');p.className='petal';var sz=Math.random()*12+7;p.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+Math.random()*100+'%;top:-20px;background:'+colors[Math.floor(Math.random()*colors.length)]+';border-radius:50%;animation-duration:'+(Math.random()*14+9)+'s;animation-delay:'+(Math.random()*12)+'s;';cont.appendChild(p);}})();
+function showDTab(tab) {
+  CATS.forEach(function(k) {
+    document.getElementById('dtab-' + k).classList.toggle('on', k === tab);
+    document.getElementById('dpanel-' + k).classList.toggle('on', k === tab);
+  });
+}
 
-/* phone slideshow */
-var curSlide=0,slides=document.querySelectorAll('.pslide'),dots=document.querySelectorAll('.ph-dot');
-function goSlide(n){slides[curSlide].classList.remove('active');dots[curSlide].classList.remove('active');curSlide=n;slides[curSlide].classList.add('active');dots[curSlide].classList.add('active');}
-setInterval(function(){goSlide((curSlide+1)%slides.length);},3000);
+function showPTab(tab) {
+  CATS.forEach(function(k) {
+    document.getElementById('ptab-' + k).classList.toggle('on', k === tab);
+    document.getElementById('ppanel-' + k).classList.toggle('on', k === tab);
+  });
+}
 
-/* phone countdown */
-(function(){var tgt=new Date('2025-11-15T18:00:00').getTime();function pad(n){return n<10?'0'+n:''+n;}function tick(){var d=Math.max(0,tgt-Date.now());[['ps-d',86400000],['ps-h',3600000],['ps-m',60000],['ps-s',1000]].forEach(function(u,i,a){var el=document.getElementById(u[0]);var prev=i>0?a[i-1][1]:null;var v=prev?Math.floor((d%prev)/u[1]):Math.floor(d/u[1]);if(el)el.textContent=pad(v);});}tick();setInterval(tick,1000);})();
+function toggleLang(e) {
+  e.stopPropagation();
+  document.getElementById('lang-wrap').classList.toggle('open');
+}
+document.addEventListener('click', function() {
+  document.getElementById('lang-wrap').classList.remove('open');
+});
 
-/* feature mini countdown */
-(function(){var tgt=new Date('2026-07-03T17:00:00').getTime();function pad(n){return n<10?'0'+n:''+n;}function tick(){var d=Math.max(0,tgt-Date.now());var ids=[['fp-cd-d',86400000],['fp-cd-h',3600000],['fp-cd-m',60000],['fp-cd-s',1000]];ids.forEach(function(u,i,a){var el=document.getElementById(u[0]);if(!el)return;var prev=i>0?a[i-1][1]:null;var v=prev?Math.floor((d%prev)/u[1]):Math.floor(d/u[1]);el.textContent=pad(v);});}tick();setInterval(tick,1000);})();
+function setLang(l) {
+  document.getElementById('lang-wrap').classList.remove('open');
+  document.getElementById('li-es').classList.toggle('on', l === 'es');
+  document.getElementById('li-en').classList.toggle('on', l === 'en');
+  var t = T[l];
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var k = el.getAttribute('data-i18n');
+    if (t[k] !== undefined) el.textContent = t[k];
+  });
+  CATS.forEach(function(c) {
+    fillList('pf-' + c + '-e', PLANS[l][c].e);
+    fillList('pf-' + c + '-p', PLANS[l][c].p);
+  });
+  document.documentElement.lang = l;
+}
 
-/* QR mini pattern */
-(function(){var g=document.getElementById('fp-qr-grid');if(!g)return;var pat=[1,1,1,0,1,1,1,1,0,0,0,0,0,1,1,0,1,1,0,1,0,1,0,1,1,0,0,1,0,1,0,0,0,1,0,1,1,0,1,0,1,1,1,0,0,0,1,1,1];pat.forEach(function(v){var c=document.createElement('div');c.className='fp-qr-cell';c.style.background=v?'#1A0C18':'white';g.appendChild(c);});})();
+/* ── PETALS ── */
+(function() {
+  var cont = document.getElementById('petals');
+  var colors = ['rgba(210,185,185,.45)','rgba(195,185,175,.4)','rgba(185,195,185,.38)','rgba(200,190,180,.4)'];
+  for (var i = 0; i < 16; i++) {
+    var p = document.createElement('div');
+    p.className = 'petal';
+    var sz = Math.random() * 12 + 7;
+    p.style.cssText = 'width:'+sz+'px;height:'+sz+'px;left:'+(Math.random()*100)+'%;top:-20px;background:'+colors[Math.floor(Math.random()*colors.length)]+';border-radius:50%;animation-duration:'+(Math.random()*14+9)+'s;animation-delay:'+(Math.random()*12)+'s;';
+    cont.appendChild(p);
+  }
+}());
 
-/* sparkle preview */
-(function(){var c=document.getElementById('fp-spark');if(!c)return;var colors=['#EDD5D8','#B8707E','#C9A882','#8EA898'];for(var i=0;i<12;i++){var d=document.createElement('div');d.className='fp-spark-dot';var sz=Math.random()*5+2;var tx=(Math.random()-0.5)*60;var ty=(Math.random()-0.5)*40;d.style.cssText='width:'+sz+'px;height:'+sz+'px;background:'+colors[i%colors.length]+';left:'+(20+Math.random()*60)+'%;top:'+(20+Math.random()*60)+'%;--tx:'+tx+'px;--ty:'+ty+'px;animation-duration:'+(2+Math.random()*2)+'s;animation-delay:'+(Math.random()*2)+'s;';c.appendChild(d);}})();
+/* ── REVEAL ── */
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, {threshold: 0.07});
+document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
 
-/* floral preview */
-(function(){var c=document.getElementById('fp-floral');if(!c)return;var colors=['rgba(237,213,216,.6)','rgba(184,112,126,.5)','rgba(201,168,130,.4)','rgba(255,255,255,.35)'];for(var i=0;i<14;i++){var p=document.createElement('div');p.className='fp-petal';var sz=Math.random()*6+3;p.style.cssText='width:'+sz+'px;height:'+sz+'px;left:'+(Math.random()*100)+'%;top:-6px;background:'+colors[Math.floor(Math.random()*colors.length)]+';border-radius:50%;animation-duration:'+(Math.random()*6+4)+'s;animation-delay:'+(Math.random()*5)+'s;';c.appendChild(p);}})();
-
-/* FAQ */
-function toggleFAQ(btn){var item=btn.closest('.faq-item'),open=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');});if(!open)item.classList.add('open');}
-
-/* reveal */
-var obs=new IntersectionObserver(function(e){e.forEach(function(en){if(en.isIntersecting)en.target.classList.add('vis');});},{threshold:.06});
-document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el);});
-
+/* ── INIT ── */
 setLang('es');
 </script>
 </body>
