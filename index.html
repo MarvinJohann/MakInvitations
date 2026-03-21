@@ -23,7 +23,7 @@ body{background:var(--cream);color:var(--deep);font-family:var(--sans);}
 /* ── NAV ── */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:999;
-  height:64px;padding:0 5%;
+  height:70px;padding:0 5%;
   display:flex;align-items:center;justify-content:space-between;
   background:rgba(250,246,242,.96);
   backdrop-filter:blur(16px);
@@ -31,12 +31,16 @@ nav{
 }
 .nav-logo{
   display:flex;align-items:center;text-decoration:none;
-  width:160px;height:40px;flex-shrink:0;
-  overflow:hidden;font-size:0;
+  flex-shrink:0;
 }
-.nav-logo img{
-  height:40px;width:auto;max-width:160px;
+.nav-logo-img{
+  height:56px;
+  width:auto;
   display:block;
+  object-fit:contain;
+}
+@media(max-width:600px){
+  .nav-logo-img{height:42px;}
 }
 .nav-logo-text{
   font-family:var(--script);font-size:1.7rem;
@@ -427,7 +431,7 @@ footer{background:#120810;padding:36px 5%;text-align:center;}
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
-    <img src="img/LOGO.png" alt="" class="nav-logo-img">
+    <img src="img/LOGO.png" alt="Mak Invitations" class="nav-logo-img">
   </a>
   <div class="nav-right">
     <a href="#demos" class="nav-link" data-i18n="nav_demos">Demos</a>
